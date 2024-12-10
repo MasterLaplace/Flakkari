@@ -48,7 +48,7 @@ jobs:
 
       - name: Attest Build Provenance
         if: ${{ env.should_merge == 'true' }}
-        uses: actions/attest-build-provenance@v1.4.4
+        uses: actions/attest-build-provenance@v2.0.1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           subject-name: "Auto Merge Depandabot PR"
