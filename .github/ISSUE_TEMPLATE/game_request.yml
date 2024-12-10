@@ -1,5 +1,5 @@
 name: I want to request a game
-description: Game request, for new games or updates of existing games.
+description: "Game request, for new games or updates of existing games.
 Before submitting a game request, please make sure that the game you are requesting is not already in the repository.
 Also, be aware that the game you are requesting must be open-source and must comply with the Code Of Conduct.
 
@@ -7,7 +7,7 @@ The game request will be reviewed by the maintainers and, if approved, it will b
 a gameName-version.json or as a classic folder in the Games folder.
 
 The main objective to add games to the repository is to provide a way to install and play games in a simple way,
-without the need to download and install the game manually. Also, it provides a way to keep the games updated automatically.
+without the need to download and install the game manually. Also, it provides a way to keep the games updated automatically."
 title: '[Game]: '
 labels:
   - game
