@@ -78,6 +78,14 @@ public:
     void deleteScene(const std::string &game, const std::string &scene);
 
     /**
+     * @brief Delete a game from the ResourceManager instance
+     *        This will delete all the scenes and templates of the game from the ResourceManager instance
+     *
+     * @param game  The game to delete from the ResourceManager instance
+     */
+    void deleteGame(const std::string &game);
+
+    /**
      * @brief Get the Template By Id object from the config file of the game
      *
      * @param game  The game to get the template from (name of the file in Games/ folder)
