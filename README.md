@@ -1,4 +1,8 @@
-# ME : <p align="center">Flakkari<br><br><img src="docs/Images/Flakkari.png" alt="Flakkari logo" style="height: 200px"></p>
+# ME : Flakkari
+
+<p align="center">
+    <img src="docs/Images/Flakkari.png" alt="Flakkari logo" style="height: 200px">
+</p>
 
 <p align="center">
     <h3 align="center">📦 Download &#xa0; : &#xa0;
@@ -70,6 +74,10 @@ We will gladly review your request and add the game to the server if it meets th
 The available games are listed in the [Games](Games) directory. Each game has its own configuration file. The server will load the games from this directory and make them available to clients. The main advantage of this system is that you can add new games without modifying the server code. The server will automatically update the list of available games when it starts or when a new game is added/removed/modified in the remote directory.
 
 And if you want to add a new game, you can follow the [Game Configuration](docs/GameConfiguration.md) guide.
+
+> [!WARNING]
+> Before submitting a game request, please make sure that the game you are requesting is not already in the repository.
+> Also, be aware that the game you are requesting must be open-source and must comply with the Code Of Conduct.
 
 
 <div id='running'/>
