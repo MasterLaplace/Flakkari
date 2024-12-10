@@ -17,7 +17,7 @@ body:
         The game request will be reviewed by the maintainers. Please provide as much
         information as possible to help us evaluate the game.
 
-        Approved game requests will be added to the repository as `gameName-version.json`
+        Approved game requests will be added to the repository as `gameName.version.json`
         or in a dedicated folder within the `Games` directory. This system ensures games
         can be installed and updated easily without manual intervention.
   - type: input

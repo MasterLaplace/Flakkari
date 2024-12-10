@@ -14,12 +14,12 @@ The server uses a configuration file to load the games. The configuration file i
 - `license`: the license of the game (e.g., MIT, GPL, ...)
 - `authors`: a list of authors that contributed to the game
 
-Exemple of a game configuration file:
+Exemple of a game configuration file called `Game.1.0.0.json`:
 ```json
 {
-    "title": "Game_01",
+    "title": "Game",
     "version": "1.0.0",
-    "url": "https://github.com/Author/Game_01",
+    "url": "https://github.com/Author/Game",
     "description": "A brief description of the game",
     "license": "MIT",
     "authors": [
