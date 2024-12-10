@@ -37,9 +37,6 @@ ResourceManager::getTemplateById(const std::string &game, const std::string &sce
     return _templates[game][scene][templateId];
 }
 
-void ResourceManager::deleteGame(const std::string &game)
-{
-    _templates.erase(game);
-}
+void ResourceManager::deleteGame(const std::string &game) { _templates.erase(game); }
 
 } // namespace Flakkari
