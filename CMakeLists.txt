@@ -31,6 +31,7 @@ set(SOURCES
     Flakkari/Server/Game/ResourceManager.cpp
 
     Flakkari/Server/Internals/CommandManager.cpp
+    Flakkari/Server/Internals/GameDownloader.cpp
 )
 
 set(HEADERS
@@ -74,6 +75,7 @@ set(HEADERS
     Flakkari/Server/Game/ResourceManager.hpp
 
     Flakkari/Server/Internals/CommandManager.hpp
+    Flakkari/Server/Internals/GameDownloader.hpp
 )
 
 set(HEADER_LIB_LOGGER
