@@ -25,7 +25,6 @@
 #include "../Game/GameManager.hpp"
 #include "config.h.in"
 
-
 namespace Flakkari::Internals {
 
 class GameDownloader {
