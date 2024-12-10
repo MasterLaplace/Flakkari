@@ -28,11 +28,12 @@ body:
     validations:
       required: true
   - type: checkboxes
+    id: isUpdate
     attributes:
       label: Is it an update?
       options:
-        - label: Yes (Please provide the previous version)
-        - label: No
+        - label: "Yes (Please provide the previous version)"
+        - label: "No"
   - type: input
     id: gamePreviousVersion
     attributes:
@@ -53,5 +54,5 @@ body:
     attributes:
       label: I read the Code Of Conduct
       options:
-        - label: I read the Code Of Conduct and I comply to it
+        - label: "I read the Code Of Conduct and I comply to it"
           required: true
