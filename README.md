@@ -62,6 +62,15 @@ Flakkari also has a [Unity client](Libraries/Flakkari4Unity/README.md) library t
 > [!NOTE]
 > The project is still under development and may not be stable.
 
+#### :video_game: **GAMES REQUEST**
+
+We provide a game request system that allows you to request a game to be added to the server. To do so, please open an [Github Issues](https://github.com/MasterLaplace/Flakkari/issues/new/choose). Select the `Game Request` template and provide the information following the template.
+We will gladly review your request and add the game to the server if it meets the requirements.
+
+The available games are listed in the [Games](Games) directory. Each game has its own configuration file. The server will load the games from this directory and make them available to clients. The main advantage of this system is that you can add new games without modifying the server code. The server will automatically update the list of available games when it starts or when a new game is added/removed/modified in the remote directory.
+
+And if you want to add a new game, you can follow the [Game Configuration](docs/GameConfiguration.md) guide.
+
 
 <div id='running'/>
 
