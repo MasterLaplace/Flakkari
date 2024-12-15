@@ -53,7 +53,7 @@ jobs:
           python3 Scripts/increment_version.py ${{ steps.test_tag_version.outputs.new_tag }}
 
       - name: Attest Build Provenance
-        uses: actions/attest-build-provenance@v1.4.4
+        uses: actions/attest-build-provenance@v2.1.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           subject-name: "Flakkari Version Bump"
