@@ -43,7 +43,7 @@ bool UDPServer::handleTimeout(int event)
 {
     if (event != 0)
         return false;
-    FLAKKARI_LOG_DEBUG(XSTR(IO_SELECTED) " timed out");
+    FLAKKARI_LOG_DEBUG(LPL_TOSTRING(IO_SELECTED) " timed out");
     ClientManager::GetInstance().checkInactiveClients();
     ClientManager::UnlockInstance();
     return true;
