@@ -1,0 +1,12 @@
+{
+    "title": "SpaceWar",
+    "version": "1.0.0",
+    "url": "https://github.com/MasterLaplace/IFT2103A24_TP2_Equipe21",
+    "description": "SpaceWar is a 2D space shooter game where you control a spaceship and fight against enemy spaceships.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MasterLaplace"
+        }
+    ]
+}
