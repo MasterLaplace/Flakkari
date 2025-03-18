@@ -1,7 +1,7 @@
 var Header_8hpp =
 [
-    [ "Header", "da/da1/structFlakkari_1_1Protocol_1_1V__0_1_1Header.html", "da/da1/structFlakkari_1_1Protocol_1_1V__0_1_1Header" ],
-    [ "Header", "db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html", "db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header" ],
+    [ "Flakkari::Protocol::V_0::Header< Id >", "da/da1/structFlakkari_1_1Protocol_1_1V__0_1_1Header.html", "da/da1/structFlakkari_1_1Protocol_1_1V__0_1_1Header" ],
+    [ "Flakkari::Protocol::V_1::Header< Id >", "db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html", "db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header" ],
     [ "PROTOCOL_VERSION", "d4/d64/Header_8hpp.html#a277f7abca2044f354abe265252cb9252", null ],
     [ "uint", "d4/d64/Header_8hpp.html#a98424e631db2f739a4caf3710f5d30b0", null ],
     [ "ulong", "d4/d64/Header_8hpp.html#ab13467455f18ec9d4e0c436edd44932a", null ],

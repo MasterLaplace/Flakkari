@@ -1,0 +1,11 @@
+digraph "Flakkari::Engine::Math::Vector::normalized"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="Flakkari::Engine::Math\l::Vector::normalized",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Flakkari::Engine::Math\l::Vector::rotate",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$de/d55/structFlakkari_1_1Engine_1_1Math_1_1Vector.html#a3ceb92a1a8b480666637854707be73e3",tooltip="Rotate the vector around an axis by an angle in radians."];
+}

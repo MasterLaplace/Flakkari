@@ -1,13 +1,14 @@
 digraph "Flakkari::Game::checkDisconnect"
 {
  // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node1 [label="Flakkari::Game::checkDisconnect",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip="Check if a player is disconnected."];
-  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node2 [label="Flakkari::Game::removePlayer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/ddd/classFlakkari_1_1Game.html#a223cb1b29ff76b417f493a3c74144160",tooltip="Remove a player from the game instance."];
-  Node2 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node3 [label="Flakkari::Game::sendOnSame\lScene",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dd/ddd/classFlakkari_1_1Game.html#a049bba6f759cc1f72ed3ae6cbd14804f",tooltip=" "];
-  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node1 [id="Node000001",label="Flakkari::Game::checkDisconnect",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Check if a player is disconnected."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Flakkari::Game::removePlayer",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/ddd/classFlakkari_1_1Game.html#a223cb1b29ff76b417f493a3c74144160",tooltip="Remove a player from the game instance."];
+  Node2 -> Node3 [id="edge2_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
+  Node3 [id="Node000003",label="Flakkari::Game::sendOnSame\lScene",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/ddd/classFlakkari_1_1Game.html#a049bba6f759cc1f72ed3ae6cbd14804f",tooltip=" "];
+  Node1 -> Node3 [id="edge3_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
 }

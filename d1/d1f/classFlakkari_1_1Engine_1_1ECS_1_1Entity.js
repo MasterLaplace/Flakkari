@@ -5,8 +5,8 @@ var classFlakkari_1_1Engine_1_1ECS_1_1Entity =
     [ "getId", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#a0ec9379b2bad60e754715b08ba586245", null ],
     [ "operator std::size_t", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#a56c1f3fe9389a40964b0418aaac1c33c", null ],
     [ "operator++", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#a40ce91460b9830dd2d839ffea2d76427", null ],
-    [ "operator=", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#adb0d29b4e90f9741f4baa8d39d78e1b2", null ],
-    [ "operator=", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#aedab6c04423c42a6d96400423d69c657", null ],
+    [ "operator=", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#a6d07a0e8d4c19c4bb7977db3160ac353", null ],
+    [ "operator=", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#ad16be60b1ed7c15cf4ba499a9e8f5723", null ],
     [ "operator==", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#a9441b3e54d1dc0977375880cffff381b", null ],
     [ "Registry", "d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html#ac7b716e6d41ff508ad2d8e5dad655d72", null ]
 ];

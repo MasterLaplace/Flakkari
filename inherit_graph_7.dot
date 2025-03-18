@@ -1,8 +1,9 @@
 digraph "Graphical Class Hierarchy"
 {
  // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [label="Flakkari::Engine::ECS\l::Components::_3D::BoxCollider",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$da/d14/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1BoxCollider.html",tooltip="BoxCollider component for 3D entities."];
+  Node0 [id="Node000000",label="Flakkari::Engine::ECS\l::Components::_3D::Control",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d0e/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1Control.html",tooltip="Control component for 3D entities (player, enemies, etc...)"];
 }

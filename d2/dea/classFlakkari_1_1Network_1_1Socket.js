@@ -16,7 +16,7 @@ var classFlakkari_1_1Network_1_1Socket =
     [ "create", "d2/dea/classFlakkari_1_1Network_1_1Socket.html#aad41e8c4fbcdca6760e6dfd72a9e98fe", null ],
     [ "create", "d2/dea/classFlakkari_1_1Network_1_1Socket.html#a04c014fc215f29bea5a7514ff2424339", null ],
     [ "disconnect", "d2/dea/classFlakkari_1_1Network_1_1Socket.html#a11cff59223ace3e6c7a95127659fb27f", null ],
-    [ "getAddress", "d2/dea/classFlakkari_1_1Network_1_1Socket.html#abacb071e634224735432a32aecc87c94", null ],
+    [ "getAddress", "d2/dea/classFlakkari_1_1Network_1_1Socket.html#a5ca8c91d0be0f38dc36d80f18dd1ecd7", null ],
     [ "getSocket", "d2/dea/classFlakkari_1_1Network_1_1Socket.html#a6c0aaa1177efdc692875759bafb8fcd8", null ],
     [ "listen", "d2/dea/classFlakkari_1_1Network_1_1Socket.html#a877b3ed96bdae27d88ca79d4b84f90bd", null ],
     [ "operator std::string", "d2/dea/classFlakkari_1_1Network_1_1Socket.html#a80ad6c16475a16ebbeba6d375927d85a", null ],

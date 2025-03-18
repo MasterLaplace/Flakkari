@@ -1,15 +1,13 @@
 var searchData=
 [
-  ['b_67',['b',['../de/d55/structFlakkari_1_1Engine_1_1Math_1_1Vector.html#a93eda3f20e54a4664becd325b1ee38cc',1,'Flakkari::Engine::Math::Vector']]],
-  ['back_68',['back',['../d2/df5/classFlakkari_1_1Network_1_1PacketQueue.html#a6cdbe0d56673c64f848853b5db971441',1,'Flakkari::Network::PacketQueue']]],
-  ['begin_69',['begin',['../d5/dd2/classFlakkari_1_1Engine_1_1ECS_1_1SparseArrays.html#a99d945ef14abe9e2262aaaafc6a5eece',1,'Flakkari::Engine::ECS::SparseArrays::begin()'],['../d5/dd2/classFlakkari_1_1Engine_1_1ECS_1_1SparseArrays.html#a4b51579cb34b33830d81a154bfd5a0c4',1,'Flakkari::Engine::ECS::SparseArrays::begin() const'],['../de/d52/classFlakkari_1_1Network_1_1PSELECT.html#a8ae09f28a825c391b84af5ab94cd3bae',1,'Flakkari::Network::PSELECT::begin()'],['../d6/dec/classFlakkari_1_1Network_1_1PPOLL.html#acd1938a8691e9f75626e05d2a5c96ed6',1,'Flakkari::Network::PPOLL::begin()']]],
-  ['bind_70',['bind',['../d2/dea/classFlakkari_1_1Network_1_1Socket.html#aa01963dc89660ba02741d75b32490afc',1,'Flakkari::Network::Socket']]],
-  ['bitwisexor_71',['bitwiseXOR',['../d4/df8/classFlakkari_1_1Network_1_1Buffer.html#a6478c97a7fd31432516d0af30233b773',1,'Flakkari::Network::Buffer']]],
-  ['boxcollider_72',['BOXCOLLIDER',['../db/dc9/namespaceFlakkari_1_1Protocol_1_1V__1.html#a4cb459c0dee4a436d6a14ad870ca9e1aad8c9b24b55fa961ede38c62f2f7fb64f',1,'Flakkari::Protocol::V_1']]],
-  ['boxcollider_73',['BoxCollider',['../da/d14/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1BoxCollider.html#acc18c71ec5da1e40c150b417acb1df1f',1,'Flakkari::Engine::ECS::Components::_3D::BoxCollider::BoxCollider()'],['../da/d14/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1BoxCollider.html#a4ff223e2ab56aca98312c34d44b029e7',1,'Flakkari::Engine::ECS::Components::_3D::BoxCollider::BoxCollider(Math::Vector3f center, Math::Vector3f size)'],['../da/d14/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1BoxCollider.html#a4ac80973226d26823e0db910a8649803',1,'Flakkari::Engine::ECS::Components::_3D::BoxCollider::BoxCollider(const BoxCollider &amp;other)'],['../da/d14/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1BoxCollider.html',1,'Flakkari::Engine::ECS::Components::_3D::BoxCollider']]],
-  ['boxcollider_2ehpp_74',['BoxCollider.hpp',['../d2/df3/BoxCollider_8hpp.html',1,'']]],
-  ['buffer_75',['Buffer',['../d4/df8/classFlakkari_1_1Network_1_1Buffer.html#acf6139241c71fa29efd930b4f3c5dcec',1,'Flakkari::Network::Buffer::Buffer()'],['../d4/df8/classFlakkari_1_1Network_1_1Buffer.html',1,'Flakkari::Network::Buffer']]],
-  ['buffer_2ecpp_76',['Buffer.cpp',['../db/d98/Buffer_8cpp.html',1,'']]],
-  ['buffer_2ehpp_77',['Buffer.hpp',['../d8/d36/Buffer_8hpp.html',1,'']]],
-  ['byte_78',['byte',['../d8/d36/Buffer_8hpp.html#a82e74662490118ea208071ba793de76b',1,'Buffer.hpp']]]
+  ['2_200_202024_2001_209_0',['[0.2.0] - 2024-01-9',['../d4/d40/md_CHANGELOG.html#autotoc_md020---2024-01-9',1,'']]],
+  ['2_20warning_1',['2. Warning',['../d8/d3b/md__8github_2CODE__OF__CONDUCT.html#autotoc_md2-warning',1,'']]],
+  ['200px_20p_2',['ME : &lt;p align=&quot;center&quot;&gt;Flakkari&lt;br&gt;&lt;br&gt;&lt;img src=&quot;docs/Images/Flakkari.png&quot; alt=&quot;Flakkari logo&quot; style=&quot;height: 200px&quot;&gt;&lt;/p&gt;',['../d0/d30/md_README.html',1,'']]],
+  ['2023_2012_2024_3',['[0.1.0] - 2023-12-24',['../d4/d40/md_CHANGELOG.html#autotoc_md010---2023-12-24',1,'']]],
+  ['2024_2001_209_4',['[0.2.0] - 2024-01-9',['../d4/d40/md_CHANGELOG.html#autotoc_md020---2024-01-9',1,'']]],
+  ['2024_2011_2007_5',['[0.3.0] - 2024-11-07',['../d4/d40/md_CHANGELOG.html#autotoc_md030---2024-11-07',1,'']]],
+  ['2024_2011_2008_6',['[0.4.0] - 2024-11-08',['../d4/d40/md_CHANGELOG.html#autotoc_md040---2024-11-08',1,'']]],
+  ['2024_2011_2029_7',['[0.5.0] - 2024-11-29',['../d4/d40/md_CHANGELOG.html#autotoc_md050---2024-11-29',1,'']]],
+  ['24_8',['[0.1.0] - 2023-12-24',['../d4/d40/md_CHANGELOG.html#autotoc_md010---2023-12-24',1,'']]],
+  ['29_9',['[0.5.0] - 2024-11-29',['../d4/d40/md_CHANGELOG.html#autotoc_md050---2024-11-29',1,'']]]
 ];

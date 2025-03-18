@@ -1,6 +1,6 @@
 var Vector_8hpp =
 [
-    [ "Vector", "de/d55/structFlakkari_1_1Engine_1_1Math_1_1Vector.html", "de/d55/structFlakkari_1_1Engine_1_1Math_1_1Vector" ],
+    [ "Flakkari::Engine::Math::Vector< Type >", "de/d55/structFlakkari_1_1Engine_1_1Math_1_1Vector.html", "de/d55/structFlakkari_1_1Engine_1_1Math_1_1Vector" ],
     [ "Color", "de/dd9/Vector_8hpp.html#a2ceabef4e3c9cef648eebed769d7f6ac", null ],
     [ "Quaternion", "de/dd9/Vector_8hpp.html#abae794bb4fbc7f9a5ec3e92f35bfdc38", null ],
     [ "Vector2d", "de/dd9/Vector_8hpp.html#a80e83c1ca78c54bf06fc71802bfc2e16", null ],

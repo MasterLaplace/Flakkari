@@ -1,14 +1,9 @@
 digraph "Graphical Class Hierarchy"
 {
  // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node46 [label="Singleton",height=0.2,width=0.4,color="grey75", fillcolor="white", style="filled",tooltip=" "];
-  Node46 -> Node0 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node0 [label="Flakkari::ClientManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d5/da5/classFlakkari_1_1ClientManager.html",tooltip=" "];
-  Node46 -> Node48 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node48 [label="Flakkari::GameManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$dc/de7/classFlakkari_1_1GameManager.html",tooltip=" "];
-  Node46 -> Node49 [dir="back",color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
-  Node49 [label="Flakkari::ResourceManager",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d0/d1e/classFlakkari_1_1ResourceManager.html",tooltip=" "];
+  Node0 [id="Node000000",label="Flakkari::Engine::ECS\l::Components::_2D::Collider",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/de3/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Collider.html",tooltip="Collider component for 2D entities."];
 }

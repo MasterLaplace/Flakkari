@@ -1,8 +1,4 @@
 var searchData=
 [
-  ['change_20log_1281',['Change Log',['../d4/d40/md_CHANGELOG.html',1,'']]],
-  ['changes_1282',['Changes',['../dc/d8d/md__github_PULL_REQUEST_TEMPLATE.html',1,'']]],
-  ['contributing_20guidelines_1283',['CONTRIBUTING GUIDELINES',['../d2/dc1/md_CONTRIBUTING.html',1,'']]],
-  ['contributor_20covenant_20code_20of_20conduct_1284',['Contributor Covenant Code of Conduct',['../dc/d30/md__github_CODE_OF_CONDUCT.html',1,'']]],
-  ['contributors_1285',['Contributors',['../d0/d98/md_CONTRIBUTORS.html',1,'']]]
+  ['200px_20p_0',['ME : &lt;p align=&quot;center&quot;&gt;Flakkari&lt;br&gt;&lt;br&gt;&lt;img src=&quot;docs/Images/Flakkari.png&quot; alt=&quot;Flakkari logo&quot; style=&quot;height: 200px&quot;&gt;&lt;/p&gt;',['../d0/d30/md_README.html',1,'']]]
 ];

@@ -1,32 +1,4 @@
 var searchData=
 [
-  ['_5f2d_200',['_2D',['../d6/d46/namespaceFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D.html',1,'Flakkari::Engine::ECS::Components::_2D'],['../d9/d92/namespaceFlakkari_1_1Engine_1_1ECS_1_1Systems_1_1__2D.html',1,'Flakkari::Engine::ECS::Systems::_2D']]],
-  ['_5f3d_201',['_3D',['../d5/d77/namespaceFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D.html',1,'Flakkari::Engine::ECS::Components::_3D'],['../dd/d08/namespaceFlakkari_1_1Engine_1_1ECS_1_1Systems_1_1__3D.html',1,'Flakkari::Engine::ECS::Systems::_3D']]],
-  ['common_202',['Common',['../d4/d71/namespaceFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common.html',1,'Flakkari::Engine::ECS::Components']]],
-  ['components_203',['Components',['../d3/d70/namespaceFlakkari_1_1Engine_1_1ECS_1_1Components.html',1,'Flakkari::Engine::ECS']]],
-  ['ecs_204',['ECS',['../d7/d16/namespaceFlakkari_1_1Engine_1_1ECS.html',1,'Flakkari::Engine']]],
-  ['engine_205',['Engine',['../d1/db3/namespaceFlakkari_1_1Engine.html',1,'Flakkari']]],
-  ['factory_206',['Factory',['../dd/d19/namespaceFlakkari_1_1Engine_1_1ECS_1_1Factory.html',1,'Flakkari::Engine::ECS']]],
-  ['factory_2ecpp_207',['Factory.cpp',['../d8/d5f/Factory_8cpp.html',1,'']]],
-  ['factory_2ehpp_208',['Factory.hpp',['../d5/d03/Factory_8hpp.html',1,'']]],
-  ['fatal_5ferror_5fmessage_209',['fatal_error_message',['../d5/d86/classFlakkari_1_1Logger.html#a66dce98f03f58d64ac689775ffa6e42f',1,'Flakkari::Logger']]],
-  ['filedescriptor_210',['FileDescriptor',['../d6/dec/classFlakkari_1_1Network_1_1PPOLL.html#acc2732893f4ec356bfeadca286d4ad00',1,'Flakkari::Network::PPOLL::FileDescriptor()'],['../de/d52/classFlakkari_1_1Network_1_1PSELECT.html#af59f5cfe9ee9e9e6871f9d96c7b62209',1,'Flakkari::Network::PSELECT::FileDescriptor()']]],
-  ['firerate_211',['fireRate',['../d0/dd4/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Weapon.html#a3986dc45a28637c6c8f964dfeaa163a0',1,'Flakkari::Engine::ECS::Components::Common::Weapon']]],
-  ['flakkari_212',['Flakkari',['../d2/da2/namespaceFlakkari.html',1,'']]],
-  ['flakkari_5flog_213',['FLAKKARI_LOG',['../d9/d11/Logger_8hpp.html#aab8b2f0b38f84d9934ab65215ca2855d',1,'Logger.hpp']]],
-  ['flakkari_5flog_5fdebug_214',['FLAKKARI_LOG_DEBUG',['../d9/d11/Logger_8hpp.html#aacc6bb8e075b511a268fd8a243ccbb7e',1,'Logger.hpp']]],
-  ['flakkari_5flog_5ferror_215',['FLAKKARI_LOG_ERROR',['../d9/d11/Logger_8hpp.html#a9b21a3d5cd5093029c727af8cbd06813',1,'Logger.hpp']]],
-  ['flakkari_5flog_5ffatal_216',['FLAKKARI_LOG_FATAL',['../d9/d11/Logger_8hpp.html#a75c2c77a134487a0ae3201c892bd75a8',1,'Logger.hpp']]],
-  ['flakkari_5flog_5finfo_217',['FLAKKARI_LOG_INFO',['../d9/d11/Logger_8hpp.html#a3c1ad584cb2c69dc37dcf8a75b63ff2c',1,'Logger.hpp']]],
-  ['flakkari_5flog_5flog_218',['FLAKKARI_LOG_LOG',['../d9/d11/Logger_8hpp.html#a9265f2669a524d4a544c1c1576f0c3da',1,'Logger.hpp']]],
-  ['flakkari_5flog_5fwarning_219',['FLAKKARI_LOG_WARNING',['../d9/d11/Logger_8hpp.html#a16e927e83e063819f5fc08f4fa5decab',1,'Logger.hpp']]],
-  ['front_220',['front',['../d2/df5/classFlakkari_1_1Network_1_1PacketQueue.html#afb9604e18e003519c86aa6113257ebb2',1,'Flakkari::Network::PacketQueue']]],
-  ['funding_2emd_221',['FUNDING.md',['../df/dda/FUNDING_8md.html',1,'']]],
-  ['internals_222',['Internals',['../d4/ded/namespaceFlakkari_1_1Internals.html',1,'Flakkari']]],
-  ['math_223',['Math',['../d8/d84/namespaceFlakkari_1_1Engine_1_1Math.html',1,'Flakkari::Engine']]],
-  ['network_224',['Network',['../db/db0/namespaceFlakkari_1_1Network.html',1,'Flakkari']]],
-  ['protocol_225',['Protocol',['../dc/d58/namespaceFlakkari_1_1Protocol.html',1,'Flakkari']]],
-  ['systems_226',['Systems',['../d6/dde/namespaceFlakkari_1_1Engine_1_1ECS_1_1Systems.html',1,'Flakkari::Engine::ECS']]],
-  ['v_5f0_227',['V_0',['../d1/d2c/namespaceFlakkari_1_1Protocol_1_1V__0.html',1,'Flakkari::Protocol']]],
-  ['v_5f1_228',['V_1',['../db/dc9/namespaceFlakkari_1_1Protocol_1_1V__1.html',1,'Flakkari::Protocol']]]
+  ['9_0',['[0.2.0] - 2024-01-9',['../d4/d40/md_CHANGELOG.html#autotoc_md020---2024-01-9',1,'']]]
 ];

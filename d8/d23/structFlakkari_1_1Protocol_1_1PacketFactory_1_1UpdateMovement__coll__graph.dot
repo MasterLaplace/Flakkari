@@ -1,14 +1,15 @@
 digraph "Flakkari::Protocol::PacketFactory::UpdateMovement"
 {
  // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node1 [label="Flakkari::Protocol\l::PacketFactory::UpdateMovement",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
-  Node2 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" pos" ,fontname="Helvetica"];
-  Node2 [label="Flakkari::Engine::ECS\l::Components::_2D::Transform",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d6/dd8/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Transform.html",tooltip="Transform component for 2D entities."];
-  Node3 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" vel" ,fontname="Helvetica"];
-  Node3 [label="Flakkari::Engine::ECS\l::Components::_2D::Movable",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$df/d64/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Movable.html",tooltip="Movable component for 2D entities."];
-  Node4 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" entity" ,fontname="Helvetica"];
-  Node4 [label="Flakkari::Engine::ECS\l::Entity",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html",tooltip=" "];
+  Node1 [id="Node000001",label="Flakkari::Protocol\l::PacketFactory::UpdateMovement",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [id="edge1_Node000001_Node000002",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" entity",fontcolor="grey" ];
+  Node2 [id="Node000002",label="Flakkari::Engine::ECS\l::Entity",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d1/d1f/classFlakkari_1_1Engine_1_1ECS_1_1Entity.html",tooltip=" "];
+  Node3 -> Node1 [id="edge2_Node000001_Node000003",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" pos",fontcolor="grey" ];
+  Node3 [id="Node000003",label="Flakkari::Engine::ECS\l::Components::_2D::Transform",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$d6/dd8/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Transform.html",tooltip="Transform component for 2D entities."];
+  Node4 -> Node1 [id="edge3_Node000001_Node000004",dir="back",color="darkorchid3",style="dashed",tooltip=" ",label=" vel",fontcolor="grey" ];
+  Node4 [id="Node000004",label="Flakkari::Engine::ECS\l::Components::_2D::Movable",height=0.2,width=0.4,color="gray40", fillcolor="white", style="filled",URL="$df/d64/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Movable.html",tooltip="Movable component for 2D entities."];
 }

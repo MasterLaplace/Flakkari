@@ -1,9 +1,9 @@
 var Events_8hpp =
 [
-    [ "Event", "d6/d31/structFlakkari_1_1Protocol_1_1V__0_1_1Event.html", "d6/d31/structFlakkari_1_1Protocol_1_1V__0_1_1Event" ],
-    [ "EventAxis", "db/d3a/structFlakkari_1_1Protocol_1_1V__0_1_1EventAxis.html", "db/d3a/structFlakkari_1_1Protocol_1_1V__0_1_1EventAxis" ],
-    [ "Event", "dc/de1/structFlakkari_1_1Protocol_1_1V__1_1_1Event.html", "dc/de1/structFlakkari_1_1Protocol_1_1V__1_1_1Event" ],
-    [ "EventAxis", "d3/de1/structFlakkari_1_1Protocol_1_1V__1_1_1EventAxis.html", "d3/de1/structFlakkari_1_1Protocol_1_1V__1_1_1EventAxis" ],
+    [ "Flakkari::Protocol::V_0::Event", "d6/d31/structFlakkari_1_1Protocol_1_1V__0_1_1Event.html", "d6/d31/structFlakkari_1_1Protocol_1_1V__0_1_1Event" ],
+    [ "Flakkari::Protocol::V_0::EventAxis", "db/d3a/structFlakkari_1_1Protocol_1_1V__0_1_1EventAxis.html", "db/d3a/structFlakkari_1_1Protocol_1_1V__0_1_1EventAxis" ],
+    [ "Flakkari::Protocol::V_1::Event", "dc/de1/structFlakkari_1_1Protocol_1_1V__1_1_1Event.html", "dc/de1/structFlakkari_1_1Protocol_1_1V__1_1_1Event" ],
+    [ "Flakkari::Protocol::V_1::EventAxis", "d3/de1/structFlakkari_1_1Protocol_1_1V__1_1_1EventAxis.html", "d3/de1/structFlakkari_1_1Protocol_1_1V__1_1_1EventAxis" ],
     [ "EventAxisId", "d0/d4e/Events_8hpp.html#a4af9ef7f1d2c5c0a3a37912a450a8940", [
       [ "MAX_EVENT", "d0/d4e/Events_8hpp.html#a4af9ef7f1d2c5c0a3a37912a450a8940a13b51cb0d9ae709c26e9878f67e40501", null ]
     ] ],

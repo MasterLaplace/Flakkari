@@ -1,8 +1,9 @@
 digraph "Graphical Class Hierarchy"
 {
  // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [label="Flakkari::Engine::ECS\l::Components::Common\l::Evolve",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d8/d1c/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Evolve.html",tooltip="Evolve component for ECS entities that can evolve in to another Component."];
+  Node0 [id="Node000000",label="Flakkari::Engine::ECS\l::Components::Common\l::Health",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/d44/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Health.html",tooltip="Health is a structure that represents the life of an \"living object\"."];
 }

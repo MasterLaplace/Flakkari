@@ -1,8 +1,9 @@
 digraph "Graphical Class Hierarchy"
 {
  // LATEX_PDF_SIZE
-  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
-  node [fontname="Helvetica",fontsize="10",shape=record];
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [label="Flakkari::Network::\lSerializer",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$d2/d4f/classFlakkari_1_1Network_1_1Serializer.html",tooltip="Class used to serialize and deserialize objects."];
+  Node0 [id="Node000000",label="Flakkari::ParseArgument",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/df7/classFlakkari_1_1ParseArgument.html",tooltip="A class to parse command-line arguments for the Flakkari application."];
 }

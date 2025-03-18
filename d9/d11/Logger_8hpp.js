@@ -1,6 +1,6 @@
 var Logger_8hpp =
 [
-    [ "Logger", "d5/d86/classFlakkari_1_1Logger.html", "d5/d86/classFlakkari_1_1Logger" ],
+    [ "Flakkari::Logger", "d5/d86/classFlakkari_1_1Logger.html", "d5/d86/classFlakkari_1_1Logger" ],
     [ "COLOR_BLUE", "d9/d11/Logger_8hpp.html#a23c70d699a5a775bc2e1ebeb8603f630", null ],
     [ "COLOR_BRIGHT_BLUE", "d9/d11/Logger_8hpp.html#ae2eb7ceea22b4d7a5e8833f542bd7b24", null ],
     [ "COLOR_BRIGHT_CYAN", "d9/d11/Logger_8hpp.html#ac45fac0dcefd97502824521c5f1d4c4d", null ],
