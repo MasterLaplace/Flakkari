@@ -39,6 +39,10 @@ ParseArgument::ParseArgument(int ac, const char *av[])
                 throw std::runtime_error("Invalid port number, must be between 1024 and 65535");
             ++i;
         }
+        else if (std::string(av[i]) == "-dy" || std::string(av[i]) == "--dry-run")
+        {
+            _dryRun = true;
+        }
         else if (std::string(av[i]) == "-h" || std::string(av[i]) == "--help")
         {
             std::cout << HELP_MESSAGE << std::endl;

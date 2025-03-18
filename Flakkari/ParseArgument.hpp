@@ -70,6 +70,12 @@ public:
      */
     unsigned short getPort() const;
 
+    /**
+     * @brief Gets the dry run flag.
+     * @return True if the dry run flag is set, false otherwise.
+     */
+    bool isDryRun() const { return _dryRun; }
+
 private:
     /**
      * @brief Retrieves IPv4 addresses.
@@ -92,18 +98,20 @@ private:
     std::string _gameDir;     ///< The game directory.
     std::string _ip;          ///< The IP address, default is "localhost".
     unsigned short _port = 0; ///< The port number, default is 8081.
+    bool _dryRun = false;     ///< Flag to indicate a dry run.
 
     static constexpr const char *HELP_MESSAGE =
         "Usage: ./r-type_server <gameDir> <ip> <port>\n"
         "  -gameDir <gameDir>  The directory of the games folder\n"
         "  -ip <ip>            The ip to bind the server to (default: localhost)\n"
         "  -port <port>        The port to bind the server to (default: 8081)\n"
+        "  -dy|--dry-run       Run the server in dry-run mode\n"
         "  -d|--default        Use default values (Games, localhost, 8081)\n"
         "  -v|--version        Display the version of the Flakkari Library\n"
         "  -h|--help           Display this help message\n\n"
         "Example: ./r-type_server Games localhost 8081\n\n"
         "More information at https://github.com/MasterLaplace/Falkkari\n"
-        "Flakkari Library v" FLAKKARI_VERSION_STRING " - © 2024 MasterLaplace\n";
+        "Flakkari Library v" FLAKKARI_VERSION_STRING " - © 2024 MasterLaplace";
 };
 
 } /* namespace Flakkari */

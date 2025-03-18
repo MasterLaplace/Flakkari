@@ -14,6 +14,10 @@ int main(int ac, const char *av[])
         Flakkari::ParseArgument parseArg(ac, av);
 
         Flakkari::UDPServer server(parseArg.getGameDir(), parseArg.getIp(), parseArg.getPort());
+
+        if (parseArg.isDryRun())
+            return 0;
+
         server.run();
     }
     catch (const std::exception &e)
