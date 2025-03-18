@@ -24,31 +24,24 @@
 
 namespace Flakkari {
 
-#define INIT_LOOP                                                                                                      \
-loop:
+#define INIT_LOOP loop:
 #define GOTO_LOOP goto loop;
 
 #ifndef STDIN_FILENO
 #    define STDIN_FILENO _fileno(stdin)
 #endif
 
-#define STR(x)  #x
-#define XSTR(x) STR(x)
-
 /**
  * @brief UDP Server class that handles incoming packets and clients
  *
  * @details This class is the main class of the server, it handles incoming
  * packets and clients, it also handles the client's timeout and disconnection
- * @see ClientManager
- * @see Network::Socket
- * @see Network::PPOLL
  *
  * @example "Flakkari/Server/UDPServer.cpp"
  * @code
  * #include "UDPServer.hpp"
  *
- * Flakkari::UDPServer server("localhost", 8080);
+ * Flakkari::UDPServer server("Games", "localhost", 8081);
  * return server.run();
  * @endcode
  */
@@ -59,9 +52,9 @@ public:
      *
      * @param gameDir The directory of the games folder
      * @param ip The ip to bind the server to (default: localhost)
-     * @param port The port to bind the server to (default: 8080)
+     * @param port The port to bind the server to (default: 8081)
      */
-    UDPServer(const std::string &gameDir, const std::string &ip = "localhost", unsigned short port = 8080);
+    UDPServer(const std::string &gameDir, const std::string &ip = "localhost", unsigned short port = 8081);
     ~UDPServer();
 
     /**

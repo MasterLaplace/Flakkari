@@ -496,6 +496,7 @@ bool Game::addPlayer(std::shared_ptr<Client> player)
     packet.header._commandId = Protocol::CommandId::REP_CONNECT;
     packet << newEntity;
     packet.injectString(p_Template);
+    packet.injectString(sceneGame);
 
     player->addPacketToSendQueue(packet);
 
