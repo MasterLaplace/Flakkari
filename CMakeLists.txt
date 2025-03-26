@@ -199,11 +199,11 @@ set(FLAKKARI_VERSION_MAJOR 0)
 set(FLAKKARI_VERSION_MINOR 5)
 set(FLAKKARI_VERSION_PATCH 0)
 
-configure_file(${CMAKE_SOURCE_DIR}/Flakkari/config.h.in ${CMAKE_BINARY_DIR}/config.h)
+configure_file(${CMAKE_SOURCE_DIR}/Flakkari/flakkari_config.h ${CMAKE_BINARY_DIR}/flakkari_config.h)
 
 # Install Targets:
 install(TARGETS flakkari DESTINATION bin)
-install(FILES ${CMAKE_BINARY_DIR}/config.h DESTINATION include/Flakkari)
+install(FILES ${CMAKE_BINARY_DIR}/flakkari_config.h DESTINATION include/Flakkari)
 install(FILES ${HEADER_LIB_LOGGER} DESTINATION include/Flakkari/Logger)
 install(FILES ${HEADER_LIB_NETWORK} DESTINATION include/Flakkari/Network)
 install(FILES ${HEADER_LIB_PROTOCOL} DESTINATION include/Flakkari/Protocol)
