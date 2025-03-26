@@ -23,7 +23,7 @@
 #include <regex>
 
 #include "../Game/GameManager.hpp"
-#include "config.h.in"
+#include "flakkari_config.h"
 
 namespace Flakkari::Internals {
 
