@@ -35,11 +35,8 @@ namespace Flakkari {
 
 class Client;
 
-using nl_entity = nlohmann::json_abi_v3_11_3::detail::iteration_proxy_value<
-    nlohmann::json_abi_v3_11_3::detail::iter_impl<nlohmann::json_abi_v3_11_3::json>>;
-using nl_template =
-    nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, double, std::allocator,
-                         nlohmann::adl_serializer, std::vector<uint8_t, std::allocator<uint8_t>>, void>;
+using nl_entity = nlohmann::detail::iteration_proxy_value<nlohmann::detail::iter_impl<nlohmann::json>>;
+using nl_template = nlohmann::json;
 using nl_component = nlohmann::json;
 
 class Game {

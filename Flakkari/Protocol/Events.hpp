@@ -17,7 +17,7 @@
 #ifndef EVENTS_HPP_
 #define EVENTS_HPP_
 
-#include "config.h.in"
+#include "flakkari_config.h"
 
 namespace Flakkari::Protocol {
 

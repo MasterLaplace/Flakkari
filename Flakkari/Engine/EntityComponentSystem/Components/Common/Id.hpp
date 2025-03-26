@@ -12,7 +12,7 @@
 
 #include <cstdint>
 
-#include "config.h.in"
+#include "flakkari_config.h"
 
 namespace Flakkari::Engine::ECS::Components::Common {
 LPL_PACKED_START

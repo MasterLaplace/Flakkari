@@ -17,7 +17,7 @@
 #ifndef PACKETFACTORY_HPP_
 #define PACKETFACTORY_HPP_
 
-#include "config.h.in"
+#include "flakkari_config.h"
 
 #include "Engine/EntityComponentSystem/Systems/Systems.hpp"
 #include "Packet.hpp"

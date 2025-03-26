@@ -20,7 +20,7 @@
 
 #define PROTOCOL_VERSION 1
 
-#include "config.h.in"
+#include "flakkari_config.h"
 
 #include "../Network/Buffer.hpp"
 #include "Commands.hpp"
