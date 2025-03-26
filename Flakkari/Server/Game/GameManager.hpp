@@ -37,6 +37,7 @@ private:
         _waitingClients;
     std::unordered_map<std::string /*gameName*/, std::vector<std::shared_ptr<Game>> /*gamesInstances*/> _gamesInstances;
     std::unordered_map<std::string /*gameName*/, std::shared_ptr<nlohmann::json> /*data*/> _gamesStore;
+    std::unordered_map<std::string /*gameName*/, bool /*remove_request*/> _gamesRemoveRequest;
     std::string _game_dir;
 
 public:
@@ -104,8 +105,10 @@ public:
      *
      * @param gameName Game to remove the client from
      * @param client Client to remove from the game
+     *
+     * @return false Need to remove the game in ResourceManager following remove request
      */
-    void removeClientFromGame(const std::string &gameName, const std::shared_ptr<Client> &client);
+    bool removeClientFromGame(const std::string &gameName, const std::shared_ptr<Client> &client);
 
     /**
      * @brief Get if a player is waiting in the waiting queue of a game

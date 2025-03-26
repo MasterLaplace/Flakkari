@@ -89,8 +89,14 @@ void UDPServer::handlePacket()
         ClientManager::UnlockInstance();
         if (!resultRecvClient.has_value())
             return;
-        GameManager::GetInstance().removeClientFromGame(resultRecvClient->first, resultRecvClient->second);
+        bool ret = GameManager::GetInstance().removeClientFromGame(resultRecvClient->first, resultRecvClient->second);
         GameManager::UnlockInstance();
+
+        if (!ret)
+        {
+            ResourceManager::GetInstance().deleteGame(resultRecvClient->first);
+            ResourceManager::UnlockInstance();
+        }
     }
 }
 
