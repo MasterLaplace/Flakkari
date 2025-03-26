@@ -19,6 +19,7 @@
 #include "Client/ClientManager.hpp"
 #include "Game/GameManager.hpp"
 #include "Internals/CommandManager.hpp"
+#include "Internals/GameDownloader.hpp"
 #include "Network/IOMultiplexer.hpp"
 #include "Protocol/Packet.hpp"
 
@@ -93,6 +94,7 @@ private:
 private:
     std::shared_ptr<Network::Socket> _socket;
     std::unique_ptr<IO_SELECTED> _io;
+    Internals::GameDownloader _gameDownloader;
 };
 
 } /* namespace Flakkari */
