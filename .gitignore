@@ -571,6 +571,7 @@ r-type_server
 
 docs/Flakkari/
 build/
+.xmake/
 .Test/
 poc/
 Experimental/

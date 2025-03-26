@@ -1,7 +1,6 @@
 add_repositories("package_repo_singleton https://github.com/MasterLaplace/Singleton.git")
 
 add_rules("mode.debug", "mode.release", "plugin.vsxmake.autoupdate")
--- , "package_repo_fixed https://github.com/MasterLaplace/xmake-repo.git"
 
 add_requires("nlohmann_json", "singleton", "libcurl", "libgit2")
 
@@ -48,7 +47,6 @@ target("flakkari")
 
     if is_plat("windows") then
         add_syslinks("Iphlpapi")
-        -- add_ldflags("/LTCG", {force = true})
     end
 
 -- Doc: https://xmake.io/#/manual/xpack
