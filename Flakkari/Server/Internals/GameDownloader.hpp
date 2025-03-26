@@ -38,7 +38,7 @@ public:
      * @brief Construct a new Game Downloader object
      *
      */
-    GameDownloader(const std::string &gameDir, int timeout = 5);
+    GameDownloader(const std::string &gameDir, uint32_t timeout = 5);
 
     /**
      * @brief Destroy the Game Downloader object
@@ -156,11 +156,13 @@ private:
     static const std::regex JSON_FILE_NAME;
     std::string _gameDir;
     std::thread _thread;
-    int _timeout;
+    uint32_t _timeout;
     std::atomic<bool> _running = false;
     std::condition_variable _cv;
     std::mutex _mutex;
     std::string _readBuffer;
+    CURL *_curl;
+    CURLcode _ret;
 };
 
 } // namespace Flakkari::Internals
