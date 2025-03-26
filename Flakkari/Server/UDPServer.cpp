@@ -11,8 +11,7 @@
 
 using namespace Flakkari;
 
-UDPServer::UDPServer(const std::string &gameDir, const std::string &ip, unsigned short port)
-    : _gameDownloader(gameDir)
+UDPServer::UDPServer(const std::string &gameDir, const std::string &ip, unsigned short port) : _gameDownloader(gameDir)
 {
     Network::init();
 

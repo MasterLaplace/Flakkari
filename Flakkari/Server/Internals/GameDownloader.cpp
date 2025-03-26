@@ -55,14 +55,9 @@ void GameDownloader::removeGames(const std::vector<std::string> &remoteGamesURL,
 {
 }
 
-void GameDownloader::removeGame(const std::string &gameName)
-{
-}
+void GameDownloader::removeGame(const std::string &gameName) {}
 
-bool GameDownloader::downloadGame(const std::string &gameName, const std::string &jsonBuffer)
-{
-    return true;
-}
+bool GameDownloader::downloadGame(const std::string &gameName, const std::string &jsonBuffer) { return true; }
 
 std::vector<std::string> GameDownloader::listGames()
 {
@@ -100,15 +95,9 @@ bool GameDownloader::downloadFile(const std::string &url, std::string &readBuffe
     return true;
 }
 
-bool GameDownloader::sendCommand(std::string &readBuffer, const std::string &url)
-{
-    return true;
-}
+bool GameDownloader::sendCommand(std::string &readBuffer, const std::string &url) { return true; }
 
-bool GameDownloader::cloneOrUpdateRepository(const std::string &repoUrl, const std::string &localPath)
-{
-    return true;
-}
+bool GameDownloader::cloneOrUpdateRepository(const std::string &repoUrl, const std::string &localPath) { return true; }
 
 bool GameDownloader::updateSubModuleRecursivelyFollowingGitSubmoduleFile(git_repository *repo)
 {
