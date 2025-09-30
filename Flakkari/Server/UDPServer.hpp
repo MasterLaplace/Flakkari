@@ -20,7 +20,7 @@
 #include "Game/GameManager.hpp"
 #include "Internals/CommandManager.hpp"
 #ifdef FLAKKARI_AUTO_UPDATE
-#include "Internals/GameDownloader.hpp"
+#    include "Internals/GameDownloader.hpp"
 #endif
 #include "Network/IOMultiplexer.hpp"
 #include "Protocol/Packet.hpp"
