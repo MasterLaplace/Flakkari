@@ -37,7 +37,7 @@ target("flakkari")
     end
 
     if is_mode("debug") then
-        add_defines("DEBUG")
+        add_defines("_DEBUG")
         set_symbols("debug")
         set_optimize("none")
     elseif is_mode("release") then

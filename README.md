@@ -44,8 +44,8 @@
     </h3>
 </p>
 
-
 ## :placard: Table of Contents
+
 - [Description](#description)
 - [Running](#running)
   - [Build Modes](#gear-build-modes)
@@ -55,7 +55,6 @@
 - [Latest Release](#latest-release)
 - [License](#license)
 - [Contacts](#contacts)
-
 
 <div id='description'/>
 
@@ -83,7 +82,6 @@ And if you want to add a new game, you can follow the [Game Configuration](docs/
 > Before submitting a game request, please make sure that the game you are requesting is not already in the repository.
 > Also, be aware that the game you are requesting must be open-source and must comply with the Code Of Conduct.
 
-
 <div id='running'/>
 
 ### :truck: **RUNNING**
@@ -101,12 +99,13 @@ $> mkdir build && cd build
 $> cmake .. && cmake --build .
 
 # Run the server executable
-$> ./build/linux/x86_64/release/flakkari <GamesDir> <ip> <port>
+$> ./build/linux/x86_64/release/flakkari -g <GamesDir> -i <ip> -p <port>
 # XMake: or on Windows: .\build\windows\x64\release\flakkari.exe <GamesDir> <ip> <port>
 # CMake: or from build directory: ./flakkari <GamesDir> <ip> <port>
 ```
 
 To run the server with
+
 - the games directory: `./Games` that contains the games configurations
 
 - the IP address: `localhost`
@@ -129,6 +128,7 @@ Games
 Flakkari supports two compilation modes to accommodate different license requirements:
 
 **🔄 Full Mode (with auto-update) - Default:**
+
 ```shell
 # Enable auto-update functionality (default)
 $> xmake config --with-autoupdate=true
@@ -140,6 +140,7 @@ $> xmake
 ```
 
 **🪶 Lightweight Mode (MIT-only):**
+
 ```shell
 # Disable auto-update for pure MIT license
 $> xmake config --with-autoupdate=false
@@ -156,6 +157,7 @@ $> xmake
 #### :hammer: **BUILD COMMANDS**
 
 **XMake commands:**
+
 ```shell
 # Clean build files
 $> xmake clean
@@ -177,6 +179,7 @@ $> xmake test
 ```
 
 **Alternative CMake commands:**
+
 ```shell
 # Create build directory
 $> mkdir build && cd build
@@ -243,24 +246,23 @@ $ docker stop <container-id>
 $ docker rm <container-id>
 ```
 
-
 <div id='documentation'/>
 
 ### :wrench: **DOCUMENTATION**
 
 Wiki:
+
 - [**Technical Documentation & Wiki**](https://MasterLaplace.github.io/Flakkari/)
 
 For detailed documentation on the Flakkari protocol, see:
-- [**Flakkari Protocol Documentation**](docs/RFC.txt)
 
+- [**Flakkari Protocol Documentation**](docs/RFC.txt)
 
 ## :rocket: LATEST RELEASE
 
 > :clipboard: [Change Log](CHANGELOG.md) and [Security Policy](SECURITY.md)
 
 - [![Latest Release](https://img.shields.io/github/v/release/MasterLaplace/Flakkari.svg?label=version)](https://github.com/MasterLaplace/Flakkari/releases/latest/)
-
 
 <div id='license'/>
 
@@ -269,12 +271,12 @@ For detailed documentation on the Flakkari protocol, see:
 This project is licensed under the terms of the [MIT License](./LICENSE).
 
 **License Considerations:**
+
 - **Core Flakkari Library:** MIT License
 - **Auto-Update Feature:** When enabled (`--with-autoupdate=true`), includes libgit2 (GPL-2.0-only) dependency
 - **Lightweight Build:** Use `--with-autoupdate=false` for pure MIT licensing without GPL dependencies
 
 Copyright © 2023-2024 [Master_Laplace](https://github.com/MasterLaplace).
-
 
 <div id='contacts'/>
 
@@ -291,4 +293,5 @@ This server project has been carried out by:
 </table>
 
 ---
+
 <p align="center">ME.inc</p>
