@@ -1,4 +1,5 @@
 #include "GameDownloader.hpp"
+#include <iostream>
 
 using namespace Flakkari::Internals;
 
@@ -51,9 +52,6 @@ void GameDownloader::start()
         auto remoteGamesURL = listGames();
         auto localGames = listLocalGames();
 
-        if (remoteGamesURL.empty() || localGames.empty())
-            continue;
-
         downloadGames(remoteGamesURL, localGames);
         removeGames(remoteGamesURL, localGames);
     }
@@ -79,12 +77,16 @@ void GameDownloader::downloadGames(const std::vector<std::string> &remoteGamesUR
 
         FLAKKARI_LOG_INFO("Game downloaded: " + game);
 
-        if (!downloadGame(game, _readBuffer))
+        std::string gameBaseName = game;
+        if (gameBaseName.ends_with(".json"))
+            gameBaseName = gameBaseName.substr(0, gameBaseName.length() - 5);
+
+        if (!downloadGame(gameBaseName, _readBuffer))
             continue;
 
         auto instance = GameManager::GetInstance();
-        if (instance.addGame(game) == 1)
-            instance.updateGame(game);
+        if (instance.addGame(gameBaseName) == 1)
+            instance.updateGame(gameBaseName);
         GameManager::UnlockInstance();
     }
 }
@@ -130,8 +132,9 @@ void GameDownloader::removeGame(const std::string &gameName)
 bool GameDownloader::downloadGame(const std::string &gameName, const std::string &jsonBuffer)
 {
     nlohmann::json jsonObject = nlohmann::json::parse(jsonBuffer);
+    std::string repoPath = _gameDir + "/" + gameName;
 
-    if (!cloneOrUpdateRepository(jsonObject["url"], _gameDir + "/" + gameName))
+    if (!cloneOrUpdateRepository(jsonObject["url"], repoPath))
         return false;
 
     FLAKKARI_LOG_INFO("Game cloned or updated: " + gameName);
@@ -146,22 +149,31 @@ std::vector<std::string> GameDownloader::listGames()
     if (!sendCommand(result, FLAKKARI_GAME_URL))
         return FLAKKARI_LOG_ERROR("Failed to list remote games"), std::vector<std::string>();
 
-    std::regex regexPattern("\"path\":\\s*\"Games/([^\"]+)\"");
-    std::smatch matches;
     std::vector<std::string> games;
 
-    auto searchStart = result.cbegin();
-    while (std::regex_search(searchStart, result.cend(), matches, regexPattern))
-    {
-        if (!matches[1].str().ends_with(".json"))
-            continue;
-        games.push_back(matches[1].str());
-        searchStart = matches.suffix().first;
-    }
+    try {
+        nlohmann::json jsonResponse = nlohmann::json::parse(result);
 
-    std::cout << "Elements found after 'Games/':" << std::endl;
-    for (const auto &result : games)
-        std::cout << "  - " << result << std::endl;
+        for (const auto& item : jsonResponse) {
+            if (item.contains("path") && item.contains("type")) {
+                std::string path = item["path"];
+                std::string type = item["type"];
+
+                if (type == "file" && path.starts_with("Games/")) {
+                    std::string filename = path.substr(6);
+
+                    if (filename.ends_with(".json")) {
+                        games.push_back(filename);
+                        std::cout << "Found game: " << filename << std::endl;
+                    }
+                }
+            }
+        }
+    } catch (const nlohmann::json::exception& e) {
+        FLAKKARI_LOG_ERROR("Failed to parse JSON response: " + std::string(e.what()));
+        FLAKKARI_LOG_DEBUG("Raw response: " + result);
+        return games;
+    }
 
     return games;
 }
@@ -282,69 +294,79 @@ bool GameDownloader::cloneOrUpdateRepository(const std::string &repoUrl, const s
 
         if (git_repository_open(&repo, localPath.c_str()) != 0)
         {
-            FLAKKARI_LOG_ERROR("Failed to open repository at: " + localPath);
-            git_libgit2_shutdown();
-            return false;
-        }
+            FLAKKARI_LOG_WARNING("Directory exists but is not a valid Git repository: " + localPath);
+            FLAKKARI_LOG_INFO("Removing directory and cloning fresh repository");
 
-        git_remote *remote = nullptr;
-
-        if (git_remote_lookup(&remote, repo, "origin") == 0)
-        {
-            FLAKKARI_LOG_DEBUG("Pulling updates from remote: " + repoUrl);
-
-            git_fetch_options fetch_opts = GIT_FETCH_OPTIONS_INIT;
-
-            if (git_remote_fetch(remote, nullptr, &fetch_opts, nullptr) != 0)
-            {
-                FLAKKARI_LOG_ERROR("Failed to fetch updates from remote.");
-                git_remote_free(remote);
-                git_repository_free(repo);
+            try {
+                std::filesystem::remove_all(localPath);
+            } catch (const std::filesystem::filesystem_error& e) {
+                FLAKKARI_LOG_ERROR("Failed to remove directory: " + std::string(e.what()));
                 git_libgit2_shutdown();
                 return false;
             }
-
-            git_remote_free(remote);
         }
-
-        FLAKKARI_LOG_ERROR("Failed to find remote 'origin'.");
-
-        if (repo && !updateSubModuleRecursivelyFollowingGitSubmoduleFile(repo))
+        else
         {
-            git_repository_free(repo);
-            git_libgit2_shutdown();
-            return false;
+            git_remote *remote = nullptr;
+
+            if (git_remote_lookup(&remote, repo, "origin") == 0)
+            {
+                FLAKKARI_LOG_DEBUG("Pulling updates from remote: " + repoUrl);
+
+                git_fetch_options fetch_opts = GIT_FETCH_OPTIONS_INIT;
+
+                if (git_remote_fetch(remote, nullptr, &fetch_opts, nullptr) != 0)
+                {
+                    FLAKKARI_LOG_ERROR("Failed to fetch updates from remote.");
+                    git_remote_free(remote);
+                    git_repository_free(repo);
+                    git_libgit2_shutdown();
+                    return false;
+                }
+
+                git_remote_free(remote);
+
+                if (repo && !updateSubModuleRecursivelyFollowingGitSubmoduleFile(repo))
+                {
+                    git_repository_free(repo);
+                    git_libgit2_shutdown();
+                    return false;
+                }
+
+                FLAKKARI_LOG_DEBUG("Repository updated successfully.");
+                git_repository_free(repo);
+                git_libgit2_shutdown();
+                return true;
+            }
+            else
+            {
+                FLAKKARI_LOG_ERROR("Failed to find remote 'origin'.");
+                git_repository_free(repo);
+            }
         }
-
-        FLAKKARI_LOG_DEBUG("Repository updated successfully.");
-
-        git_repository_free(repo);
     }
-    else
+
+    git_repository *repo = nullptr;
+
+    FLAKKARI_LOG_DEBUG("Cloning repository: " + repoUrl + " to: " + localPath);
+
+    if (git_clone(&repo, repoUrl.c_str(), localPath.c_str(), nullptr) != 0)
     {
-        git_repository *repo = nullptr;
-
-        FLAKKARI_LOG_DEBUG("Cloning repository: " + repoUrl);
-
-        if (git_clone(&repo, repoUrl.c_str(), localPath.c_str(), nullptr) != 0)
-        {
-            FLAKKARI_LOG_ERROR("Failed to clone repository: " + repoUrl);
-            git_libgit2_shutdown();
-            return false;
-        }
-
-        FLAKKARI_LOG_DEBUG("Repository cloned successfully to: " + localPath);
-
-        if (repo && !updateSubModuleRecursivelyFollowingGitSubmoduleFile(repo))
-        {
-            git_repository_free(repo);
-            git_libgit2_shutdown();
-            return false;
-        }
-
-        git_repository_free(repo);
+        FLAKKARI_LOG_ERROR("Failed to clone repository: " + repoUrl);
+        git_libgit2_shutdown();
+        return false;
     }
 
+    FLAKKARI_LOG_DEBUG("Repository cloned successfully to: " + localPath);
+
+    if (repo && !updateSubModuleRecursivelyFollowingGitSubmoduleFile(repo))
+    {
+        git_repository_free(repo);
+        git_libgit2_shutdown();
+        return false;
+    }
+
+    git_repository_free(repo);
     git_libgit2_shutdown();
     return true;
 }
