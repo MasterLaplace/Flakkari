@@ -48,6 +48,8 @@
 ## :placard: Table of Contents
 - [Description](#description)
 - [Running](#running)
+  - [Build Modes](#gear-build-modes)
+  - [Build Commands](#hammer-build-commands)
 - [Docker](#docker)
 - [Documentation](#documentation)
 - [Latest Release](#latest-release)
@@ -60,6 +62,8 @@
 ### :pencil: **DESCRIPTION**
 
 Flakkari is a UDP/TCP server initially developed for the R-Type Epitech project and updated for the Video Games course at University Laval. It enables network-based gameplay, supporting multiple games and clients simultaneously through its multi-threaded architecture. The server is designed to handle high concurrency and ensure low latency, making it suitable for real-time multiplayer games. Flakkari also includes features such as game state synchronization, player authentication, and robust error handling to provide a seamless gaming experience.
+
+**🔄 Auto-Update Feature:** Flakkari supports automatic game downloads from remote repositories, allowing the server to fetch and update games dynamically. This feature can be disabled for environments requiring pure MIT licensing.
 
 Flakkari also has a [Unity client](Libraries/Flakkari4Unity/README.md) library to facilitate the development of multiplayer games. This library is available in C# and can be used to connect to the Flakkari server, send and receive messages and manage game events. It is designed to be easy to integrate into existing game projects and provides advanced features to simplify the development of multiplayer games.
 
@@ -119,6 +123,35 @@ Games
 └── Game_02
     └── config.cfg
 ```
+
+#### :gear: **BUILD MODES**
+
+Flakkari supports two compilation modes to accommodate different license requirements:
+
+**🔄 Full Mode (with auto-update) - Default:**
+```shell
+# Enable auto-update functionality (default)
+$> xmake config --with-autoupdate=true
+$> xmake
+
+# Features: Automatic game downloads from remote repositories
+# Dependencies: libgit2 (GPL-2.0), libcurl, OpenSSL 3.0+
+# License: MIT + GPL dependencies for auto-update feature
+```
+
+**🪶 Lightweight Mode (MIT-only):**
+```shell
+# Disable auto-update for pure MIT license
+$> xmake config --with-autoupdate=false
+$> xmake
+
+# Features: Core server functionality only
+# Dependencies: nlohmann_json, singleton (MIT)
+# License: Pure MIT, no GPL dependencies
+```
+
+> [!NOTE]
+> **License Considerations:** The auto-update feature uses libgit2 (GPL-2.0-only). When enabled, the resulting binary includes GPL dependencies. For commercial use or MIT-only deployments, use `--with-autoupdate=false` to build a lightweight version with pure MIT licensing.
 
 #### :hammer: **BUILD COMMANDS**
 
@@ -233,6 +266,11 @@ For detailed documentation on the Flakkari protocol, see:
 ## :scroll: **LICENSE**
 
 This project is licensed under the terms of the [MIT License](./LICENSE).
+
+**License Considerations:**
+- **Core Flakkari Library:** MIT License
+- **Auto-Update Feature:** When enabled (`--with-autoupdate=true`), includes libgit2 (GPL-2.0-only) dependency
+- **Lightweight Build:** Use `--with-autoupdate=false` for pure MIT licensing without GPL dependencies
 
 Copyright © 2023-2024 [Master_Laplace](https://github.com/MasterLaplace).
 
