@@ -199,6 +199,7 @@ $> mkdir build && cd build
 
 #### 📦 **PACKAGE INSTALLATION**
 
+```bash
 # Install the package
 # For windows systems
 (build)$> flakkari-win64.exe
