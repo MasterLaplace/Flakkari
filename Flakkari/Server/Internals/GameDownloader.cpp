@@ -30,7 +30,7 @@ static int cred_acquire_cb(git_cred **out, const char *url, const char *username
     return git_cred_userpass_plaintext_new(out, "username", "password");
 }
 
-GameDownloader::GameDownloader(const std::string &gameDir, int timeout) : _gameDir(gameDir), _timeout(timeout)
+GameDownloader::GameDownloader(const std::string &gameDir, uint32_t timeout) : _gameDir(gameDir), _timeout(timeout)
 {
     _running.store(true, std::memory_order_release);
     _thread = std::thread(&GameDownloader::start, this);
