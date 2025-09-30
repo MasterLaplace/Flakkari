@@ -3,9 +3,18 @@ add_repositories("xmake-repo-fixed https://github.com/MasterLaplace/xmake-repo.g
 
 add_rules("mode.debug", "mode.release", "plugin.vsxmake.autoupdate")
 
+option("with-autoupdate")
+    set_default(true)
+    set_showmenu(true)
+    set_description("Enable automatic game download/update feature")
+option_end()
+
 add_requires("nlohmann_json", "singleton")
-add_requires("libcurl", {configs = {openssl3 = is_plat("linux", "macosx")}})
-add_requires("libgit2", {configs = {https = is_plat("windows") and "winhttp" or "openssl3", tools = false}})
+
+if has_config("with-autoupdate") then
+    add_requires("libcurl", {configs = {openssl3 = is_plat("linux", "macosx")}})
+    add_requires("libgit2", {configs = {https = is_plat("windows") and "winhttp" or "openssl3", tools = false}})
+end
 
 includes("@builtin/xpack")
 
@@ -19,7 +28,13 @@ target("flakkari")
     set_policy("build.warning", true)
     set_version("0.5.0")
 
-    add_packages("nlohmann_json", "singleton", "libcurl", "libgit2")
+    add_packages("nlohmann_json", "singleton")
+
+    if has_config("with-autoupdate") then
+        add_packages("libcurl", "libgit2")
+        add_defines("FLAKKARI_AUTO_UPDATE")
+        set_policy("check.target_package_licenses", false)
+    end
 
     if is_mode("debug") then
         add_defines("DEBUG")
@@ -31,6 +46,10 @@ target("flakkari")
     end
 
     add_files("Flakkari/**.cpp")
+
+    if not has_config("with-autoupdate") then
+        remove_files("Flakkari/Server/Internals/GameDownloader.cpp")
+    end
 
     add_headerfiles("Flakkari/**.h", { public = true })
     add_headerfiles("Flakkari/**.hpp", { public = true })
