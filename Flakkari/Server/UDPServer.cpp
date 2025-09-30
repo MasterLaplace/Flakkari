@@ -11,7 +11,10 @@
 
 using namespace Flakkari;
 
-UDPServer::UDPServer(const std::string &gameDir, const std::string &ip, unsigned short port) : _gameDownloader(gameDir)
+UDPServer::UDPServer(const std::string &gameDir, const std::string &ip, unsigned short port)
+#ifdef FLAKKARI_AUTO_UPDATE
+    : _gameDownloader(gameDir)
+#endif
 {
     Network::init();
 
@@ -36,7 +39,9 @@ UDPServer::~UDPServer()
     ResourceManager::DestroyInstance();
     GameManager::DestroyInstance();
     Network::cleanup();
+#ifdef FLAKKARI_AUTO_UPDATE
     _gameDownloader.stop();
+#endif
     FLAKKARI_LOG_INFO("UDPServer is now stopped");
 }
 
