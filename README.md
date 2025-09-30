@@ -89,18 +89,17 @@ And if you want to add a new game, you can follow the [Game Configuration](docs/
 $> git clone https://github.com/MasterLaplace/Flakkari.git
 $> cd Flakkari
 
-# Create a build directory
-$> mkdir build
-$> cd build
+# Build with XMake (recommended, cross-platform)
+$> xmake
 
-# Configure the project
-(build)$> cmake .. && cmake --build .
-
-# Or configure the project with Ninja
-(build)$> cmake -G Ninja .. && cmake --build .
+# Alternative: Build with CMake
+$> mkdir build && cd build
+$> cmake .. && cmake --build .
 
 # Run the server executable
-(build)$> ./flakkari <GamesDir> <ip> <port>
+$> ./build/linux/x86_64/release/flakkari <GamesDir> <ip> <port>
+# XMake: or on Windows: .\build\windows\x64\release\flakkari.exe <GamesDir> <ip> <port>
+# CMake: or from build directory: ./flakkari <GamesDir> <ip> <port>
 ```
 
 To run the server with
@@ -123,16 +122,49 @@ Games
 
 #### :hammer: **BUILD COMMANDS**
 
-other build commands:
+**XMake commands:**
 ```shell
+# Clean build files
+$> xmake clean
+
+# Build in debug mode
+$> xmake f -m debug && xmake
+
+# Build in release mode (default)
+$> xmake f -m release && xmake
+
+# Install the project
+$> xmake install
+
+# Package the project
+$> xmake pack
+
+# Run tests (if available)
+$> xmake test
+```
+
+**Alternative CMake commands:**
+```shell
+# Create build directory
+$> mkdir build && cd build
+
+# Configure the project
+(build)$> cmake .. && cmake --build .
+
+# Or configure with Ninja
+(build)$> cmake -G Ninja .. && cmake --build .
+
 # Install the project
 (build)$> sudo cmake --build . --target install
 
-# Build project documentation
+# Build documentation
 (build)$> cmake --build . --target doc
 
-# Build project package
+# Build package
 (build)$> cmake --build . --config Release --target package
+```
+
+#### 📦 **PACKAGE INSTALLATION**
 
 # Install the package
 # For windows systems

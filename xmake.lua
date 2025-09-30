@@ -1,8 +1,11 @@
 add_repositories("package_repo_singleton https://github.com/MasterLaplace/Singleton.git")
+add_repositories("xmake-repo-fixed https://github.com/MasterLaplace/xmake-repo.git fix/libgit2-openssl3-linux")
 
 add_rules("mode.debug", "mode.release", "plugin.vsxmake.autoupdate")
 
-add_requires("nlohmann_json", "singleton", "libcurl", "libgit2")
+add_requires("nlohmann_json", "singleton")
+add_requires("libcurl", {configs = {openssl3 = is_plat("linux", "macosx")}})
+add_requires("libgit2", {configs = {https = is_plat("windows") and "winhttp" or "openssl3", tools = false}})
 
 includes("@builtin/xpack")
 
