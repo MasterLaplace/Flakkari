@@ -47,9 +47,14 @@
 ## :placard: Table of Contents
 
 - [Description](#description)
+  - [Games Request](#video_game-games-request)
 - [Running](#running)
+  - [Environment Setup](#gear-environment-setup)
+  - [Build and Run](#rocket-build-and-run)
   - [Build Modes](#gear-build-modes)
   - [Build Commands](#hammer-build-commands)
+  - [Package Installation](#package-installation)
+  - [Environment Variables](#earth_asia-environment-variables)
 - [Docker](#docker)
 - [Documentation](#documentation)
 - [Latest Release](#latest-release)
@@ -69,6 +74,8 @@ Flakkari also has a [Unity client](Libraries/Flakkari4Unity/README.md) library t
 > [!NOTE]
 > The project is still under development and may not be stable.
 
+<div id='video_game-games-request'/>
+
 #### :video_game: **GAMES REQUEST**
 
 We provide a game request system that allows you to request a game to be added to the server. To do so, please open an [Github Issues](https://github.com/MasterLaplace/Flakkari/issues/new/choose). Select the `Game Request` template and provide the information following the template.
@@ -84,12 +91,41 @@ And if you want to add a new game, you can follow the [Game Configuration](docs/
 
 <div id='running'/>
 
+<div id='running'/>
+
 ### :truck: **RUNNING**
+
+<div id='gear-environment-setup'/>
+
+#### :gear: **ENVIRONMENT SETUP**
+
+Before running the server, you need to set the game directory environment variable:
+
+```shell
+# Set the games directory environment variable
+export FLAKKARI_GAME_DIR="/path/to/your/Games"
+
+# For the current project structure:
+export FLAKKARI_GAME_DIR="$(pwd)/Games"
+
+# Or use absolute path:
+export FLAKKARI_GAME_DIR="/home/user/Flakkari/Games"
+```
+
+> [!NOTE]
+> **FLAKKARI_GAME_DIR:** This environment variable specifies the default directory containing game configurations. It's used as a fallback when no game directory is provided via command-line arguments.
+
+<div id='rocket-build-and-run'/>
+
+#### :rocket: **BUILD AND RUN**
 
 ```shell
 # Clone repository
 $> git clone https://github.com/MasterLaplace/Flakkari.git
 $> cd Flakkari
+
+# Set environment variable
+$> export FLAKKARI_GAME_DIR="$(pwd)/Games"
 
 # Build with XMake (recommended, cross-platform)
 $> xmake
@@ -99,9 +135,13 @@ $> mkdir build && cd build
 $> cmake .. && cmake --build .
 
 # Run the server executable
-$> ./build/linux/x86_64/release/flakkari -g <GamesDir> -i <ip> -p <port>
-# XMake: or on Windows: .\build\windows\x64\release\flakkari.exe <GamesDir> <ip> <port>
-# CMake: or from build directory: ./flakkari <GamesDir> <ip> <port>
+$> xmake run
+# Or manually: ./build/linux/x86_64/release/flakkari
+
+# Alternative: Run with explicit arguments (no env variable needed):
+$> ./build/linux/x86_64/release/flakkari -g Games -i localhost -p 8081
+# XMake: or on Windows: .\build\windows\x64\release\flakkari.exe -g Games -i localhost -p 8081
+# CMake: or from build directory: ./flakkari -g Games -i localhost -p 8081
 ```
 
 To run the server with
@@ -123,6 +163,8 @@ Games
 └── Game_02
     └── config.cfg
 ```
+
+<div id='gear-build-modes'/>
 
 #### :gear: **BUILD MODES**
 
@@ -154,6 +196,8 @@ $> xmake
 
 > [!NOTE]
 > **License Considerations:** The auto-update feature uses libgit2 (GPL-2.0-only). When enabled, the resulting binary includes GPL dependencies. For commercial use or MIT-only deployments, use `--with-autoupdate=false` to build a lightweight version with pure MIT licensing.
+
+<div id='hammer-build-commands'/>
 
 #### :hammer: **BUILD COMMANDS**
 
@@ -201,6 +245,8 @@ $> mkdir build && cd build
 (build)$> cmake --build . --config Release --target package
 ```
 
+<div id='package-installation'/>
+
 #### 📦 **PACKAGE INSTALLATION**
 
 ```bash
@@ -217,6 +263,19 @@ $> mkdir build && cd build
 # For debian based systems
 (build)$> sudo dpkg -i flakkari-linux.deb
 ```
+
+<div id='earth_asia-environment-variables'/>
+
+#### :earth_asia: **ENVIRONMENT VARIABLES**
+
+| Variable | Description | Example | Required |
+|----------|-------------|---------|----------|
+| `FLAKKARI_GAME_DIR` | Default directory containing game configurations | `./Games` or `/path/to/games` | Yes* |
+
+> [!NOTE]
+> **\*Required when:** No game directory is specified via `-g/--games` command-line argument.
+
+The `FLAKKARI_GAME_DIR` environment variable serves as a fallback location for game configurations when not explicitly provided through command-line arguments.
 
 <div id='docker'/>
 
