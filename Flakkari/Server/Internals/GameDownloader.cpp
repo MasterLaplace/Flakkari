@@ -151,25 +151,32 @@ std::vector<std::string> GameDownloader::listGames()
 
     std::vector<std::string> games;
 
-    try {
+    try
+    {
         nlohmann::json jsonResponse = nlohmann::json::parse(result);
 
-        for (const auto& item : jsonResponse) {
-            if (item.contains("path") && item.contains("type")) {
+        for (const auto &item : jsonResponse)
+        {
+            if (item.contains("path") && item.contains("type"))
+            {
                 std::string path = item["path"];
                 std::string type = item["type"];
 
-                if (type == "file" && path.starts_with("Games/")) {
+                if (type == "file" && path.starts_with("Games/"))
+                {
                     std::string filename = path.substr(6);
 
-                    if (filename.ends_with(".json")) {
+                    if (filename.ends_with(".json"))
+                    {
                         games.push_back(filename);
                         std::cout << "Found game: " << filename << std::endl;
                     }
                 }
             }
         }
-    } catch (const nlohmann::json::exception& e) {
+    }
+    catch (const nlohmann::json::exception &e)
+    {
         FLAKKARI_LOG_ERROR("Failed to parse JSON response: " + std::string(e.what()));
         FLAKKARI_LOG_DEBUG("Raw response: " + result);
         return games;
@@ -297,9 +304,12 @@ bool GameDownloader::cloneOrUpdateRepository(const std::string &repoUrl, const s
             FLAKKARI_LOG_WARNING("Directory exists but is not a valid Git repository: " + localPath);
             FLAKKARI_LOG_INFO("Removing directory and cloning fresh repository");
 
-            try {
+            try
+            {
                 std::filesystem::remove_all(localPath);
-            } catch (const std::filesystem::filesystem_error& e) {
+            }
+            catch (const std::filesystem::filesystem_error &e)
+            {
                 FLAKKARI_LOG_ERROR("Failed to remove directory: " + std::string(e.what()));
                 git_libgit2_shutdown();
                 return false;
