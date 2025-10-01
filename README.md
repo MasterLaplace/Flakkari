@@ -44,6 +44,8 @@
     </h3>
 </p>
 
+---
+
 ## :placard: Table of Contents
 
 - [Description](#description)
@@ -61,9 +63,11 @@
 - [License](#license)
 - [Contacts](#contacts)
 
+---
+
 <div id='description'/>
 
-### :pencil: **DESCRIPTION**
+## :pencil: **DESCRIPTION**
 
 Flakkari is a UDP/TCP server initially developed for the R-Type Epitech project and updated for the Video Games course at University Laval. It enables network-based gameplay, supporting multiple games and clients simultaneously through its multi-threaded architecture. The server is designed to handle high concurrency and ensure low latency, making it suitable for real-time multiplayer games. Flakkari also includes features such as game state synchronization, player authentication, and robust error handling to provide a seamless gaming experience.
 
@@ -76,7 +80,7 @@ Flakkari also has a [Unity client](Libraries/Flakkari4Unity/README.md) library t
 
 <div id='video_game-games-request'/>
 
-#### :video_game: **GAMES REQUEST**
+### :video_game: **GAMES REQUEST**
 
 We provide a game request system that allows you to request a game to be added to the server. To do so, please open an [Github Issues](https://github.com/MasterLaplace/Flakkari/issues/new/choose). Select the `Game Request` template and provide the information following the template.
 We will gladly review your request and add the game to the server if it meets the requirements.
@@ -89,11 +93,11 @@ And if you want to add a new game, you can follow the [Game Configuration](docs/
 > Before submitting a game request, please make sure that the game you are requesting is not already in the repository.
 > Also, be aware that the game you are requesting must be open-source and must comply with the Code Of Conduct.
 
-<div id='running'/>
+---
 
 <div id='running'/>
 
-### :truck: **RUNNING**
+## :truck: **RUNNING**
 
 <div id='gear-environment-setup'/>
 
@@ -277,9 +281,11 @@ $> mkdir build && cd build
 
 The `FLAKKARI_GAME_DIR` environment variable serves as a fallback location for game configurations when not explicitly provided through command-line arguments.
 
+---
+
 <div id='docker'/>
 
-### :whale: **DOCKER RUN**
+## :whale: **DOCKER RUN**
 
 ```bash
 # install docker on ubuntu
@@ -306,9 +312,11 @@ $ docker stop <container-id>
 $ docker rm <container-id>
 ```
 
+---
+
 <div id='documentation'/>
 
-### :wrench: **DOCUMENTATION**
+## :wrench: **DOCUMENTATION**
 
 Wiki:
 
@@ -318,11 +326,15 @@ For detailed documentation on the Flakkari protocol, see:
 
 - [**Flakkari Protocol Documentation**](docs/RFC.txt)
 
+---
+
 ## :rocket: LATEST RELEASE
 
 > :clipboard: [Change Log](CHANGELOG.md) and [Security Policy](SECURITY.md)
 
 - [![Latest Release](https://img.shields.io/github/v/release/MasterLaplace/Flakkari.svg?label=version)](https://github.com/MasterLaplace/Flakkari/releases/latest/)
+
+---
 
 <div id='license'/>
 
@@ -338,9 +350,11 @@ This project is licensed under the terms of the [MIT License](./LICENSE).
 
 Copyright © 2023-2024 [Master_Laplace](https://github.com/MasterLaplace).
 
+---
+
 <div id='contacts'/>
 
-### :mailbox_with_mail: **CONTACTS**
+## :mailbox_with_mail: **CONTACTS**
 
 This server project has been carried out by:
 
