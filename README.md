@@ -116,9 +116,10 @@ expected architecture of the games list directory:
 
 ```shell
 Games
+├── Game_01.json
 ├── Game_01
-│   ├── assets
 │   └── config.cfg
+├── Game_02.json
 └── Game_02
     └── config.cfg
 ```

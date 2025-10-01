@@ -109,7 +109,7 @@ void GameDownloader::removeGame(const std::string &gameName)
 {
     FLAKKARI_LOG_INFO("Removing game: " + gameName);
 
-    std::string fileName = _gameDir + gameName + ".json";
+    std::string fileName = _gameDir + "/" + gameName + ".json";
 
     if (!std::filesystem::exists(fileName))
     {
