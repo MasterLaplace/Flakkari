@@ -101,7 +101,7 @@ type(scope)!: subject
   - `perf`: performance improvements.
   - `test`: changes to the test suite.
   - `ci`: changes to the CI system.
-  - `build`: changes to the build system (we don't yet have one so this shouldn't apply).
+  - `build`: changes to the build system (XMake, CMake configurations, dependencies, etc.).
   - `chore`: for other changes that don't match previous types. This doesn't appear
     in the changelog.
 

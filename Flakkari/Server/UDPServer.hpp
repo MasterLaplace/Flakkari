@@ -19,6 +19,9 @@
 #include "Client/ClientManager.hpp"
 #include "Game/GameManager.hpp"
 #include "Internals/CommandManager.hpp"
+#ifdef FLAKKARI_AUTO_UPDATE
+#    include "Internals/GameDownloader.hpp"
+#endif
 #include "Network/IOMultiplexer.hpp"
 #include "Protocol/Packet.hpp"
 
@@ -93,6 +96,9 @@ private:
 private:
     std::shared_ptr<Network::Socket> _socket;
     std::unique_ptr<IO_SELECTED> _io;
+#ifdef FLAKKARI_AUTO_UPDATE
+    Internals::GameDownloader _gameDownloader;
+#endif
 };
 
 } /* namespace Flakkari */

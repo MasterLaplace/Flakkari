@@ -41,8 +41,17 @@ template <typename Id> struct Packet {
     Header<Id> header;
     Network::Buffer payload;
 
+    /**
+     * @brief Get the size of the packet.
+     *
+     */
     std::size_t size() const { return sizeof(header) + payload.size(); }
 
+    /**
+     * @brief Convert the packet to a string.
+     *
+     * @return std::string  The packet as a string.
+     */
     std::string to_string()
     {
         std::string str = "Packet<Id: " + Commands::command_to_string(header._commandId) +
@@ -52,21 +61,19 @@ template <typename Id> struct Packet {
         return str;
     }
 
+    /**
+     * @brief Overload the << operator to print the packet.
+     *
+     * @param os  The output stream.
+     * @param packet  The packet to print.
+     * @return std::ostream&  The output stream.
+     */
     friend std::ostream &operator<<(std::ostream &os, const Packet &packet)
     {
         os << "Packet<Id: " << htons(packet.header._commandId)
            << ", ContentLength: " << htons(packet.header._contentLength)
            << ", SequenceNumber: " << htonl(packet.header._sequenceNumber) << ", Payload: " << packet.payload << ">";
         return os;
-    }
-
-    template <typename T> void injectComponent(T component)
-    {
-        int intValue = (int) component.size();
-        const byte *dataBytes = reinterpret_cast<const byte *>(&intValue);
-        payload.insert(payload.end(), dataBytes, dataBytes + sizeof(intValue));
-        payload += component;
-        header._contentLength += payload.size() + sizeof(intValue);
     }
 
     /**
@@ -90,6 +97,8 @@ template <typename Id> struct Packet {
         return packet;
     }
 
+    friend Packet<Id> &operator<<(Packet<Id> &packet, const std::string &data) = delete;
+
     /**
      * @brief Extract data from the packet.
      *
@@ -97,9 +106,6 @@ template <typename Id> struct Packet {
      * @param packet  The packet to extract the data from.
      * @param data  The data to extract.
      * @return Packet<Id> & The packet with the data extracted.
-     *
-     * @deprecated  This function is deprecated. Don't work with std::string.
-     *              Use the other operator>> instead.
      */
     template <typename DataType> friend Packet<Id> &operator>>(Packet<Id> &packet, DataType &data)
     {
@@ -117,18 +123,40 @@ template <typename Id> struct Packet {
         return packet;
     }
 
+    friend Packet<Id> &operator>>(Packet<Id> &packet, std::string &data) = delete;
+
     /**
      * @brief Inject a string into the packet.
      *
      * @param str  The string to inject.
      */
-    void injectString(std::string str)
+    void injectString(const std::string &str)
     {
         int intValue = (int) str.size();
         const byte *dataBytes = reinterpret_cast<const byte *>(&intValue);
         payload.insert(payload.end(), dataBytes, dataBytes + sizeof(intValue));
         payload += str;
         header._contentLength += (ushort) str.size() + (ushort) sizeof(intValue);
+    }
+
+    /**
+     * @brief Extract a string from the packet.
+     *
+     * @param packet  The packet to extract the string from.
+     * @return std::string  The extracted string.
+     */
+    std::string extractString()
+    {
+        if (payload.size() < sizeof(int))
+            throw std::runtime_error("Packet payload is too small to extract string.");
+
+        int intValue;
+        std::memcpy(&intValue, payload.data(), sizeof(intValue));
+        payload.erase(payload.begin(), payload.begin() + sizeof(intValue));
+        std::string str(payload.begin(), payload.begin() + intValue);
+        payload.erase(payload.begin(), payload.begin() + intValue);
+        header._contentLength -= (ushort) intValue + (ushort) sizeof(intValue);
+        return str;
     }
 
     /**

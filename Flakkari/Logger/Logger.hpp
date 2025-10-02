@@ -15,7 +15,7 @@
 #ifndef FLAKKARI_LOGGER_HPP_
 #define FLAKKARI_LOGGER_HPP_
 
-#include "config.h.in"
+#include "flakkari_config.h"
 
 #include <chrono>
 #include <ctime>

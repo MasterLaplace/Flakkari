@@ -8,6 +8,8 @@
 */
 
 #include "ParseArgument.hpp"
+#include <cstdlib>
+#include <filesystem>
 
 namespace Flakkari {
 
@@ -22,24 +24,24 @@ ParseArgument::ParseArgument(int ac, const char *av[])
             _port = 8081;
             return;
         }
-        else if (std::string(av[i]) == "-gameDir")
+        else if (std::string(av[i]) == "-g" || std::string(av[i]) == "--games")
         {
             _gameDir = av[i + 1];
             ++i;
         }
-        else if (std::string(av[i]) == "-ip")
+        else if (std::string(av[i]) == "-i" || std::string(av[i]) == "--ip")
         {
             _ip = av[i + 1];
             ++i;
         }
-        else if (std::string(av[i]) == "-port")
+        else if (std::string(av[i]) == "-p" || std::string(av[i]) == "--port")
         {
             _port = static_cast<unsigned short>(std::stoi(av[i + 1]));
             if (_port < 1024)
                 throw std::runtime_error("Invalid port number, must be between 1024 and 65535");
             ++i;
         }
-        else if (std::string(av[i]) == "-dy" || std::string(av[i]) == "--dry-run")
+        else if (std::string(av[i]) == "-dr" || std::string(av[i]) == "--dry-run")
         {
             _dryRun = true;
         }
@@ -226,6 +228,34 @@ bool ParseArgument::GetIPv6Addresses()
     return true;
 }
 
+static std::string resolvePath(const std::string &path)
+{
+    if (path.empty())
+        return path;
+
+    std::filesystem::path fsPath(path);
+
+    if (!path.empty() && path[0] == '~')
+    {
+        if (auto home = std::getenv("HOME"); home)
+        {
+            fsPath = std::filesystem::path(home);
+            if (path.size() > 1 && path[1] == '/')
+                fsPath /= path.substr(2);
+        }
+    }
+
+    try
+    {
+        return std::filesystem::absolute(fsPath).string();
+    }
+    catch (const std::filesystem::filesystem_error &e)
+    {
+        FLAKKARI_LOG_ERROR("Failed to resolve path '" + path + "': " + e.what());
+        return path;
+    }
+}
+
 void ParseArgument::GetGameDirEnv()
 {
 #if defined(FLAKKARI_SYSTEM_WINDOWS)
@@ -240,7 +270,7 @@ void ParseArgument::GetGameDirEnv()
     const char *dir = std::getenv("FLAKKARI_GAME_DIR");
 
     if (dir)
-        _gameDir = dir;
+        _gameDir = resolvePath(dir);
 #endif
     else
         throw std::runtime_error("FLAKKARI_GAME_DIR not set");

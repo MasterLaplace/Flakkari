@@ -21,7 +21,7 @@
 #include <cmath>
 #include <iostream>
 
-#include "config.h.in"
+#include "flakkari_config.h"
 
 namespace Flakkari::Engine::Math {
 
