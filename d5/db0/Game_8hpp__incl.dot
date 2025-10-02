@@ -79,7 +79,7 @@ digraph "Flakkari/Server/Game/Game.hpp"
   Node40 -> Node43 [id="edge39_Node000040_Node000043",color="steelblue1",style="solid",tooltip=" "];
   Node43 [id="Node000043",label="Common/Health.hpp",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d6/d38/Health_8hpp.html",tooltip=" "];
   Node43 -> Node28 [id="edge40_Node000043_Node000028",color="steelblue1",style="solid",tooltip=" "];
-  Node28 [id="Node000028",label="config.h.in",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node28 [id="Node000028",label="flakkari_config.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node40 -> Node44 [id="edge41_Node000040_Node000044",color="steelblue1",style="solid",tooltip=" "];
   Node44 [id="Node000044",label="Common/Id.hpp",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$d0/dbe/Id_8hpp.html",tooltip=" "];
   Node44 -> Node28 [id="edge42_Node000044_Node000028",color="steelblue1",style="solid",tooltip=" "];

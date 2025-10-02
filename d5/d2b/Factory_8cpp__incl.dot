@@ -52,7 +52,7 @@ digraph "Flakkari/Engine/EntityComponentSystem/Factory.cpp"
   Node23 [id="Node000023",label="../../../Math/Vector.hpp",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$de/dd9/Vector_8hpp.html",tooltip=" "];
   Node23 -> Node17 [id="edge24_Node000023_Node000017",color="steelblue1",style="solid",tooltip=" "];
   Node23 -> Node25 [id="edge25_Node000023_Node000025",color="steelblue1",style="solid",tooltip=" "];
-  Node25 [id="Node000025",label="config.h.in",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node25 [id="Node000025",label="flakkari_config.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node22 -> Node26 [id="edge26_Node000022_Node000026",color="steelblue1",style="solid",tooltip=" "];
   Node26 [id="Node000026",label="string",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node21 -> Node27 [id="edge27_Node000021_Node000027",color="steelblue1",style="solid",tooltip=" "];

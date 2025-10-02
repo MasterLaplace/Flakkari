@@ -25,12 +25,11 @@ var searchData=
   ['addscene_22',['addScene',['../d0/d1e/classFlakkari_1_1ResourceManager.html#a940623adb0548aede3ba8bd8a17fe637',1,'Flakkari::ResourceManager']]],
   ['addsocket_23',['addsocket',['../d6/dec/classFlakkari_1_1Network_1_1PPOLL.html#a79045cf724265678d073dc7f74de1eef',1,'Flakkari::Network::PPOLL::addSocket(FileDescriptor socket, event_t events)'],['../d6/dec/classFlakkari_1_1Network_1_1PPOLL.html#a8a498824500f68774a872045d317ee77',1,'Flakkari::Network::PPOLL::addSocket(FileDescriptor socket)'],['../de/d52/classFlakkari_1_1Network_1_1PSELECT.html#a1cfe94bb66aea80b42086ea416154ec6',1,'Flakkari::Network::PSELECT::addSocket()']]],
   ['addupdatemovementtopacket_24',['addUpdateMovementToPacket',['../d7/d06/classFlakkari_1_1Protocol_1_1PacketFactory.html#a505afdf3420ee17cad08d5371a14b281',1,'Flakkari::Protocol::PacketFactory']]],
-  ['align_20center_20flakkari_20br_20br_20img_20src_20docs_20images_20flakkari_20png_20alt_20flakkari_20logo_20style_20height_3a_20200px_20p_25',['ME : &lt;p align=&quot;center&quot;&gt;Flakkari&lt;br&gt;&lt;br&gt;&lt;img src=&quot;docs/Images/Flakkari.png&quot; alt=&quot;Flakkari logo&quot; style=&quot;height: 200px&quot;&gt;&lt;/p&gt;',['../d0/d30/md_README.html',1,'']]],
-  ['alt_20flakkari_20logo_20style_20height_3a_20200px_20p_26',['ME : &lt;p align=&quot;center&quot;&gt;Flakkari&lt;br&gt;&lt;br&gt;&lt;img src=&quot;docs/Images/Flakkari.png&quot; alt=&quot;Flakkari logo&quot; style=&quot;height: 200px&quot;&gt;&lt;/p&gt;',['../d0/d30/md_README.html',1,'']]],
-  ['an_20issue_27',['Creating an Issue',['../d2/dc1/md_CONTRIBUTING.html#creating-an-issue',1,'']]],
-  ['and_20contact_28',['Support and Contact',['../d2/dc1/md_CONTRIBUTING.html#support-and-contact',1,'']]],
-  ['and_20discussions_29',['Questions and Discussions',['../de/dd3/md__8github_2SUPPORT.html#questions-and-discussions',1,'']]],
-  ['apiversion_30',['ApiVersion',['../dc/d58/namespaceFlakkari_1_1Protocol.html#a302e0d2f906390c0a05e720dc87fd30d',1,'Flakkari::Protocol']]],
-  ['apply_5fmovable_31',['apply_movable',['../dd/d08/namespaceFlakkari_1_1Engine_1_1ECS_1_1Systems_1_1__3D.html#a9448286ff070a8d4c6a778deec46cff1',1,'Flakkari::Engine::ECS::Systems::_3D']]],
-  ['attribution_32',['Attribution',['../d8/d3b/md__8github_2CODE__OF__CONDUCT.html#attribution',1,'']]]
+  ['an_20issue_25',['Creating an Issue',['../d2/dc1/md_CONTRIBUTING.html#creating-an-issue',1,'']]],
+  ['and_20contact_26',['Support and Contact',['../d2/dc1/md_CONTRIBUTING.html#support-and-contact',1,'']]],
+  ['and_20discussions_27',['Questions and Discussions',['../de/dd3/md__8github_2SUPPORT.html#questions-and-discussions',1,'']]],
+  ['and_20run_20strong_28',[':rocket: &lt;strong&gt;BUILD AND RUN&lt;/strong&gt;',['../d0/d30/md_README.html#rocket-build-and-run',1,'']]],
+  ['apiversion_29',['ApiVersion',['../dc/d58/namespaceFlakkari_1_1Protocol.html#a302e0d2f906390c0a05e720dc87fd30d',1,'Flakkari::Protocol']]],
+  ['apply_5fmovable_30',['apply_movable',['../dd/d08/namespaceFlakkari_1_1Engine_1_1ECS_1_1Systems_1_1__3D.html#a9448286ff070a8d4c6a778deec46cff1',1,'Flakkari::Engine::ECS::Systems::_3D']]],
+  ['attribution_31',['Attribution',['../d8/d3b/md__8github_2CODE__OF__CONDUCT.html#attribution',1,'']]]
 ];

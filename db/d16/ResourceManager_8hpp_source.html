@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Flakkari: Flakkari/Server/Game/ResourceManager.hpp (94  412 3310 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/ResourceManager.hpp) Source File</title>
+<title>Flakkari: Flakkari/Server/Game/ResourceManager.hpp (102  455 3621 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/ResourceManager.hpp) Source File</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -162,19 +162,22 @@ $(document).ready(function(){initNavTree('db/d16/ResourceManager_8hpp_source.htm
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
 <div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#a2cf6b68ab3011e338f564a28db969fb6">deleteScene</a>(<span class="keyword">const</span> std::string &amp;game, <span class="keyword">const</span> std::string &amp;scene);</div>
 <div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span> </div>
-<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    [[nodiscard]] std::optional&lt;nl_template&gt; <a class="code hl_function" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#af1a1ec392057dd4c8a819383ac59ff1f">getTemplateById</a>(<span class="keyword">const</span> std::string &amp;game, <span class="keyword">const</span> std::string &amp;scene,</div>
-<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>                                                             <span class="keyword">const</span> std::string &amp;templateId);</div>
-<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    <span class="keywordtype">void</span> <a class="code hl_function" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#a9b7c403dd9f0f2aee1cfb621ce8be218">deleteGame</a>(<span class="keyword">const</span> std::string &amp;game);</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    [[nodiscard]] std::optional&lt;nl_template&gt; <a class="code hl_function" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#af1a1ec392057dd4c8a819383ac59ff1f">getTemplateById</a>(<span class="keyword">const</span> std::string &amp;game, <span class="keyword">const</span> std::string &amp;scene,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                                                             <span class="keyword">const</span> std::string &amp;templateId);</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>};</div>
 </div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>} <span class="comment">/* namespace Flakkari */</span></div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span><span class="preprocessor">#endif </span><span class="comment">/* !RESOURCEMANAGER_HPP_ */</span><span class="preprocessor"></span></div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span> </div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>} <span class="comment">/* namespace Flakkari */</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span> </div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span><span class="preprocessor">#endif </span><span class="comment">/* !RESOURCEMANAGER_HPP_ */</span><span class="preprocessor"></span></div>
 <div class="ttc" id="aLogger_8hpp_html"><div class="ttname"><a href="../../d9/d11/Logger_8hpp.html">Logger.hpp</a></div></div>
 <div class="ttc" id="aclassFlakkari_1_1ResourceManager_html"><div class="ttname"><a href="../../d0/d1e/classFlakkari_1_1ResourceManager.html">Flakkari::ResourceManager</a></div><div class="ttdef"><b>Definition</b> ResourceManager.hpp:52</div></div>
 <div class="ttc" id="aclassFlakkari_1_1ResourceManager_html_a2cf6b68ab3011e338f564a28db969fb6"><div class="ttname"><a href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#a2cf6b68ab3011e338f564a28db969fb6">Flakkari::ResourceManager::deleteScene</a></div><div class="ttdeci">void deleteScene(const std::string &amp;game, const std::string &amp;scene)</div><div class="ttdoc">Delete a scene from the ResourceManager instance.</div><div class="ttdef"><b>Definition</b> ResourceManager.cpp:32</div></div>
 <div class="ttc" id="aclassFlakkari_1_1ResourceManager_html_a8bb03c73770d54d3484f6b22223f3bce"><div class="ttname"><a href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#a8bb03c73770d54d3484f6b22223f3bce">Flakkari::ResourceManager::~ResourceManager</a></div><div class="ttdeci">~ResourceManager()=default</div></div>
 <div class="ttc" id="aclassFlakkari_1_1ResourceManager_html_a940623adb0548aede3ba8bd8a17fe637"><div class="ttname"><a href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#a940623adb0548aede3ba8bd8a17fe637">Flakkari::ResourceManager::addScene</a></div><div class="ttdeci">void addScene(const std::shared_ptr&lt; nlohmann::json &gt; &amp;config, const std::string &amp;scene)</div><div class="ttdoc">Add a scene to the ResourceManager instance.</div><div class="ttdef"><b>Definition</b> ResourceManager.cpp:14</div></div>
+<div class="ttc" id="aclassFlakkari_1_1ResourceManager_html_a9b7c403dd9f0f2aee1cfb621ce8be218"><div class="ttname"><a href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#a9b7c403dd9f0f2aee1cfb621ce8be218">Flakkari::ResourceManager::deleteGame</a></div><div class="ttdeci">void deleteGame(const std::string &amp;game)</div><div class="ttdoc">Delete a game from the ResourceManager instance This will delete all the scenes and templates of the ...</div><div class="ttdef"><b>Definition</b> ResourceManager.cpp:40</div></div>
 <div class="ttc" id="aclassFlakkari_1_1ResourceManager_html_ab3cd3994ee285c882b542697b8f93c0f"><div class="ttname"><a href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#ab3cd3994ee285c882b542697b8f93c0f">Flakkari::ResourceManager::ResourceManager</a></div><div class="ttdeci">ResourceManager()=default</div></div>
 <div class="ttc" id="aclassFlakkari_1_1ResourceManager_html_af1a1ec392057dd4c8a819383ac59ff1f"><div class="ttname"><a href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#af1a1ec392057dd4c8a819383ac59ff1f">Flakkari::ResourceManager::getTemplateById</a></div><div class="ttdeci">std::optional&lt; nl_template &gt; getTemplateById(const std::string &amp;game, const std::string &amp;scene, const std::string &amp;templateId)</div><div class="ttdoc">Get the Template By Id object from the config file of the game.</div><div class="ttdef"><b>Definition</b> ResourceManager.cpp:35</div></div>
 <div class="ttc" id="anamespaceFlakkari_html"><div class="ttname"><a href="../../d2/da2/namespaceFlakkari.html">Flakkari</a></div><div class="ttdef"><b>Definition</b> Collider.hpp:16</div></div>

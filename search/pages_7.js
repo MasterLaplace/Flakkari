@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['guidelines_0',['CONTRIBUTING GUIDELINES',['../d2/dc1/md_CONTRIBUTING.html',1,'']]]
+  ['project_0',['Support this Project',['../d5/dbb/md__8github_2FUNDING.html',1,'']]]
 ];

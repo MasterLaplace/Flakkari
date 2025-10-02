@@ -95,7 +95,7 @@ digraph "Flakkari/Server/Internals/CommandManager.hpp"
   Node8 -> Node63 [id="edge48_Node000008_Node000063",color="steelblue1",style="solid",tooltip=" "];
   Node63 [id="Node000063",label="Protocol/PacketFactory.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d61/PacketFactory_8hpp.html",tooltip=" "];
   Node63 -> Node33 [id="edge49_Node000063_Node000033",color="steelblue1",style="solid",tooltip=" "];
-  Node33 [id="Node000033",label="config.h.in",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node33 [id="Node000033",label="flakkari_config.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node63 -> Node61 [id="edge50_Node000063_Node000061",color="steelblue1",style="solid",tooltip=" "];
   Node63 -> Node64 [id="edge51_Node000063_Node000064",color="steelblue1",style="solid",tooltip=" "];
   Node64 [id="Node000064",label="Packet.hpp",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$db/d1b/Packet_8hpp.html",tooltip=" "];

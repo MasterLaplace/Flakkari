@@ -44,6 +44,10 @@ digraph "Flakkari/Engine/EntityComponentSystem/Systems/Systems.hpp"
   Node17 -> Node18 [id="edge21_Node000017_Node000018",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node18 [id="Node000018",label="Flakkari/Server/Internals\l/CommandManager.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/dea/CommandManager_8cpp.html",tooltip=" "];
   Node17 -> Node11 [id="edge22_Node000017_Node000011",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node6 -> Node11 [id="edge23_Node000006_Node000011",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node1 -> Node5 [id="edge24_Node000001_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node6 -> Node19 [id="edge23_Node000006_Node000019",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node19 [id="Node000019",label="Flakkari/Server/Internals\l/GameDownloader.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d00/GameDownloader_8hpp.html",tooltip=" "];
+  Node19 -> Node20 [id="edge24_Node000019_Node000020",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node20 [id="Node000020",label="Flakkari/Server/Internals\l/GameDownloader.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/daf/GameDownloader_8cpp.html",tooltip=" "];
+  Node6 -> Node11 [id="edge25_Node000006_Node000011",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node1 -> Node5 [id="edge26_Node000001_Node000005",dir="back",color="steelblue1",style="solid",tooltip=" "];
 }

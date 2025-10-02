@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="Flakkari::Protocol\l::Header\< Id \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html",tooltip="Flakkari Header v1 (new header)"];
+  Node0 [id="Node000000",label="Flakkari::Protocol\l::EventAxis",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/de1/structFlakkari_1_1Protocol_1_1V__1_1_1EventAxis.html",tooltip=" "];
 }

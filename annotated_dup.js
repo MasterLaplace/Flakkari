@@ -44,7 +44,8 @@ var annotated_dup =
         ] ]
       ] ],
       [ "Internals", "d4/ded/namespaceFlakkari_1_1Internals.html", [
-        [ "CommandManager", "d5/d15/classFlakkari_1_1Internals_1_1CommandManager.html", null ]
+        [ "CommandManager", "d5/d15/classFlakkari_1_1Internals_1_1CommandManager.html", null ],
+        [ "GameDownloader", "db/d51/classFlakkari_1_1Internals_1_1GameDownloader.html", "db/d51/classFlakkari_1_1Internals_1_1GameDownloader" ]
       ] ],
       [ "Network", "db/db0/namespaceFlakkari_1_1Network.html", [
         [ "Buffer", "d4/df8/classFlakkari_1_1Network_1_1Buffer.html", "d4/df8/classFlakkari_1_1Network_1_1Buffer" ],

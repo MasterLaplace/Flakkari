@@ -137,6 +137,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2cf6b68ab3011e338f564a28db969fb6" id="r_a2cf6b68ab3011e338f564a28db969fb6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#a2cf6b68ab3011e338f564a28db969fb6">deleteScene</a> (const std::string &amp;game, const std::string &amp;scene)</td></tr>
 <tr class="memdesc:a2cf6b68ab3011e338f564a28db969fb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a scene from the <a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html">ResourceManager</a> instance.  <br /></td></tr>
 <tr class="separator:a2cf6b68ab3011e338f564a28db969fb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9b7c403dd9f0f2aee1cfb621ce8be218" id="r_a9b7c403dd9f0f2aee1cfb621ce8be218"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#a9b7c403dd9f0f2aee1cfb621ce8be218">deleteGame</a> (const std::string &amp;game)</td></tr>
+<tr class="memdesc:a9b7c403dd9f0f2aee1cfb621ce8be218"><td class="mdescLeft">&#160;</td><td class="mdescRight">Delete a game from the <a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html">ResourceManager</a> instance This will delete all the scenes and templates of the game from the <a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html">ResourceManager</a> instance.  <br /></td></tr>
+<tr class="separator:a9b7c403dd9f0f2aee1cfb621ce8be218"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1a1ec392057dd4c8a819383ac59ff1f" id="r_af1a1ec392057dd4c8a819383ac59ff1f"><td class="memItemLeft" align="right" valign="top">std::optional&lt; nl_template &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html#af1a1ec392057dd4c8a819383ac59ff1f">getTemplateById</a> (const std::string &amp;game, const std::string &amp;scene, const std::string &amp;templateId)</td></tr>
 <tr class="memdesc:af1a1ec392057dd4c8a819383ac59ff1f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the Template By Id object from the config file of the game.  <br /></td></tr>
 <tr class="separator:af1a1ec392057dd4c8a819383ac59ff1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -230,6 +233,32 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a9b7c403dd9f0f2aee1cfb621ce8be218" name="a9b7c403dd9f0f2aee1cfb621ce8be218"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9b7c403dd9f0f2aee1cfb621ce8be218">&#9670;&#160;</a></span>deleteGame()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Flakkari::ResourceManager::deleteGame </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>game</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Delete a game from the <a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html">ResourceManager</a> instance This will delete all the scenes and templates of the game from the <a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html">ResourceManager</a> instance. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">game</td><td>The game to delete from the <a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html">ResourceManager</a> instance </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a2cf6b68ab3011e338f564a28db969fb6" name="a2cf6b68ab3011e338f564a28db969fb6"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2cf6b68ab3011e338f564a28db969fb6">&#9670;&#160;</a></span>deleteScene()</h2>
 
@@ -313,8 +342,8 @@ Public Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>Flakkari/Server/Game/<a class="el" href="../../db/d16/ResourceManager_8hpp_source.html">ResourceManager.hpp (94  412 3310 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/ResourceManager.hpp)</a></li>
-<li>Flakkari/Server/Game/<a class="el" href="../../d8/d44/ResourceManager_8cpp.html">ResourceManager.cpp (40   96 1151 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/ResourceManager.cpp)</a></li>
+<li>Flakkari/Server/Game/<a class="el" href="../../db/d16/ResourceManager_8hpp_source.html">ResourceManager.hpp (102  455 3621 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/ResourceManager.hpp)</a></li>
+<li>Flakkari/Server/Game/<a class="el" href="../../d8/d44/ResourceManager_8cpp.html">ResourceManager.cpp (42  103 1238 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/ResourceManager.cpp)</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

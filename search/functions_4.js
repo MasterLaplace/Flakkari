@@ -8,5 +8,6 @@ var searchData=
   ['entity_5ffrom_5findex_5',['entity_from_index',['../d3/d58/classFlakkari_1_1Engine_1_1ECS_1_1Registry.html#a85ab8e0ea1116725eb80a5791f4b4a36',1,'Flakkari::Engine::ECS::Registry']]],
   ['erase_6',['erase',['../d5/dd2/classFlakkari_1_1Engine_1_1ECS_1_1SparseArrays.html#a9e8917ff83eeec73a5d9fc627ab9b70b',1,'Flakkari::Engine::ECS::SparseArrays']]],
   ['evolve_7',['evolve',['../d8/d1c/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Evolve.html#a12191dd397efd2cdbcc51ea2277490e8',1,'Flakkari::Engine::ECS::Components::Common::Evolve::Evolve()'],['../d8/d1c/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Evolve.html#a7860a059d5324fc0c4aac3d02502fd89',1,'Flakkari::Engine::ECS::Components::Common::Evolve::Evolve(const std::string &amp;nname)'],['../d8/d1c/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Evolve.html#a7334d036b853b5b03f3df9fa1f2a8b56',1,'Flakkari::Engine::ECS::Components::Common::Evolve::Evolve(const Evolve &amp;other)']]],
-  ['extractdata_8',['extractData',['../d4/df8/classFlakkari_1_1Network_1_1Buffer.html#ad7ad2e3a4a5727c72a585093d93cd016',1,'Flakkari::Network::Buffer']]]
+  ['extractdata_8',['extractData',['../d4/df8/classFlakkari_1_1Network_1_1Buffer.html#ad7ad2e3a4a5727c72a585093d93cd016',1,'Flakkari::Network::Buffer']]],
+  ['extractstring_9',['extractString',['../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#aa5caa609b705c9d3dceaa6d547a5dfc1',1,'Flakkari::Protocol::Packet']]]
 ];

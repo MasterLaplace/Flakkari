@@ -126,15 +126,17 @@ $(document).ready(function(){initNavTree('db/d59/structFlakkari_1_1Protocol_1_1P
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a582b8f7654507bb11286866d96e7d5c3" id="r_a582b8f7654507bb11286866d96e7d5c3"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a582b8f7654507bb11286866d96e7d5c3">size</a> () const</td></tr>
+<tr class="memdesc:a582b8f7654507bb11286866d96e7d5c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the size of the packet.  <br /></td></tr>
 <tr class="separator:a582b8f7654507bb11286866d96e7d5c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab80a9a8224dc8cff7e3490d580570345" id="r_ab80a9a8224dc8cff7e3490d580570345"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#ab80a9a8224dc8cff7e3490d580570345">to_string</a> ()</td></tr>
+<tr class="memdesc:ab80a9a8224dc8cff7e3490d580570345"><td class="mdescLeft">&#160;</td><td class="mdescRight">Convert the packet to a string.  <br /></td></tr>
 <tr class="separator:ab80a9a8224dc8cff7e3490d580570345"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a963f08b94ce3fd5c4e8ee08497a5d58c" id="r_a963f08b94ce3fd5c4e8ee08497a5d58c"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a963f08b94ce3fd5c4e8ee08497a5d58c"><td class="memTemplItemLeft" align="right" valign="top">void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a963f08b94ce3fd5c4e8ee08497a5d58c">injectComponent</a> (T component)</td></tr>
-<tr class="separator:a963f08b94ce3fd5c4e8ee08497a5d58c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a63aaa79fce263bb0de32d73a8ffdb124" id="r_a63aaa79fce263bb0de32d73a8ffdb124"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a63aaa79fce263bb0de32d73a8ffdb124">injectString</a> (std::string str)</td></tr>
-<tr class="memdesc:a63aaa79fce263bb0de32d73a8ffdb124"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inject a string into the packet.  <br /></td></tr>
-<tr class="separator:a63aaa79fce263bb0de32d73a8ffdb124"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae09336594708e0910cc950db4ca3076" id="r_aae09336594708e0910cc950db4ca3076"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#aae09336594708e0910cc950db4ca3076">injectString</a> (const std::string &amp;str)</td></tr>
+<tr class="memdesc:aae09336594708e0910cc950db4ca3076"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inject a string into the packet.  <br /></td></tr>
+<tr class="separator:aae09336594708e0910cc950db4ca3076"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa5caa609b705c9d3dceaa6d547a5dfc1" id="r_aa5caa609b705c9d3dceaa6d547a5dfc1"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#aa5caa609b705c9d3dceaa6d547a5dfc1">extractString</a> ()</td></tr>
+<tr class="memdesc:aa5caa609b705c9d3dceaa6d547a5dfc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract a string from the packet.  <br /></td></tr>
+<tr class="separator:aa5caa609b705c9d3dceaa6d547a5dfc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8979b53373cdbe1806d9cc167d6b8f91" id="r_a8979b53373cdbe1806d9cc167d6b8f91"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../d4/df8/classFlakkari_1_1Network_1_1Buffer.html">Network::Buffer</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a8979b53373cdbe1806d9cc167d6b8f91">serialize</a> () const</td></tr>
 <tr class="memdesc:a8979b53373cdbe1806d9cc167d6b8f91"><td class="mdescLeft">&#160;</td><td class="mdescRight">Serialize the packet into a buffer to be sent over the network.  <br /></td></tr>
 <tr class="separator:a8979b53373cdbe1806d9cc167d6b8f91"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -152,15 +154,20 @@ Data Fields</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
 <tr class="memitem:ab0e66e732e4add33f59a676ddf981ce7" id="r_ab0e66e732e4add33f59a676ddf981ce7"><td class="memItemLeft" align="right" valign="top">std::ostream &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#ab0e66e732e4add33f59a676ddf981ce7">operator&lt;&lt;</a> (std::ostream &amp;os, const <a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a> &amp;packet)</td></tr>
+<tr class="memdesc:ab0e66e732e4add33f59a676ddf981ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Overload the &lt;&lt; operator to print the packet.  <br /></td></tr>
 <tr class="separator:ab0e66e732e4add33f59a676ddf981ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af1139ae484c02f830f21f1eb8f844b62" id="r_af1139ae484c02f830f21f1eb8f844b62"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
 <tr class="memitem:af1139ae484c02f830f21f1eb8f844b62"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#af1139ae484c02f830f21f1eb8f844b62">operator&lt;&lt;</a> (<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;packet, const DataType &amp;data)</td></tr>
 <tr class="memdesc:af1139ae484c02f830f21f1eb8f844b62"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add data to the packet.  <br /></td></tr>
 <tr class="separator:af1139ae484c02f830f21f1eb8f844b62"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a33c19619a1a2a756eaf26eed8047bd6a" id="r_a33c19619a1a2a756eaf26eed8047bd6a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a33c19619a1a2a756eaf26eed8047bd6a">operator&lt;&lt;</a> (<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;packet, const std::string &amp;data)=delete</td></tr>
+<tr class="separator:a33c19619a1a2a756eaf26eed8047bd6a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98baa338bc9605733f740175cf508765" id="r_a98baa338bc9605733f740175cf508765"><td class="memTemplParams" colspan="2">template&lt;typename DataType &gt; </td></tr>
 <tr class="memitem:a98baa338bc9605733f740175cf508765"><td class="memTemplItemLeft" align="right" valign="top"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a98baa338bc9605733f740175cf508765">operator&gt;&gt;</a> (<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;packet, DataType &amp;data)</td></tr>
 <tr class="memdesc:a98baa338bc9605733f740175cf508765"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extract data from the packet.  <br /></td></tr>
 <tr class="separator:a98baa338bc9605733f740175cf508765"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a16a69e49a7d81d418ffa4ed4782b3d41" id="r_a16a69e49a7d81d418ffa4ed4782b3d41"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a16a69e49a7d81d418ffa4ed4782b3d41">operator&gt;&gt;</a> (<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;packet, std::string &amp;data)=delete</td></tr>
+<tr class="separator:a16a69e49a7d81d418ffa4ed4782b3d41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;typename Id&gt;<br />
@@ -232,24 +239,21 @@ false The packet has not been deserialized successfully. </dd></dl>
 
 </div>
 </div>
-<a id="a963f08b94ce3fd5c4e8ee08497a5d58c" name="a963f08b94ce3fd5c4e8ee08497a5d58c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a963f08b94ce3fd5c4e8ee08497a5d58c">&#9670;&#160;</a></span>injectComponent()</h2>
+<a id="aa5caa609b705c9d3dceaa6d547a5dfc1" name="aa5caa609b705c9d3dceaa6d547a5dfc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa5caa609b705c9d3dceaa6d547a5dfc1">&#9670;&#160;</a></span>extractString()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
 template&lt;typename Id &gt; </div>
-<div class="memtemplate">
-template&lt;typename T &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Flakkari::Protocol::Packet</a>&lt; Id &gt;::injectComponent </td>
+          <td class="memname">std::string <a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Flakkari::Protocol::Packet</a>&lt; Id &gt;::extractString </td>
           <td>(</td>
-          <td class="paramtype">T&#160;</td>
-          <td class="paramname"><em>component</em></td><td>)</td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -260,10 +264,19 @@ template&lt;typename T &gt; </div>
 </table>
 </div><div class="memdoc">
 
+<p>Extract a string from the packet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">packet</td><td>The packet to extract the string from. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::string The extracted string. </dd></dl>
+
 </div>
 </div>
-<a id="a63aaa79fce263bb0de32d73a8ffdb124" name="a63aaa79fce263bb0de32d73a8ffdb124"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a63aaa79fce263bb0de32d73a8ffdb124">&#9670;&#160;</a></span>injectString()</h2>
+<a id="aae09336594708e0910cc950db4ca3076" name="aae09336594708e0910cc950db4ca3076"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae09336594708e0910cc950db4ca3076">&#9670;&#160;</a></span>injectString()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -276,7 +289,7 @@ template&lt;typename Id &gt; </div>
         <tr>
           <td class="memname">void <a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Flakkari::Protocol::Packet</a>&lt; Id &gt;::injectString </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>str</em></td><td>)</td>
           <td></td>
         </tr>
@@ -300,7 +313,7 @@ template&lt;typename Id &gt; </div>
 <div id="dynsection-3-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-3-content" class="dyncontent" style="display:none;">
-<div class="center"><img src="../../db/d59/structFlakkari_1_1Protocol_1_1Packet_a63aaa79fce263bb0de32d73a8ffdb124_icgraph.png" border="0" usemap="#adb/d59/structFlakkari_1_1Protocol_1_1Packet_a63aaa79fce263bb0de32d73a8ffdb124_icgraph" alt=""/></div>
+<div class="center"><img src="../../db/d59/structFlakkari_1_1Protocol_1_1Packet_aae09336594708e0910cc950db4ca3076_icgraph.png" border="0" usemap="#adb/d59/structFlakkari_1_1Protocol_1_1Packet_aae09336594708e0910cc950db4ca3076_icgraph" alt=""/></div>
 </div>
 
 </div>
@@ -366,6 +379,8 @@ template&lt;typename Id &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Get the size of the packet. </p>
 <div id="dynsection-5" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-5-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-5-summary" class="dynsummary" style="display:block;">
@@ -400,6 +415,9 @@ template&lt;typename Id &gt; </div>
   </tr>
 </table>
 </div><div class="memdoc">
+
+<p>Convert the packet to a string. </p>
+<dl class="section return"><dt>Returns</dt><dd>std::string The packet as a string. </dd></dl>
 <div id="dynsection-6" onclick="return toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;">
   <img id="dynsection-6-trigger" src="../../closed.png" alt="+"/> Here is the caller graph for this function:</div>
 <div id="dynsection-6-summary" class="dynsummary" style="display:block;">
@@ -412,7 +430,7 @@ template&lt;typename Id &gt; </div>
 </div>
 <h2 class="groupheader">Friends And Related Symbol Documentation</h2>
 <a id="af1139ae484c02f830f21f1eb8f844b62" name="af1139ae484c02f830f21f1eb8f844b62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af1139ae484c02f830f21f1eb8f844b62">&#9670;&#160;</a></span>operator&lt;&lt; <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af1139ae484c02f830f21f1eb8f844b62">&#9670;&#160;</a></span>operator&lt;&lt; <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -467,8 +485,46 @@ template&lt;typename DataType &gt; </div>
 
 </div>
 </div>
+<a id="a33c19619a1a2a756eaf26eed8047bd6a" name="a33c19619a1a2a756eaf26eed8047bd6a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a33c19619a1a2a756eaf26eed8047bd6a">&#9670;&#160;</a></span>operator&lt;&lt; <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Id &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp; operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;&#160;</td>
+          <td class="paramname"><em>packet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab0e66e732e4add33f59a676ddf981ce7" name="ab0e66e732e4add33f59a676ddf981ce7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab0e66e732e4add33f59a676ddf981ce7">&#9670;&#160;</a></span>operator&lt;&lt; <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ab0e66e732e4add33f59a676ddf981ce7">&#9670;&#160;</a></span>operator&lt;&lt; <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -503,10 +559,20 @@ template&lt;typename Id &gt; </div>
 </table>
 </div><div class="memdoc">
 
+<p>Overload the &lt;&lt; operator to print the packet. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">os</td><td>The output stream. </td></tr>
+    <tr><td class="paramname">packet</td><td>The packet to print. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>std::ostream&amp; The output stream. </dd></dl>
+
 </div>
 </div>
 <a id="a98baa338bc9605733f740175cf508765" name="a98baa338bc9605733f740175cf508765"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a98baa338bc9605733f740175cf508765">&#9670;&#160;</a></span>operator&gt;&gt;</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a98baa338bc9605733f740175cf508765">&#9670;&#160;</a></span>operator&gt;&gt; <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -557,8 +623,45 @@ template&lt;typename DataType &gt; </div>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>Packet&lt;Id&gt; &amp; The packet with the data extracted.</dd></dl>
-<dl class="deprecated"><dt><b><a class="el" href="../../da/d58/deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>This function is deprecated. Don't work with std::string. Use the other operator&gt;&gt; instead. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Packet&lt;Id&gt; &amp; The packet with the data extracted. </dd></dl>
+
+</div>
+</div>
+<a id="a16a69e49a7d81d418ffa4ed4782b3d41" name="a16a69e49a7d81d418ffa4ed4782b3d41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a16a69e49a7d81d418ffa4ed4782b3d41">&#9670;&#160;</a></span>operator&gt;&gt; <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Id &gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp; operator&gt;&gt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">Packet</a>&lt; Id &gt; &amp;&#160;</td>
+          <td class="paramname"><em>packet</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">std::string &amp;&#160;</td>
+          <td class="paramname"><em>data</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -596,7 +699,7 @@ template&lt;typename Id &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Flakkari/Protocol/<a class="el" href="../../db/d1b/Packet_8hpp_source.html">Packet.hpp (176  712 6882 /home/runner/work/Flakkari/Flakkari/Flakkari/Protocol/Packet.hpp)</a></li>
+<li>Flakkari/Protocol/<a class="el" href="../../db/d1b/Packet_8hpp_source.html">Packet.hpp (204  813 7709 /home/runner/work/Flakkari/Flakkari/Flakkari/Protocol/Packet.hpp)</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

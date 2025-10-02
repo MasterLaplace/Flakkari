@@ -25,19 +25,18 @@
 var NAVTREE =
 [
   [ "Flakkari", "index.html", [
-    [ "ME : <p align=\"center\">Flakkari<br><br><img src=\"docs/Images/Flakkari.png\" alt=\"Flakkari logo\" style=\"height: 200px\"></p>", "d0/d30/md_README.html", [
-      [ ":placard: Table of Contents", "d0/d30/md_README.html#placard-table-of-contents", [
-        [ ":pencil: <strong>DESCRIPTION</strong>", "d0/d30/md_README.html#pencil-description", null ],
-        [ ":truck: <strong>RUNNING</strong>", "d0/d30/md_README.html#truck-running", [
-          [ ":hammer: <strong>BUILD COMMANDS</strong>", "d0/d30/md_README.html#hammer-build-commands", null ]
-        ] ],
-        [ ":whale: <strong>DOCKER RUN</strong>", "d0/d30/md_README.html#whale-docker-run", null ],
-        [ ":wrench: <strong>DOCUMENTATION</strong>", "d0/d30/md_README.html#wrench-documentation", null ]
+    [ "ME : Flakkari", "d0/d30/md_README.html", [
+      [ ":placard: Table of Contents", "d0/d30/md_README.html#placard-table-of-contents", null ],
+      [ ":pencil: <strong>DESCRIPTION</strong>", "d0/d30/md_README.html#pencil-description", [
+        [ ":video_game: <strong>GAMES REQUEST</strong>", "d0/d30/md_README.html#video_game-games-request", null ]
       ] ],
+      [ "</blockquote>", "d0/d30/md_README.html#blockquote", null ],
+      [ ":truck: <strong>RUNNING</strong>", "d0/d30/md_README.html#truck-running", null ],
+      [ ":whale: <strong>DOCKER RUN</strong>", "d0/d30/md_README.html#whale-docker-run", null ],
+      [ ":wrench: <strong>DOCUMENTATION</strong>", "d0/d30/md_README.html#wrench-documentation", null ],
       [ ":rocket: LATEST RELEASE", "d0/d30/md_README.html#rocket-latest-release", null ],
-      [ ":scroll: <strong>LICENSE</strong>", "d0/d30/md_README.html#scroll-license", [
-        [ ":mailbox_with_mail: <strong>CONTACTS</strong>", "d0/d30/md_README.html#mailbox_with_mail-contacts", null ]
-      ] ]
+      [ ":scroll: <strong>LICENSE</strong>", "d0/d30/md_README.html#scroll-license", null ],
+      [ ":mailbox_with_mail: <strong>CONTACTS</strong>", "d0/d30/md_README.html#mailbox_with_mail-contacts", null ]
     ] ],
     [ "Change Log", "d4/d40/md_CHANGELOG.html", [
       [ "[Unreleased]", "d4/d40/md_CHANGELOG.html#unreleased", [
@@ -70,7 +69,7 @@ var NAVTREE =
       ] ]
     ] ],
     [ "CONTRIBUTING GUIDELINES", "d2/dc1/md_CONTRIBUTING.html", [
-      [ "</blockquote>", "d2/dc1/md_CONTRIBUTING.html#blockquote", null ],
+      [ "</blockquote>", "d2/dc1/md_CONTRIBUTING.html#blockquote-1", null ],
       [ "Table of Contents", "d2/dc1/md_CONTRIBUTING.html#table-of-contents", null ],
       [ "Introduction", "d2/dc1/md_CONTRIBUTING.html#introduction", null ],
       [ "Code of Conduct", "d2/dc1/md_CONTRIBUTING.html#code-of-conduct", null ],
@@ -120,12 +119,12 @@ var NAVTREE =
       [ "Additional Resources", "de/dd3/md__8github_2SUPPORT.html#additional-resources", null ],
       [ "Question Template", "de/dd3/md__8github_2SUPPORT.html#question-template", null ]
     ] ],
-    [ "Deprecated List", "da/d58/deprecated.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
         [ "Functions", "namespacemembers_func.html", null ],
+        [ "Variables", "namespacemembers_vars.html", null ],
         [ "Typedefs", "namespacemembers_type.html", null ],
         [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
@@ -159,14 +158,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d1/d91/Socket_01class_01for_01a_01UDP_01client-example.html",
-"d4/d40/md_CHANGELOG.html#autotoc_md030---2024-11-07",
-"d6/d31/structFlakkari_1_1Protocol_1_1V__0_1_1Event.html",
-"d8/d84/namespaceFlakkari_1_1Engine_1_1Math.html#a8584df74bfeeed0fdaba7ed9d8d1a7e1",
-"db/d4e/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Control.html#a71481e0345acfda15802414213db7876",
-"dc/d58/namespaceFlakkari_1_1Protocol.html#a02a09c09d1a1e425a0e357171ccb3c9fad7aa835d76fc894935ade13f4d0624f8",
-"de/d55/structFlakkari_1_1Engine_1_1Math_1_1Vector.html#a2c990279fb0dcfc991be3593525f24cc",
-"functions_func_b.html"
+"d1/d66/Network_8cpp.html#af7789e98dd3f4a6551008f0ab4be5f4d",
+"d4/d40/md_CHANGELOG.html#added-5",
+"d6/d02/2D_2Movable_8hpp.html",
+"d8/d84/namespaceFlakkari_1_1Engine_1_1Math.html#a48ebf30ac913d5065e30606711e28572",
+"db/d4e/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Control.html#a0799d063909e9eb67708491b5861b13b",
+"dc/d4b/Commands_8hpp.html#ae68eb0705ee27e6b3c4e7362bf345914aa841eeb8af6a502b7f36388377277aa3",
+"de/d52/classFlakkari_1_1Network_1_1PSELECT.html#adcf30dda05c001c83c3befa2acbd5842",
+"dir_91bfd317f0d822e02c021ee39d31f634.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

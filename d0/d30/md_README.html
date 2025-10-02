@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.9.8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>Flakkari: ME : &lt;p align=&quot;center&quot;&gt;Flakkari&lt;br&gt;&lt;br&gt;&lt;img src=&quot;docs/Images/Flakkari.png&quot; alt=&quot;Flakkari logo&quot; style=&quot;height: 200px&quot;&gt;&lt;/p&gt;</title>
+<title>Flakkari: ME : Flakkari</title>
 <link href="../../tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="../../jquery.js"></script>
 <script type="text/javascript" src="../../dynsections.js"></script>
@@ -103,75 +103,176 @@ $(document).ready(function(){initNavTree('d0/d30/md_README.html','../../'); init
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">ME : &lt;p align="center"&gt;Flakkari&lt;br&gt;&lt;br&gt;&lt;img src="docs/Images/Flakkari.png" alt="Flakkari logo" style="height: 200px"&gt;&lt;/p&gt;</div></div>
+  <div class="headertitle"><div class="title">ME : Flakkari</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p align="center"><a class="anchor" id="me--p-aligncenterflakkaribrbrimg-srcdocsimagesflakkaripng-altflakkari-logo-styleheight-200pxp"></a> </p>
+<div class="textblock"><p align="center"><a class="anchor" id="me--flakkari"></a> </p>
+<p><img src="../../docs/Images/Flakkari.png" alt="Flakkari logo" style="height: 200px" class="inline"/> </p>
+<p align="center"></p>
 <h3 align="center">📦 Download &amp;#xa0; : &amp;#xa0; <a href="https://github.com/MasterLaplace/Flakkari/releases/latest/"><img src="https://img.shields.io/github/v/release/MasterLaplace/Flakkari.svg?label=Latest%20Version&amp;style=for-the-badge" alt="Latest Version" style="pointer-events: none;" class="inline"/> </a>&amp;#xa0; | &amp;#xa0; 📜 License &amp;#xa0; : &amp;#xa0; <a href="https://github.com/MasterLaplace/Flakkari/blob/main/LICENSE"><img src="https://img.shields.io/badge/License-MIT-brightgreen.svg?style=for-the-badge" alt="License: MIT" style="pointer-events: none;" class="inline"/> </a> </h3>
 <p align="center"></p>
 <h3 align="center">🌐 Supported Platforms &amp;#xa0; : &amp;#xa0; <img src="https://img.shields.io/badge/Linux-blue?style=for-the-badge" alt="Linux deb" href="https://github.com/MasterLaplace/Flakkari/releases/latest/download/flakkari-linux.deb" class="inline"/> &amp;#xa0; | &amp;#xa0; <img src="https://img.shields.io/badge/Windows-blue?style=for-the-badge" alt="Windows" href="https://github.com/MasterLaplace/Flakkari/releases/latest/download/flakkari-win64.exe" class="inline"/> &amp;#xa0; | &amp;#xa0; <img src="https://img.shields.io/badge/MacOS-blue?style=for-the-badge" alt="MacOS" href="https://github.com/MasterLaplace/Flakkari/releases/latest/download/flakkari-macos.pkg" class="inline"/> </h3>
 <p align="center"></p>
 <h3 align="center">📡 Supported Protocol &amp;#xa0; : &amp;#xa0; <img src="https://img.shields.io/badge/UDP-blue?style=for-the-badge" alt="UDP" class="inline"/> &amp;#xa0; | &amp;#xa0; <img src="https://img.shields.io/badge/TCP-blue?style=for-the-badge" alt="TCP" class="inline"/> </h3>
+<hr  />
 <h1><a class="anchor" id="placard-table-of-contents"></a>
 :placard: Table of Contents</h1>
 <ul>
-<li>Description</li>
-<li>Running</li>
+<li>Description<ul>
+<li><a class="el" href="../../d0/d30/md_README.html#video_game-games-request">Games Request</a></li>
+</ul>
+</li>
+<li>Running<ul>
+<li><a class="el" href="../../d0/d30/md_README.html#gear-environment-setup">Environment Setup</a></li>
+<li><a class="el" href="../../d0/d30/md_README.html#rocket-build-and-run">Build and Run</a></li>
+<li><a class="el" href="../../d0/d30/md_README.html#gear-build-modes">Build Modes</a></li>
+<li><a class="el" href="../../d0/d30/md_README.html#hammer-build-commands">Build Commands</a></li>
+<li>Package Installation</li>
+<li><a class="el" href="../../d0/d30/md_README.html#earth_asia-environment-variables">Environment Variables</a></li>
+</ul>
+</li>
 <li>Docker</li>
 <li>Documentation</li>
 <li>Latest Release</li>
 <li>License</li>
 <li>Contacts</li>
 </ul>
-<div id="description"></div><h2><a class="anchor" id="pencil-description"></a>
-:pencil: &lt;strong&gt;DESCRIPTION&lt;/strong&gt;</h2>
+<hr  />
+<div id="description"></div><h1><a class="anchor" id="pencil-description"></a>
+:pencil: &lt;strong&gt;DESCRIPTION&lt;/strong&gt;</h1>
 <p><a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> is a UDP/TCP server initially developed for the R-Type Epitech project and updated for the Video Games course at University Laval. It enables network-based gameplay, supporting multiple games and clients simultaneously through its multi-threaded architecture. The server is designed to handle high concurrency and ensure low latency, making it suitable for real-time multiplayer games. <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> also includes features such as game state synchronization, player authentication, and robust error handling to provide a seamless gaming experience.</p>
+<p><b>🔄 Auto-Update Feature:</b> <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> supports automatic game downloads from remote repositories, allowing the server to fetch and update games dynamically. This feature can be disabled for environments requiring pure MIT licensing.</p>
 <p><a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> also has a Unity client library to facilitate the development of multiplayer games. This library is available in C# and can be used to connect to the <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> server, send and receive messages and manage game events. It is designed to be easy to integrate into existing game projects and provides advanced features to simplify the development of multiplayer games.</p>
 <blockquote class="doxtable">
 <p>&zwj;[!NOTE] The project is still under development and may not be stable. </p>
 </blockquote>
-<div id="running"></div><h2><a class="anchor" id="truck-running"></a>
-:truck: &lt;strong&gt;RUNNING&lt;/strong&gt;</h2>
+<div id="video_game-games-request"></div><h2><a class="anchor" id="video_game-games-request"></a>
+:video_game: &lt;strong&gt;GAMES REQUEST&lt;/strong&gt;</h2>
+<p>We provide a game request system that allows you to request a game to be added to the server. To do so, please open an <a href="https://github.com/MasterLaplace/Flakkari/issues/new/choose">Github Issues</a>. Select the <code>Game Request</code> template and provide the information following the template. We will gladly review your request and add the game to the server if it meets the requirements.</p>
+<p>The available games are listed in the [Games](Games) directory. Each game has its own configuration file. The server will load the games from this directory and make them available to clients. The main advantage of this system is that you can add new games without modifying the server code. The server will automatically update the list of available games when it starts or when a new game is added/removed/modified in the remote directory.</p>
+<p>And if you want to add a new game, you can follow the Game Configuration guide.</p>
+<blockquote class="doxtable">
+<p>&zwj;[!WARNING] Before submitting a game request, please make sure that the game you are requesting is not already in the repository. Also, be aware that the game you are requesting must be open-source and must comply with the Code Of Conduct. </p>
+</blockquote>
+<h1><a class="anchor" id="blockquote"></a>
+&lt;/blockquote&gt;</h1>
+<div id="running"></div><h1><a class="anchor" id="truck-running"></a>
+:truck: &lt;strong&gt;RUNNING&lt;/strong&gt;</h1>
+<div id="gear-environment-setup"></div><h3><a class="anchor" id="gear-environment-setup"></a>
+:gear: &lt;strong&gt;ENVIRONMENT SETUP&lt;/strong&gt;</h3>
+<p>Before running the server, you need to set the game directory environment variable:</p>
+<div class="fragment"><div class="line"># Set the games directory environment variable</div>
+<div class="line">export FLAKKARI_GAME_DIR=&quot;/path/to/your/Games&quot;</div>
+<div class="line"> </div>
+<div class="line"># For the current project structure:</div>
+<div class="line">export FLAKKARI_GAME_DIR=&quot;$(pwd)/Games&quot;</div>
+<div class="line"> </div>
+<div class="line"># Or use absolute path:</div>
+<div class="line">export FLAKKARI_GAME_DIR=&quot;/home/user/Flakkari/Games&quot;</div>
+</div><!-- fragment --><blockquote class="doxtable">
+<p>&zwj;[!NOTE] <b>FLAKKARI_GAME_DIR:</b> This environment variable specifies the default directory containing game configurations. It's used as a fallback when no game directory is provided via command-line arguments. </p>
+</blockquote>
+<div id="rocket-build-and-run"></div><h3><a class="anchor" id="rocket-build-and-run"></a>
+:rocket: &lt;strong&gt;BUILD AND RUN&lt;/strong&gt;</h3>
 <div class="fragment"><div class="line"># Clone repository</div>
 <div class="line">$&gt; git clone https://github.com/MasterLaplace/Flakkari.git</div>
 <div class="line">$&gt; cd Flakkari</div>
 <div class="line"> </div>
-<div class="line"># Create a build directory</div>
-<div class="line">$&gt; mkdir build</div>
-<div class="line">$&gt; cd build</div>
+<div class="line"># Set environment variable</div>
+<div class="line">$&gt; export FLAKKARI_GAME_DIR=&quot;$(pwd)/Games&quot;</div>
 <div class="line"> </div>
-<div class="line"># Configure the project</div>
-<div class="line">(build)$&gt; cmake .. &amp;&amp; cmake --build .</div>
+<div class="line"># Build with XMake (recommended, cross-platform)</div>
+<div class="line">$&gt; xmake</div>
 <div class="line"> </div>
-<div class="line"># Or configure the project with Ninja</div>
-<div class="line">(build)$&gt; cmake -G Ninja .. &amp;&amp; cmake --build .</div>
+<div class="line"># Alternative: Build with CMake</div>
+<div class="line">$&gt; mkdir build &amp;&amp; cd build</div>
+<div class="line">$&gt; cmake .. &amp;&amp; cmake --build .</div>
 <div class="line"> </div>
 <div class="line"># Run the server executable</div>
-<div class="line">(build)$&gt; ./flakkari &lt;GamesDir&gt; &lt;ip&gt; &lt;port&gt;</div>
-</div><!-- fragment --><p>To run the server with</p><ul>
+<div class="line">$&gt; xmake run</div>
+<div class="line"># Or manually: ./build/linux/x86_64/release/flakkari</div>
+<div class="line"> </div>
+<div class="line"># Alternative: Run with explicit arguments (no env variable needed):</div>
+<div class="line">$&gt; ./build/linux/x86_64/release/flakkari -g Games -i localhost -p 8081</div>
+<div class="line"># XMake: or on Windows: .\build\windows\x64\release\flakkari.exe -g Games -i localhost -p 8081</div>
+<div class="line"># CMake: or from build directory: ./flakkari -g Games -i localhost -p 8081</div>
+</div><!-- fragment --><p>To run the server with</p>
+<ul>
 <li>the games directory: <code>./Games</code> that contains the games configurations</li>
 <li>the IP address: <code>localhost</code></li>
 <li>the port: <code>8081</code></li>
 </ul>
 <p>expected architecture of the games list directory:</p>
 <div class="fragment"><div class="line">Games</div>
+<div class="line">├── Game_01.json</div>
 <div class="line">├── Game_01</div>
-<div class="line">│   ├── assets</div>
 <div class="line">│   └── config.cfg</div>
+<div class="line">├── Game_02.json</div>
 <div class="line">└── Game_02</div>
 <div class="line">    └── config.cfg</div>
-</div><!-- fragment --><h3><a class="anchor" id="hammer-build-commands"></a>
+</div><!-- fragment --><div id="gear-build-modes"></div><h3><a class="anchor" id="gear-build-modes"></a>
+:gear: &lt;strong&gt;BUILD MODES&lt;/strong&gt;</h3>
+<p><a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> supports two compilation modes to accommodate different license requirements:</p>
+<p><b>🔄 Full Mode (with auto-update) - Default:</b></p>
+<div class="fragment"><div class="line"># Enable auto-update functionality (default)</div>
+<div class="line">$&gt; xmake config --with-autoupdate=true</div>
+<div class="line">$&gt; xmake</div>
+<div class="line"> </div>
+<div class="line"># Features: Automatic game downloads from remote repositories</div>
+<div class="line"># Dependencies: libgit2 (GPL-2.0), libcurl, OpenSSL 3.0+</div>
+<div class="line"># License: MIT + GPL dependencies for auto-update feature</div>
+</div><!-- fragment --><p><b>🪶 Lightweight Mode (MIT-only):</b></p>
+<div class="fragment"><div class="line"># Disable auto-update for pure MIT license</div>
+<div class="line">$&gt; xmake config --with-autoupdate=false</div>
+<div class="line">$&gt; xmake</div>
+<div class="line"> </div>
+<div class="line"># Features: Core server functionality only</div>
+<div class="line"># Dependencies: nlohmann_json, singleton (MIT)</div>
+<div class="line"># License: Pure MIT, no GPL dependencies</div>
+</div><!-- fragment --><blockquote class="doxtable">
+<p>&zwj;[!NOTE] <b>License Considerations:</b> The auto-update feature uses libgit2 (GPL-2.0-only). When enabled, the resulting binary includes GPL dependencies. For commercial use or MIT-only deployments, use <code>--with-autoupdate=false</code> to build a lightweight version with pure MIT licensing. </p>
+</blockquote>
+<div id="hammer-build-commands"></div><h3><a class="anchor" id="hammer-build-commands"></a>
 :hammer: &lt;strong&gt;BUILD COMMANDS&lt;/strong&gt;</h3>
-<p>other build commands: </p><div class="fragment"><div class="line"># Install the project</div>
+<p><b>XMake commands:</b></p>
+<div class="fragment"><div class="line"># Clean build files</div>
+<div class="line">$&gt; xmake clean</div>
+<div class="line"> </div>
+<div class="line"># Build in debug mode</div>
+<div class="line">$&gt; xmake f -m debug &amp;&amp; xmake</div>
+<div class="line"> </div>
+<div class="line"># Build in release mode (default)</div>
+<div class="line">$&gt; xmake f -m release &amp;&amp; xmake</div>
+<div class="line"> </div>
+<div class="line"># Install the project</div>
+<div class="line">$&gt; xmake install</div>
+<div class="line"> </div>
+<div class="line"># Package the project</div>
+<div class="line">$&gt; xmake pack</div>
+<div class="line"> </div>
+<div class="line"># Run tests (if available)</div>
+<div class="line">$&gt; xmake test</div>
+</div><!-- fragment --><p><b>Alternative CMake commands:</b></p>
+<div class="fragment"><div class="line"># Create build directory</div>
+<div class="line">$&gt; mkdir build &amp;&amp; cd build</div>
+<div class="line"> </div>
+<div class="line"># Configure the project</div>
+<div class="line">(build)$&gt; cmake .. &amp;&amp; cmake --build .</div>
+<div class="line"> </div>
+<div class="line"># Or configure with Ninja</div>
+<div class="line">(build)$&gt; cmake -G Ninja .. &amp;&amp; cmake --build .</div>
+<div class="line"> </div>
+<div class="line"># Install the project</div>
 <div class="line">(build)$&gt; sudo cmake --build . --target install</div>
 <div class="line"> </div>
-<div class="line"># Build project documentation</div>
+<div class="line"># Build documentation</div>
 <div class="line">(build)$&gt; cmake --build . --target doc</div>
 <div class="line"> </div>
-<div class="line"># Build project package</div>
+<div class="line"># Build package</div>
 <div class="line">(build)$&gt; cmake --build . --config Release --target package</div>
-<div class="line"> </div>
-<div class="line"># Install the package</div>
+</div><!-- fragment --><div id="package-installation"></div><h3><a class="anchor" id="autotoc_md-package-installation"></a>
+📦 &lt;strong&gt;PACKAGE INSTALLATION&lt;/strong&gt;</h3>
+<div class="fragment"><div class="line"># Install the package</div>
 <div class="line"># For windows systems</div>
 <div class="line">(build)$&gt; flakkari-win64.exe</div>
 <div class="line"> </div>
@@ -183,8 +284,21 @@ $(document).ready(function(){initNavTree('d0/d30/md_README.html','../../'); init
 <div class="line"> </div>
 <div class="line"># For debian based systems</div>
 <div class="line">(build)$&gt; sudo dpkg -i flakkari-linux.deb</div>
-</div><!-- fragment --><div id="docker"></div><h2><a class="anchor" id="whale-docker-run"></a>
-:whale: &lt;strong&gt;DOCKER RUN&lt;/strong&gt;</h2>
+</div><!-- fragment --><div id="earth_asia-environment-variables"></div><h3><a class="anchor" id="earth_asia-environment-variables"></a>
+:earth_asia: &lt;strong&gt;ENVIRONMENT VARIABLES&lt;/strong&gt;</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Variable   </th><th class="markdownTableHeadNone">Description   </th><th class="markdownTableHeadNone">Example   </th><th class="markdownTableHeadNone">Required    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone"><code>FLAKKARI_GAME_DIR</code>   </td><td class="markdownTableBodyNone">Default directory containing game configurations   </td><td class="markdownTableBodyNone"><code>./Games</code> or <code>/path/to/games</code>   </td><td class="markdownTableBodyNone">Yes*   </td></tr>
+</table>
+<blockquote class="doxtable">
+<p>&zwj;[!NOTE] ***Required when:** No game directory is specified via <code>-g/--games</code> command-line argument. </p>
+</blockquote>
+<p>The <code>FLAKKARI_GAME_DIR</code> environment variable serves as a fallback location for game configurations when not explicitly provided through command-line arguments.</p>
+<hr  />
+<div id="docker"></div><h1><a class="anchor" id="whale-docker-run"></a>
+:whale: &lt;strong&gt;DOCKER RUN&lt;/strong&gt;</h1>
 <div class="fragment"><div class="line"># install docker on ubuntu</div>
 <div class="line">$ sudo apt-get update</div>
 <div class="line">$ sudo apt-get install docker-ce docker-ce-cli containerd.io</div>
@@ -207,14 +321,18 @@ $(document).ready(function(){initNavTree('d0/d30/md_README.html','../../'); init
 <div class="line"> </div>
 <div class="line"># remove docker image</div>
 <div class="line">$ docker rm &lt;container-id&gt;</div>
-</div><!-- fragment --><div id="documentation"></div><h2><a class="anchor" id="wrench-documentation"></a>
-:wrench: &lt;strong&gt;DOCUMENTATION&lt;/strong&gt;</h2>
-<p>Wiki:</p><ul>
+</div><!-- fragment --><hr  />
+<div id="documentation"></div><h1><a class="anchor" id="wrench-documentation"></a>
+:wrench: &lt;strong&gt;DOCUMENTATION&lt;/strong&gt;</h1>
+<p>Wiki:</p>
+<ul>
 <li><a href="https://MasterLaplace.github.io/Flakkari/"><b>Technical Documentation &amp; Wiki</b></a></li>
 </ul>
-<p>For detailed documentation on the <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> protocol, see:</p><ul>
+<p>For detailed documentation on the <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> protocol, see:</p>
+<ul>
 <li><a href="../../docs/RFC.txt"><b>Flakkari Protocol Documentation</b></a></li>
 </ul>
+<hr  />
 <h1><a class="anchor" id="rocket-latest-release"></a>
 :rocket: LATEST RELEASE</h1>
 <blockquote class="doxtable">
@@ -223,12 +341,20 @@ $(document).ready(function(){initNavTree('d0/d30/md_README.html','../../'); init
 <ul>
 <li><a href="https://github.com/MasterLaplace/Flakkari/releases/latest/"><img src="https://img.shields.io/github/v/release/MasterLaplace/Flakkari.svg?label=version" alt="Latest Release" style="pointer-events: none;" class="inline"/></a></li>
 </ul>
+<hr  />
 <div id="license"></div><h1><a class="anchor" id="scroll-license"></a>
 :scroll: &lt;strong&gt;LICENSE&lt;/strong&gt;</h1>
 <p>This project is licensed under the terms of the <a href="../.././LICENSE">MIT License</a>.</p>
+<p><b>License Considerations:</b></p>
+<ul>
+<li><b>Core <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> Library:</b> MIT License</li>
+<li><b>Auto-Update Feature:</b> When enabled (<code>--with-autoupdate=true</code>), includes libgit2 (GPL-2.0-only) dependency</li>
+<li><b>Lightweight Build:</b> Use <code>--with-autoupdate=false</code> for pure MIT licensing without GPL dependencies</li>
+</ul>
 <p>Copyright © 2023-2024 <a href="https://github.com/MasterLaplace">Master_Laplace</a>.</p>
-<div id="contacts"></div><h2><a class="anchor" id="mailbox_with_mail-contacts"></a>
-:mailbox_with_mail: &lt;strong&gt;CONTACTS&lt;/strong&gt;</h2>
+<hr  />
+<div id="contacts"></div><h1><a class="anchor" id="mailbox_with_mail-contacts"></a>
+:mailbox_with_mail: &lt;strong&gt;CONTACTS&lt;/strong&gt;</h1>
 <p>This server project has been carried out by:</p>
 <table align="center">
 <tr>
@@ -236,7 +362,7 @@ $(document).ready(function(){initNavTree('d0/d30/md_README.html','../../'); init
 <img src="https://img.shields.io/github/followers/MasterLaplace?label=Master_Laplace&amp;style=social" alt="Master_Laplace" class="inline"/></a>   </td></tr>
 </table>
 <hr  />
- <p>ME.inc</p>
+<p>ME.inc</p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

@@ -9,5 +9,5 @@ digraph "Flakkari::Protocol::PacketFactory::addCommonsToPacketByEntity"
   Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
   Node2 [id="Node000002",label="Flakkari::Engine::ECS\l::Registry::getComponents",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d3/d58/classFlakkari_1_1Engine_1_1ECS_1_1Registry.html#a21047c1f21371e92ad27e347f0af5371",tooltip="Get the Components object from the registry."];
   Node1 -> Node3 [id="edge2_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="Flakkari::Protocol\l::Packet::injectString",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a63aaa79fce263bb0de32d73a8ffdb124",tooltip="Inject a string into the packet."];
+  Node3 [id="Node000003",label="Flakkari::Protocol\l::Packet::injectString",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#aae09336594708e0910cc950db4ca3076",tooltip="Inject a string into the packet."];
 }

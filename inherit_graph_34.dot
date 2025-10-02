@@ -5,5 +5,5 @@ digraph "Graphical Class Hierarchy"
   edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
   node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
   rankdir="LR";
-  Node0 [id="Node000000",label="Flakkari::Network::\lPPOLL",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/dec/classFlakkari_1_1Network_1_1PPOLL.html",tooltip="PPOLL is a class that represents a PPOLL."];
+  Node0 [id="Node000000",label="Flakkari::Network::\lPacketQueue\< T \>",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/df5/classFlakkari_1_1Network_1_1PacketQueue.html",tooltip=" "];
 }

@@ -52,8 +52,12 @@ digraph "Flakkari/Engine/EntityComponentSystem/Components/Common/Tag.hpp"
   Node21 -> Node22 [id="edge25_Node000021_Node000022",dir="back",color="steelblue1",style="solid",tooltip=" "];
   Node22 [id="Node000022",label="Flakkari/Server/Internals\l/CommandManager.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/dea/CommandManager_8cpp.html",tooltip=" "];
   Node21 -> Node15 [id="edge26_Node000021_Node000015",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node10 -> Node15 [id="edge27_Node000010_Node000015",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node5 -> Node9 [id="edge28_Node000005_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node3 -> Node9 [id="edge29_Node000003_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
-  Node2 -> Node8 [id="edge30_Node000002_Node000008",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node10 -> Node23 [id="edge27_Node000010_Node000023",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node23 [id="Node000023",label="Flakkari/Server/Internals\l/GameDownloader.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d00/GameDownloader_8hpp.html",tooltip=" "];
+  Node23 -> Node24 [id="edge28_Node000023_Node000024",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node24 [id="Node000024",label="Flakkari/Server/Internals\l/GameDownloader.cpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$dd/daf/GameDownloader_8cpp.html",tooltip=" "];
+  Node10 -> Node15 [id="edge29_Node000010_Node000015",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node5 -> Node9 [id="edge30_Node000005_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node3 -> Node9 [id="edge31_Node000003_Node000009",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 -> Node8 [id="edge32_Node000002_Node000008",dir="back",color="steelblue1",style="solid",tooltip=" "];
 }

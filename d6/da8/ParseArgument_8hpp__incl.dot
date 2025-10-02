@@ -45,7 +45,7 @@ digraph "Flakkari/ParseArgument.hpp"
   Node12 -> Node66 [id="edge21_Node000012_Node000066",color="steelblue1",style="solid",tooltip=" "];
   Node66 [id="Node000066",label="Protocol/PacketFactory.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d61/PacketFactory_8hpp.html",tooltip=" "];
   Node66 -> Node37 [id="edge22_Node000066_Node000037",color="steelblue1",style="solid",tooltip=" "];
-  Node37 [id="Node000037",label="config.h.in",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node37 [id="Node000037",label="flakkari_config.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node66 -> Node64 [id="edge23_Node000066_Node000064",color="steelblue1",style="solid",tooltip=" "];
   Node66 -> Node67 [id="edge24_Node000066_Node000067",color="steelblue1",style="solid",tooltip=" "];
   Node67 [id="Node000067",label="Packet.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d1b/Packet_8hpp.html",tooltip=" "];

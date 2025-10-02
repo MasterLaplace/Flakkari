@@ -7,7 +7,7 @@ var searchData=
   ['registryentitybytemplate_4',['RegistryEntityByTemplate',['../dd/d19/namespaceFlakkari_1_1Engine_1_1ECS_1_1Factory.html#a030cc94b504689dc5b0794f123bd3cc6',1,'Flakkari::Engine::ECS::Factory']]],
   ['remove_5fcomponent_5',['remove_component',['../d3/d58/classFlakkari_1_1Engine_1_1ECS_1_1Registry.html#afec03d0edf17b2ad7098604ae70d0f33',1,'Flakkari::Engine::ECS::Registry']]],
   ['removeclient_6',['removeClient',['../d5/da5/classFlakkari_1_1ClientManager.html#ae2b5d566645a617a7826112ddb1f2052',1,'Flakkari::ClientManager']]],
-  ['removeclientfromgame_7',['removeClientFromGame',['../dc/de7/classFlakkari_1_1GameManager.html#a506a7b3c2808703cb84cf8b69c1bbe78',1,'Flakkari::GameManager']]],
+  ['removeclientfromgame_7',['removeClientFromGame',['../dc/de7/classFlakkari_1_1GameManager.html#a23c2e3a0244edaf982ed5bfed813bd86',1,'Flakkari::GameManager']]],
   ['removegame_8',['removeGame',['../dc/de7/classFlakkari_1_1GameManager.html#a634995d64835d39036f3e3b0240c53a1',1,'Flakkari::GameManager']]],
   ['removeplayer_9',['removePlayer',['../dd/ddd/classFlakkari_1_1Game.html#a223cb1b29ff76b417f493a3c74144160',1,'Flakkari::Game']]],
   ['removesocket_10',['removesocket',['../de/d52/classFlakkari_1_1Network_1_1PSELECT.html#ada5ca62af44f63d653295758ca3f7055',1,'Flakkari::Network::PSELECT::removeSocket()'],['../d6/dec/classFlakkari_1_1Network_1_1PPOLL.html#a6cb1aa49875d845d2663b9081c2fa0cb',1,'Flakkari::Network::PPOLL::removeSocket()']]],

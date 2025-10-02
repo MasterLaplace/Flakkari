@@ -43,7 +43,7 @@ digraph "Flakkari::Game::Game"
   Node16 -> Node18 [id="edge19_Node000016_Node000018",color="steelblue1",style="solid",tooltip=" "];
   Node18 [id="Node000018",label="Flakkari::Engine::ECS\l::Components::_3D::SphereCollider::size",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/d45/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1SphereCollider.html#a2132343ffc9d0ebec899db7c8ed7440c",tooltip=" "];
   Node9 -> Node19 [id="edge20_Node000009_Node000019",color="steelblue1",style="solid",tooltip=" "];
-  Node19 [id="Node000019",label="Flakkari::Protocol\l::Packet::injectString",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a63aaa79fce263bb0de32d73a8ffdb124",tooltip="Inject a string into the packet."];
+  Node19 [id="Node000019",label="Flakkari::Protocol\l::Packet::injectString",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#aae09336594708e0910cc950db4ca3076",tooltip="Inject a string into the packet."];
   Node9 -> Node20 [id="edge21_Node000009_Node000020",color="steelblue1",style="solid",tooltip=" "];
   Node20 [id="Node000020",label="Flakkari::Engine::ECS\l::Systems::_2D::position",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d92/namespaceFlakkari_1_1Engine_1_1ECS_1_1Systems_1_1__2D.html#aab7adbed4293a12c180840bde1569d88",tooltip="Updates the position of all entities with a Position and a Movable component based on their velocity."];
   Node20 -> Node13 [id="edge22_Node000020_Node000013",color="steelblue1",style="solid",tooltip=" "];

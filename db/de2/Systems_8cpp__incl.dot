@@ -76,7 +76,7 @@ digraph "Flakkari/Engine/EntityComponentSystem/Systems/Systems.cpp"
   Node42 [id="Node000042",label="Common/Health.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d6/d38/Health_8hpp.html",tooltip=" "];
   Node42 -> Node7 [id="edge36_Node000042_Node000007",color="steelblue1",style="solid",tooltip=" "];
   Node42 -> Node26 [id="edge37_Node000042_Node000026",color="steelblue1",style="solid",tooltip=" "];
-  Node26 [id="Node000026",label="config.h.in",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node26 [id="Node000026",label="flakkari_config.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node39 -> Node43 [id="edge38_Node000039_Node000043",color="steelblue1",style="solid",tooltip=" "];
   Node43 [id="Node000043",label="Common/Id.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d0/dbe/Id_8hpp.html",tooltip=" "];
   Node43 -> Node8 [id="edge39_Node000043_Node000008",color="steelblue1",style="solid",tooltip=" "];

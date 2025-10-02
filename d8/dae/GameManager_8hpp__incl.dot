@@ -96,7 +96,7 @@ digraph "Flakkari/Server/Game/GameManager.hpp"
   Node6 -> Node61 [id="edge49_Node000006_Node000061",color="steelblue1",style="solid",tooltip=" "];
   Node61 [id="Node000061",label="Protocol/PacketFactory.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d61/PacketFactory_8hpp.html",tooltip=" "];
   Node61 -> Node31 [id="edge50_Node000061_Node000031",color="steelblue1",style="solid",tooltip=" "];
-  Node31 [id="Node000031",label="config.h.in",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node31 [id="Node000031",label="flakkari_config.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node61 -> Node59 [id="edge51_Node000061_Node000059",color="steelblue1",style="solid",tooltip=" "];
   Node61 -> Node62 [id="edge52_Node000061_Node000062",color="steelblue1",style="solid",tooltip=" "];
   Node62 [id="Node000062",label="Packet.hpp",height=0.2,width=0.4,color="red", fillcolor="#FFF0F0", style="filled",URL="$db/d1b/Packet_8hpp.html",tooltip=" "];

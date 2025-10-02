@@ -7,7 +7,7 @@ var classFlakkari_1_1GameManager =
     [ "getIndexInWaitingQueue", "dc/de7/classFlakkari_1_1GameManager.html#a94a61db9e4faeec8119a7f85a00b706a", null ],
     [ "isClientWaiting", "dc/de7/classFlakkari_1_1GameManager.html#a31adb064dc9490403c47481203c4d125", null ],
     [ "listGames", "dc/de7/classFlakkari_1_1GameManager.html#a67b734ceba74a48925d7085b2ca34082", null ],
-    [ "removeClientFromGame", "dc/de7/classFlakkari_1_1GameManager.html#a506a7b3c2808703cb84cf8b69c1bbe78", null ],
+    [ "removeClientFromGame", "dc/de7/classFlakkari_1_1GameManager.html#a23c2e3a0244edaf982ed5bfed813bd86", null ],
     [ "removeGame", "dc/de7/classFlakkari_1_1GameManager.html#a634995d64835d39036f3e3b0240c53a1", null ],
     [ "updateGame", "dc/de7/classFlakkari_1_1GameManager.html#a6953f181b45d50081efc2b60b4e1049c", null ]
 ];

@@ -26,7 +26,7 @@ digraph "Flakkari/Network/Network.hpp"
   Node3 -> Node11 [id="edge10_Node000003_Node000011",color="steelblue1",style="solid",tooltip=" "];
   Node11 [id="Node000011",label="../Logger/Logger.hpp",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d9/d11/Logger_8hpp.html",tooltip=" "];
   Node11 -> Node12 [id="edge11_Node000011_Node000012",color="steelblue1",style="solid",tooltip=" "];
-  Node12 [id="Node000012",label="config.h.in",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node12 [id="Node000012",label="flakkari_config.h",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node11 -> Node13 [id="edge12_Node000011_Node000013",color="steelblue1",style="solid",tooltip=" "];
   Node13 [id="Node000013",label="chrono",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
   Node11 -> Node14 [id="edge13_Node000011_Node000014",color="steelblue1",style="solid",tooltip=" "];

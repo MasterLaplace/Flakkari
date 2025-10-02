@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['height_3a_20200px_20p_0',['ME : &lt;p align=&quot;center&quot;&gt;Flakkari&lt;br&gt;&lt;br&gt;&lt;img src=&quot;docs/Images/Flakkari.png&quot; alt=&quot;Flakkari logo&quot; style=&quot;height: 200px&quot;&gt;&lt;/p&gt;',['../d0/d30/md_README.html',1,'']]]
+  ['support_20for_20flakkari_0',['Support for Flakkari',['../de/dd3/md__8github_2SUPPORT.html',1,'']]],
+  ['support_20this_20project_1',['Support this Project',['../d5/dbb/md__8github_2FUNDING.html',1,'']]]
 ];

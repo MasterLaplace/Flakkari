@@ -22,6 +22,7 @@ var hierarchy =
     [ "Flakkari::Protocol::V_1::EventAxis", "d3/de1/structFlakkari_1_1Protocol_1_1V__1_1_1EventAxis.html", null ],
     [ "Flakkari::Engine::ECS::Components::Common::Evolve", "d8/d1c/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Evolve.html", null ],
     [ "Flakkari::Game", "dd/ddd/classFlakkari_1_1Game.html", null ],
+    [ "Flakkari::Internals::GameDownloader", "db/d51/classFlakkari_1_1Internals_1_1GameDownloader.html", null ],
     [ "Flakkari::Protocol::Header< Id >", "db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html", null ],
     [ "Flakkari::Protocol::V_0::Header< Id >", "da/da1/structFlakkari_1_1Protocol_1_1V__0_1_1Header.html", null ],
     [ "Flakkari::Protocol::V_1::Header< Id >", "db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html", null ],

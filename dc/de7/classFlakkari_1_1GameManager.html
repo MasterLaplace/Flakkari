@@ -148,9 +148,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9c4f19fcde0aa230d785b5df8bc2819e" id="r_a9c4f19fcde0aa230d785b5df8bc2819e"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de7/classFlakkari_1_1GameManager.html#a9c4f19fcde0aa230d785b5df8bc2819e">addClientToGame</a> (const std::string &amp;gameName, std::shared_ptr&lt; <a class="el" href="../../d9/d34/classFlakkari_1_1Client.html">Client</a> &gt; client)</td></tr>
 <tr class="memdesc:a9c4f19fcde0aa230d785b5df8bc2819e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Add a client to a game.  <br /></td></tr>
 <tr class="separator:a9c4f19fcde0aa230d785b5df8bc2819e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a506a7b3c2808703cb84cf8b69c1bbe78" id="r_a506a7b3c2808703cb84cf8b69c1bbe78"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de7/classFlakkari_1_1GameManager.html#a506a7b3c2808703cb84cf8b69c1bbe78">removeClientFromGame</a> (const std::string &amp;gameName, const std::shared_ptr&lt; <a class="el" href="../../d9/d34/classFlakkari_1_1Client.html">Client</a> &gt; &amp;client)</td></tr>
-<tr class="memdesc:a506a7b3c2808703cb84cf8b69c1bbe78"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a client from a game.  <br /></td></tr>
-<tr class="separator:a506a7b3c2808703cb84cf8b69c1bbe78"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a23c2e3a0244edaf982ed5bfed813bd86" id="r_a23c2e3a0244edaf982ed5bfed813bd86"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de7/classFlakkari_1_1GameManager.html#a23c2e3a0244edaf982ed5bfed813bd86">removeClientFromGame</a> (const std::string &amp;gameName, const std::shared_ptr&lt; <a class="el" href="../../d9/d34/classFlakkari_1_1Client.html">Client</a> &gt; &amp;client)</td></tr>
+<tr class="memdesc:a23c2e3a0244edaf982ed5bfed813bd86"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a client from a game.  <br /></td></tr>
+<tr class="separator:a23c2e3a0244edaf982ed5bfed813bd86"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a31adb064dc9490403c47481203c4d125" id="r_a31adb064dc9490403c47481203c4d125"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../dc/de7/classFlakkari_1_1GameManager.html#a31adb064dc9490403c47481203c4d125">isClientWaiting</a> (const std::string &amp;gameName)</td></tr>
 <tr class="memdesc:a31adb064dc9490403c47481203c4d125"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get if a player is waiting in the waiting queue of a game.  <br /></td></tr>
 <tr class="separator:a31adb064dc9490403c47481203c4d125"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -380,14 +380,14 @@ false A player is waiting </dd></dl>
 
 </div>
 </div>
-<a id="a506a7b3c2808703cb84cf8b69c1bbe78" name="a506a7b3c2808703cb84cf8b69c1bbe78"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a506a7b3c2808703cb84cf8b69c1bbe78">&#9670;&#160;</a></span>removeClientFromGame()</h2>
+<a id="a23c2e3a0244edaf982ed5bfed813bd86" name="a23c2e3a0244edaf982ed5bfed813bd86"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a23c2e3a0244edaf982ed5bfed813bd86">&#9670;&#160;</a></span>removeClientFromGame()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Flakkari::GameManager::removeClientFromGame </td>
+          <td class="memname">bool Flakkari::GameManager::removeClientFromGame </td>
           <td>(</td>
           <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>gameName</em>, </td>
@@ -410,10 +410,11 @@ false A player is waiting </dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">gameName</td><td><a class="el" href="../../dd/ddd/classFlakkari_1_1Game.html">Game</a> to remove the client from </td></tr>
-    <tr><td class="paramname">client</td><td><a class="el" href="../../d9/d34/classFlakkari_1_1Client.html" title="Client class that handles the client&#39;s activity and disconnection timeout.">Client</a> to remove from the game </td></tr>
+    <tr><td class="paramname">client</td><td><a class="el" href="../../d9/d34/classFlakkari_1_1Client.html" title="Client class that handles the client&#39;s activity and disconnection timeout.">Client</a> to remove from the game</td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>false Need to remove the game in <a class="el" href="../../d0/d1e/classFlakkari_1_1ResourceManager.html">ResourceManager</a> following remove request </dd></dl>
 
 </div>
 </div>
@@ -476,8 +477,8 @@ false A player is waiting </dd></dl>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
-<li>Flakkari/Server/Game/<a class="el" href="../../d6/d27/GameManager_8hpp_source.html">GameManager.hpp (131  508 3937 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/GameManager.hpp)</a></li>
-<li>Flakkari/Server/Game/<a class="el" href="../../dc/dd7/GameManager_8cpp.html">GameManager.cpp (220  649 7462 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/GameManager.cpp)</a></li>
+<li>Flakkari/Server/Game/<a class="el" href="../../d6/d27/GameManager_8hpp_source.html">GameManager.hpp (134  527 4128 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/GameManager.hpp)</a></li>
+<li>Flakkari/Server/Game/<a class="el" href="../../dc/dd7/GameManager_8cpp.html">GameManager.cpp (231  678 7883 /home/runner/work/Flakkari/Flakkari/Flakkari/Server/Game/GameManager.cpp)</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
