@@ -55,6 +55,7 @@ jobs:
           subject-path: ".github/workflows/auto_merge_depandabot.yml"
 
       - name: Merge PR
+        if: ${{ env.should_merge == 'true' }}
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

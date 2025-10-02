@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.5.0
+ * Flakkari Library v0.6.0
  *
  * Flakkari Library is a C++ Library for Network.
  * @file UDPServer.hpp
@@ -9,7 +9,7 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.5.0
+ * @version 0.6.0
  * @date 2023-12-24
  **************************************************************************/
 
@@ -19,6 +19,9 @@
 #include "Client/ClientManager.hpp"
 #include "Game/GameManager.hpp"
 #include "Internals/CommandManager.hpp"
+#ifdef FLAKKARI_AUTO_UPDATE
+#    include "Internals/GameDownloader.hpp"
+#endif
 #include "Network/IOMultiplexer.hpp"
 #include "Protocol/Packet.hpp"
 
@@ -93,6 +96,9 @@ private:
 private:
     std::shared_ptr<Network::Socket> _socket;
     std::unique_ptr<IO_SELECTED> _io;
+#ifdef FLAKKARI_AUTO_UPDATE
+    Internals::GameDownloader _gameDownloader;
+#endif
 };
 
 } /* namespace Flakkari */

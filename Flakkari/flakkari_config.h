@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.5.0
+ * Flakkari Library v0.6.0
  *
  * Flakkari is a server/client game library that is designed to be fast and easy
  * to use.
@@ -12,11 +12,11 @@
  * it under the terms of the Anti-NN License as published by MasterLaplace.
  * See the Anti-NN License for more details.
  *
- * @file config.h.in
+ * @file flakkari_config.h
  * @brief Compile-Time Configuration Parameters for Flakkari.
  *
  * @author @MasterLaplace
- * @version 0.5.0
+ * @version 0.6.0
  * @date 2024-01-06
  **************************************************************************/
 

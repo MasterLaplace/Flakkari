@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.5.0
+ * Flakkari Library v0.6.0
  *
  * Flakkari Library is a C++ Library for Network.
  * @file ParseArgument.hpp
@@ -10,7 +10,7 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.5.0
+ * @version 0.6.0
  * @date 2024-12-07
  **************************************************************************/
 
@@ -102,13 +102,13 @@ private:
 
     static constexpr const char *HELP_MESSAGE =
         "Usage: ./r-type_server <gameDir> <ip> <port>\n"
-        "  -gameDir <gameDir>  The directory of the games folder\n"
-        "  -ip <ip>            The ip to bind the server to (default: localhost)\n"
-        "  -port <port>        The port to bind the server to (default: 8081)\n"
-        "  -dy|--dry-run       Run the server in dry-run mode\n"
-        "  -d|--default        Use default values (Games, localhost, 8081)\n"
-        "  -v|--version        Display the version of the Flakkari Library\n"
-        "  -h|--help           Display this help message\n\n"
+        "  -g|--games <gameDir>  The directory of the games folder\n"
+        "  -i|--ip <ip>          The ip to bind the server to (default: localhost)\n"
+        "  -p|--port <port>      The port to bind the server to (default: 8081)\n"
+        "  -dr|--dry-run         Run the server in dry-run mode\n"
+        "  -d|--default          Use default values (Games, localhost, 8081)\n"
+        "  -v|--version          Display the version of the Flakkari Library\n"
+        "  -h|--help             Display this help message\n\n"
         "Example: ./r-type_server Games localhost 8081\n\n"
         "More information at https://github.com/MasterLaplace/Falkkari\n"
         "Flakkari Library v" FLAKKARI_VERSION_STRING " - © 2024 MasterLaplace";

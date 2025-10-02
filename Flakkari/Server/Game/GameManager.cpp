@@ -93,8 +93,7 @@ int GameManager::removeGame(const std::string &gameName)
     if (_gamesStore.find(gameName) == _gamesStore.end())
         return FLAKKARI_LOG_ERROR("game not found"), 1;
 
-    _gamesStore[gameName].reset();
-    _gamesStore.erase(gameName);
+    _gamesRemoveRequest[gameName] = true;
     FLAKKARI_LOG_INFO("\"" + gameName + "\" game removed");
     return 0;
 }
@@ -153,10 +152,10 @@ bool GameManager::addClientToGame(const std::string &gameName, std::shared_ptr<C
     return false;
 }
 
-void GameManager::removeClientFromGame(const std::string &gameName, const std::shared_ptr<Client> &client)
+bool GameManager::removeClientFromGame(const std::string &gameName, const std::shared_ptr<Client> &client)
 {
     if (_gamesStore.find(gameName) == _gamesStore.end())
-        return FLAKKARI_LOG_ERROR("game not found"), void();
+        return FLAKKARI_LOG_ERROR("game not found"), true;
 
     auto &waitingQueue = _waitingClients[gameName];
 
@@ -171,26 +170,38 @@ void GameManager::removeClientFromGame(const std::string &gameName, const std::s
         {
             _gamesInstances[gameName].pop_back();
             FLAKKARI_LOG_INFO("game \"" + gameName + "\" removed");
-            return;
+            return true;
         }
         else if (instance->getPlayers().size() > minPlayers)
         {
             FLAKKARI_LOG_INFO("game \"" + gameName + "\" is not full anymore");
+
             if (waitingQueue.empty())
-                return;
+            {
+                if (_gamesRemoveRequest[gameName])
+                {
+                    _gamesStore[gameName].reset();
+                    _gamesStore.erase(gameName);
+                    _gamesRemoveRequest.erase(gameName);
+                    FLAKKARI_LOG_INFO("game \"" + gameName + "\" removed from store following request");
+                    return false;
+                }
+                return true;
+            }
             auto waitingClient = waitingQueue.front();
             if (instance->addPlayer(waitingClient))
             {
                 waitingQueue.pop();
-                return;
+                return true;
             }
             FLAKKARI_LOG_WARNING("could not add client \"" + STR_ADDRESS + "\" to game \"" + gameName + "\"");
             if (waitingClient->isConnected())
                 waitingQueue.pop();
         }
-        return;
+        return true;
     }
     FLAKKARI_LOG_ERROR("could not remove client \"" + STR_ADDRESS + "\" from game \"" + gameName + "\"");
+    return true;
 }
 
 bool GameManager::isClientWaiting(const std::string &gameName)

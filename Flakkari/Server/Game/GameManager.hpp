@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.5.0
+ * Flakkari Library v0.6.0
  *
  * Flakkari Library is a C++ Library for Network.
  * @file GameManager.hpp
@@ -10,7 +10,7 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.5.0
+ * @version 0.6.0
  * @date 2024-01-06
  **************************************************************************/
 
@@ -37,6 +37,7 @@ private:
         _waitingClients;
     std::unordered_map<std::string /*gameName*/, std::vector<std::shared_ptr<Game>> /*gamesInstances*/> _gamesInstances;
     std::unordered_map<std::string /*gameName*/, std::shared_ptr<nlohmann::json> /*data*/> _gamesStore;
+    std::unordered_map<std::string /*gameName*/, bool /*remove_request*/> _gamesRemoveRequest;
     std::string _game_dir;
 
 public:
@@ -104,8 +105,10 @@ public:
      *
      * @param gameName Game to remove the client from
      * @param client Client to remove from the game
+     *
+     * @return false Need to remove the game in ResourceManager following remove request
      */
-    void removeClientFromGame(const std::string &gameName, const std::shared_ptr<Client> &client);
+    bool removeClientFromGame(const std::string &gameName, const std::shared_ptr<Client> &client);
 
     /**
      * @brief Get if a player is waiting in the waiting queue of a game

@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.5.0
+ * Flakkari Library v0.6.0
  *
  * Flakkari Library is a C++ Library for Network.
  * @file ResourceManager.hpp
@@ -9,7 +9,7 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.5.0
+ * @version 0.6.0
  * @date 2024-01-12
  **************************************************************************/
 
@@ -76,6 +76,14 @@ public:
      * @param scene  The scene to delete from the ResourceManager instance
      */
     void deleteScene(const std::string &game, const std::string &scene);
+
+    /**
+     * @brief Delete a game from the ResourceManager instance
+     *        This will delete all the scenes and templates of the game from the ResourceManager instance
+     *
+     * @param game  The game to delete from the ResourceManager instance
+     */
+    void deleteGame(const std::string &game);
 
     /**
      * @brief Get the Template By Id object from the config file of the game
