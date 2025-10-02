@@ -1,5 +1,4 @@
 add_repositories("package_repo_singleton https://github.com/MasterLaplace/Singleton.git")
-add_repositories("xmake-repo-fixed https://github.com/MasterLaplace/xmake-repo.git fix/libgit2-openssl3-linux")
 
 add_rules("mode.debug", "mode.release", "plugin.vsxmake.autoupdate")
 
