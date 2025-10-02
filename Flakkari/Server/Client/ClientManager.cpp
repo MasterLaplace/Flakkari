@@ -25,7 +25,7 @@ ClientManager::addClient(const std::shared_ptr<Network::Address> &client, Networ
 
     auto clientString = client->toString().value_or("");
 
-    if (_clients.find(clientString) != _clients.end())
+    if (_clients.contains(clientString))
     {
         _clients[clientString]->keepAlive();
         return std::make_pair("", nullptr);
@@ -122,7 +122,7 @@ ClientManager::receivePacketFromClient(const std::shared_ptr<Network::Address> &
         return std::nullopt;
     }
 
-    if (_clients.find(clientName) == _clients.end())
+    if (!_clients.contains(clientName))
         return std::nullopt;
     auto &tmp_client = _clients[clientName];
 

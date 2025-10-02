@@ -1,0 +1,65 @@
+name: I want to request a game
+description: "Game request, for new games or updates of existing games."
+title: '[Game]: '
+labels:
+  - game
+assignees:
+  - {{ github.actor }}
+  - MasterLaplace
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before submitting a game request, please ensure the following:
+        - The game is not already in the repository.
+        - The game is open-source and complies with the Code Of Conduct.
+
+        The game request will be reviewed by the maintainers. Please provide as much
+        information as possible to help us evaluate the game.
+
+        Approved game requests will be added to the repository as `gameName.version.json`
+        or in a dedicated folder within the `Games` directory. This system ensures games
+        can be installed and updated easily without manual intervention.
+  - type: input
+    id: gameTitle
+    attributes:
+      label: What is your game title?
+    validations:
+      required: true
+  - type: input
+    id: gameVersion
+    attributes:
+      label: What is your game version?
+    validations:
+      required: true
+  - type: checkboxes
+    id: isUpdate
+    attributes:
+      label: Is it an update?
+      options:
+        - label: "Yes (Please provide the previous version)"
+        - label: "No"
+    validations:
+      required: true
+  - type: input
+    id: gamePreviousVersion
+    attributes:
+      label: What is the previous version?
+  - type: input
+    id: gameAuthor
+    attributes:
+      label: Who is the author/editor of the game?
+    validations:
+      required: true
+  - type: textarea
+    id: gameDescription
+    attributes:
+      label: Please describe your game in a few words
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: I read the Code Of Conduct
+      options:
+        - label: "I read the Code Of Conduct and I comply to it"
+          required: true

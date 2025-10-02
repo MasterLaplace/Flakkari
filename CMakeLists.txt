@@ -1,7 +1,7 @@
 # Flakkari/CMakeLists.txt
 cmake_minimum_required(VERSION 3.2...3.22)
 
-project(Flakkari-Server VERSION 0.5.0 LANGUAGES CXX)
+project(Flakkari-Server VERSION 0.6.0 LANGUAGES CXX)
 
 # Add all your source and headers files:
 set(SOURCES
@@ -31,6 +31,7 @@ set(SOURCES
     Flakkari/Server/Game/ResourceManager.cpp
 
     Flakkari/Server/Internals/CommandManager.cpp
+    Flakkari/Server/Internals/GameDownloader.cpp
 )
 
 set(HEADERS
@@ -74,6 +75,7 @@ set(HEADERS
     Flakkari/Server/Game/ResourceManager.hpp
 
     Flakkari/Server/Internals/CommandManager.hpp
+    Flakkari/Server/Internals/GameDownloader.hpp
 )
 
 set(HEADER_LIB_LOGGER
@@ -194,14 +196,14 @@ endif()
 
 # Versioning:
 set(FLAKKARI_VERSION_MAJOR 0)
-set(FLAKKARI_VERSION_MINOR 5)
+set(FLAKKARI_VERSION_MINOR 6)
 set(FLAKKARI_VERSION_PATCH 0)
 
-configure_file(${CMAKE_SOURCE_DIR}/Flakkari/config.h.in ${CMAKE_BINARY_DIR}/config.h)
+configure_file(${CMAKE_SOURCE_DIR}/Flakkari/flakkari_config.h ${CMAKE_BINARY_DIR}/flakkari_config.h)
 
 # Install Targets:
 install(TARGETS flakkari DESTINATION bin)
-install(FILES ${CMAKE_BINARY_DIR}/config.h DESTINATION include/Flakkari)
+install(FILES ${CMAKE_BINARY_DIR}/flakkari_config.h DESTINATION include/Flakkari)
 install(FILES ${HEADER_LIB_LOGGER} DESTINATION include/Flakkari/Logger)
 install(FILES ${HEADER_LIB_NETWORK} DESTINATION include/Flakkari/Network)
 install(FILES ${HEADER_LIB_PROTOCOL} DESTINATION include/Flakkari/Protocol)

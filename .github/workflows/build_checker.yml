@@ -2,63 +2,38 @@ name: Build Checker CI
 
 on:
   push:
-    branches-ignore:
-     - 'ga-ignore-**'
-     - 'gh-pages'
+    branches-ignore: [ga-ignore-**, gh-pages]
     paths:
       - '**.cpp'
       - '**.hpp'
       - '**.c'
       - '**.h'
       - '**.in'
+      - '**.inl'
       - '**.txt'
+      - '**.lua'
 
 jobs:
-  build_checker_windows:
-    name: Build Checker Windows
-    runs-on: windows-latest
+  build_checker:
+    name: Build Checker
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest, ubuntu-latest, macos-latest]
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v5
 
-      - name: Install dependencies
-        run: |
-          choco install cmake -y
+      - name: Install xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+          actions-cache-folder: '.xmake-cache'
+          actions-cache-key: '${{ runner.os }}-xmake-install'
+          package-cache: true
+          package-cache-key: '${{ runner.os }}-xmake-nlohmann_json-libcurl-libgit2'
+          project-path: '.'
 
       - name: Configure and Build
-        run: |
-          mkdir build && cd build
-          cmake .. && cmake --build . --config Release
-
-  build_checker_ubuntu:
-    name: Build Checker Ubuntu
-    runs-on: ubuntu-latest
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v5
-
-      - name: Install dependencies
-        run: |
-            sudo apt update
-            sudo apt install cmake
-
-      - name: Configure and Build
-        run: |
-            mkdir build && cd build
-            cmake .. && cmake --build . --config Release
-
-  build_checker_macos:
-    name: Build Checker MacOS
-    runs-on: macos-latest
-    steps:
-      - name: Set up Git repository
-        uses: actions/checkout@v5
-
-      - name: Install dependencies
-        run: |
-            brew install ninja
-
-      - name: Configure and Build
-        run: |
-            mkdir build && cd build
-            cmake -G Ninja .. && ninja
+        run: xmake build -y
+        timeout-minutes: 5

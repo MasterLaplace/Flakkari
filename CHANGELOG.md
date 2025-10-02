@@ -8,6 +8,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Added
 
+- Game Request System and XMake build system #61 - by @MasterLaplace in [#61](https://github.com/MasterLaplace/Flakkari/pull/61)
+- Define default parameters - by @MasterLaplace in [#67](https://github.com/MasterLaplace/Flakkari/pull/67)
+
 ### Fixed
 
 ### Changed

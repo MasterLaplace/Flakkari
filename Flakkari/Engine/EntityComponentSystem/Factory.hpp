@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Engine Library v0.5.0
+ * Flakkari Engine Library v0.6.0
  *
  * Flakkari Library is a C++ Library for Network.
  * @file Factory.hpp
@@ -10,7 +10,7 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.5.0
+ * @version 0.6.0
  * @date 2024-01-13
  **************************************************************************/
 
@@ -28,9 +28,7 @@
 namespace Flakkari::Engine::ECS::Factory {
 
 using nl_template = nlohmann::json;
-using nl_templates =
-    nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, double, std::allocator,
-                         nlohmann::adl_serializer, std::vector<uint8_t, std::allocator<uint8_t>>, void>;
+using nl_templates = nlohmann::json;
 
 /**
  * @brief Create a Entity From Template object based on a template JSON
