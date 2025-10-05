@@ -109,7 +109,7 @@ jobs:
           xmake pack -y
 
       - name: Upload Artifacts to Release
-        uses: alexellis/upload-assets@0.4.0
+        uses: alexellis/upload-assets@0.4.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
