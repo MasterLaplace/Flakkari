@@ -1,7 +1,7 @@
 # Flakkari/CMakeLists.txt
 cmake_minimum_required(VERSION 3.2...3.22)
 
-project(Flakkari-Server VERSION 0.7.0 LANGUAGES CXX)
+project(Flakkari-Server VERSION 0.7.1 LANGUAGES CXX)
 
 # Add all your source and headers files:
 set(SOURCES
@@ -197,7 +197,7 @@ endif()
 # Versioning:
 set(FLAKKARI_VERSION_MAJOR 0)
 set(FLAKKARI_VERSION_MINOR 7)
-set(FLAKKARI_VERSION_PATCH 0)
+set(FLAKKARI_VERSION_PATCH 1)
 
 configure_file(${CMAKE_SOURCE_DIR}/Flakkari/flakkari_config.h ${CMAKE_BINARY_DIR}/flakkari_config.h)
 

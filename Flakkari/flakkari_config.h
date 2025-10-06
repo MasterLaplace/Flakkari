@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.7.0
+ * Flakkari Library v0.7.1
  *
  * Flakkari is a server/client game library that is designed to be fast and easy
  * to use.
@@ -16,7 +16,7 @@
  * @brief Compile-Time Configuration Parameters for Flakkari.
  *
  * @author @MasterLaplace
- * @version 0.7.0
+ * @version 0.7.1
  * @date 2024-01-06
  **************************************************************************/
 
@@ -444,7 +444,7 @@
 #ifdef FLAG_VERSION_PATCH
     #define FLAKKARI_VERSION_PATCH FLAG_VERSION_PATCH
 #else
-    #define FLAKKARI_VERSION_PATCH 0
+    #define FLAKKARI_VERSION_PATCH 1
 #endif
 
 #ifdef FLAG_VERSION_TWEAK

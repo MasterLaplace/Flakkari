@@ -25,7 +25,7 @@ target("flakkari")
     set_default(true)
     set_languages("cxx20")
     set_policy("build.warning", true)
-    set_version("0.7.0")
+    set_version("0.7.1")
 
     add_packages("nlohmann_json", "singleton")
 
@@ -80,7 +80,7 @@ xpack("flakkari")
     set_homepage("https://github.com/MasterLaplace/Flakkari")
     set_licensefile("LICENSE")
     set_copyright("Copyright (C) 2023-present, Me.inc & MasterLaplace")
-    set_version("0.7.0")
+    set_version("0.7.1")
     add_targets("flakkari")
     set_iconfile("docs/Images/icon.ico")
 
