@@ -68,6 +68,24 @@ def update_cmakelists_version(new_version: str) -> None:
     with open("CMakeLists.txt", "w", newline='\n') as f:
         f.write(content)
 
+def update_xmake_version(new_version: str) -> None:
+    """
+    Updates the version number in the xmake.lua file for the Flakkari-Server project.
+
+    Args:
+        new_version (str): The new version number to set in the format 'major.minor.patch'.
+
+    Returns:
+        None
+    """
+    with open("xmake.lua", "r") as f:
+        content = f.read()
+
+    content = re.sub(r'set_version\("(\d+\.\d+\.\d+)"\)', f'set_version("{new_version}")', content)
+
+    with open("xmake.lua", "w", newline='\n') as f:
+        f.write(content)
+
 def update_config_in_version(path: str, new_version: str) -> None:
     """
     Updates the version information in the specified configuration file.
@@ -154,6 +172,9 @@ def apply_new_version(current_version: str, new_version: str):
 
     print(f"Updating version {current_version} -> {new_version} in CMakeLists.txt")
     update_cmakelists_version(new_version)
+
+    print(f"Updating version {current_version} -> {new_version} in xmake.lua")
+    update_xmake_version(new_version)
 
     loop_in_files("./Flakkari/", current_version, new_version)
 
