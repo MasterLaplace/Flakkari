@@ -19,8 +19,6 @@ jobs:
   bump_version_and_create_release:
     name: Bump version and create release
     runs-on: ubuntu-latest
-    outputs:
-      new_tag: ${{ steps.test_tag_version.outputs.new_tag }}
     if: ${{ github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'bump') }}
     steps:
       - uses: actions/checkout@v5
@@ -110,50 +108,9 @@ jobs:
           xmake f -y -m release
           xmake pack -y
 
-      - name: List built xpack files
-        run: ls -la ./build/xpack/flakkari || true
-
-      - name: Upload Artifacts to Release (robust)
+      - name: Upload Artifacts to Release
+        uses: alexellis/upload-assets@0.4.1
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          REPO: ${{ github.repository }}
-          TAG: ${{ needs.bump_version_and_create_release.outputs.new_tag }}
-        shell: bash
-        run: |
-          set -euo pipefail
-          echo "Getting release upload URL for $REPO tag $TAG"
-          api="https://api.github.com/repos/$REPO/releases/tags/$TAG"
-          upload_url=""
-          # Retry fetching the release for a short period to avoid races
-          for i in {1..10}; do
-            upload_url=$(curl -s -H "Authorization: token $GITHUB_TOKEN" "$api" | python3 -c "import sys,json; j=json.load(sys.stdin); print(j.get('upload_url',''))") || true
-            if [ -n "$upload_url" ] && [ "$upload_url" != "null" ]; then
-              break
-            fi
-            echo "Release not found yet (attempt $i), retrying in 3s..."
-            sleep 3
-          done
-          if [ -z "$upload_url" ] || [ "$upload_url" = "null" ]; then
-            echo "Release not found for tag $TAG after retries"
-            exit 1
-          fi
-          # strip the template part: {?name,label}
-          upload_url=${upload_url%\{*}
-          echo "Upload URL: $upload_url"
-          shopt -s nullglob
-          files=(./build/xpack/flakkari/*)
-          if [ ${#files[@]} -eq 0 ]; then
-            echo "No artifacts found in ./build/xpack/flakkari"
-            exit 0
-          fi
-          for f in "${files[@]}"; do
-            fname=$(basename "$f")
-            echo "Uploading $fname..."
-            # retry curl a few times for transient failures
-            curl --fail -s -S -H "Authorization: token $GITHUB_TOKEN" \
-              -H "Content-Type: application/octet-stream" \
-              --data-binary @"$f" \
-              --retry 3 --retry-delay 2 \
-              "$upload_url?name=$fname"
-            echo "Uploaded $fname"
-          done
+        with:
+          asset_paths: '["./build/xpack/flakkari/*"]'

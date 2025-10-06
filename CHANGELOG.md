@@ -10,8 +10,6 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Fixed
 
-- Invalid version update bug in xmake - by @MasterLaplace in [#82](https://github.com/MasterLaplace/Flakkari/pull/82)
-
 ### Changed
 
 ### Removed
