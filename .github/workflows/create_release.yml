@@ -19,6 +19,8 @@ jobs:
   bump_version_and_create_release:
     name: Bump version and create release
     runs-on: ubuntu-latest
+    outputs:
+      new_tag: ${{ steps.test_tag_version.outputs.new_tag }}
     if: ${{ github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'bump') }}
     steps:
       - uses: actions/checkout@v5
@@ -108,9 +110,12 @@ jobs:
           xmake f -y -m release
           xmake pack -y
 
-      - name: Upload Artifacts to Release
-        uses: alexellis/upload-assets@0.4.1
+      - name: Upload assets via softprops/action-gh-release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./build/xpack/flakkari/*
+          tag_name: ${{ needs.bump_version_and_create_release.outputs.new_tag }}
+          overwrite_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          asset_paths: '["./build/xpack/flakkari/*"]'

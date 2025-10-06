@@ -10,6 +10,9 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Fixed
 
+- Invalid version update bug in xmake - by @MasterLaplace in [#82](https://github.com/MasterLaplace/Flakkari/pull/82)
+- The create_release error prevents the artifacts from being published - by @MasterLaplace in [#86](https://github.com/MasterLaplace/Flakkari/pull/86)
+
 ### Changed
 
 ### Removed
