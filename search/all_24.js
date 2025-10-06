@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['📦_20strong_20package_20installation_20strong_0',['📦 &lt;strong&gt;PACKAGE INSTALLATION&lt;/strong&gt;',['../d0/d30/md_README.html#autotoc_md-package-installation',1,'']]]
+  ['👥_20flakkari_20team_0',['👥 Flakkari Team',['../d0/d98/md_CONTRIBUTORS.html#autotoc_md-flakkari-team',1,'']]]
 ];

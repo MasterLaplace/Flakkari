@@ -45,26 +45,29 @@ var NAVTREE =
         [ "Changed", "d4/d40/md_CHANGELOG.html#changed", null ],
         [ "Removed", "d4/d40/md_CHANGELOG.html#removed", null ]
       ] ],
+      [ "[0.6.0] - 2025-10-02", "d4/d40/md_CHANGELOG.html#autotoc_md060---2025-10-02", [
+        [ "Added", "d4/d40/md_CHANGELOG.html#added-1", null ]
+      ] ],
       [ "[0.5.0] - 2024-11-29", "d4/d40/md_CHANGELOG.html#autotoc_md050---2024-11-29", [
-        [ "Added", "d4/d40/md_CHANGELOG.html#added-1", null ],
+        [ "Added", "d4/d40/md_CHANGELOG.html#added-2", null ],
         [ "Fixed", "d4/d40/md_CHANGELOG.html#fixed-1", null ],
         [ "Changed", "d4/d40/md_CHANGELOG.html#changed-1", null ]
       ] ],
       [ "[0.4.0] - 2024-11-08", "d4/d40/md_CHANGELOG.html#autotoc_md040---2024-11-08", [
-        [ "Added", "d4/d40/md_CHANGELOG.html#added-2", null ],
+        [ "Added", "d4/d40/md_CHANGELOG.html#added-3", null ],
         [ "Fixed", "d4/d40/md_CHANGELOG.html#fixed-2", null ]
       ] ],
       [ "[0.3.0] - 2024-11-07", "d4/d40/md_CHANGELOG.html#autotoc_md030---2024-11-07", [
-        [ "Added", "d4/d40/md_CHANGELOG.html#added-3", null ],
+        [ "Added", "d4/d40/md_CHANGELOG.html#added-4", null ],
         [ "Fixed", "d4/d40/md_CHANGELOG.html#fixed-3", null ],
         [ "Changed", "d4/d40/md_CHANGELOG.html#changed-2", null ]
       ] ],
       [ "[0.2.0] - 2024-01-9", "d4/d40/md_CHANGELOG.html#autotoc_md020---2024-01-9", [
-        [ "Added", "d4/d40/md_CHANGELOG.html#added-4", null ],
+        [ "Added", "d4/d40/md_CHANGELOG.html#added-5", null ],
         [ "Changed", "d4/d40/md_CHANGELOG.html#changed-3", null ]
       ] ],
       [ "[0.1.0] - 2023-12-24", "d4/d40/md_CHANGELOG.html#autotoc_md010---2023-12-24", [
-        [ "Added", "d4/d40/md_CHANGELOG.html#added-5", null ],
+        [ "Added", "d4/d40/md_CHANGELOG.html#added-6", null ],
         [ "Changed", "d4/d40/md_CHANGELOG.html#changed-4", null ]
       ] ]
     ] ],
@@ -160,12 +163,12 @@ var NAVTREEINDEX =
 "annotated.html",
 "d1/d66/Network_8cpp.html#af7789e98dd3f4a6551008f0ab4be5f4d",
 "d4/d40/md_CHANGELOG.html#added-5",
-"d6/d02/2D_2Movable_8hpp.html",
-"d8/d84/namespaceFlakkari_1_1Engine_1_1Math.html#a48ebf30ac913d5065e30606711e28572",
-"db/d4e/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Control.html#a0799d063909e9eb67708491b5861b13b",
-"dc/d4b/Commands_8hpp.html#ae68eb0705ee27e6b3c4e7362bf345914aa841eeb8af6a502b7f36388377277aa3",
-"de/d52/classFlakkari_1_1Network_1_1PSELECT.html#adcf30dda05c001c83c3befa2acbd5842",
-"dir_91bfd317f0d822e02c021ee39d31f634.html"
+"d5/dd5/SphereCollider_8hpp.html",
+"d8/d84/namespaceFlakkari_1_1Engine_1_1Math.html#a388126a986404824760c245856a2bcca",
+"db/d4e/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Control.html#a06a1ec6318ff484b7baa9fd7dc72aaea",
+"dc/d4b/Commands_8hpp.html#ae68eb0705ee27e6b3c4e7362bf345914a821f9eced63cf702ec460d54197118cc",
+"de/d52/classFlakkari_1_1Network_1_1PSELECT.html#ada5ca62af44f63d653295758ca3f7055",
+"dir_7e06220f9d8ad8af8703f9c9be194f68.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
