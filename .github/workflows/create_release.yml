@@ -92,8 +92,11 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository (bump tag)
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: ${{ needs.bump_version_and_create_release.outputs.new_tag }}
 
       - name: Install xmake
         uses: xmake-io/github-action-setup-xmake@v1
