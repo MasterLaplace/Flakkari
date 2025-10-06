@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Engine Library v0.6.0
+ * Flakkari Engine Library v0.7.0
  *
  * Flakkari Library is a C++ Library for Network.
  * @file Factory.hpp
@@ -10,7 +10,7 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.6.0
+ * @version 0.7.0
  * @date 2024-01-13
  **************************************************************************/
 
