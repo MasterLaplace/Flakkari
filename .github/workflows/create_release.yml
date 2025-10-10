@@ -33,25 +33,23 @@ jobs:
       - name: Determine Default bump type
         id: determine_default_bump
         run: |
-          labels=$(cat <<EOF
-          ${{ toJson(github.event.pull_request.labels) }}
-          EOF
-          )
-          labels=$(echo "$labels" | jq -r '.[].name')
+          labels_json='${{ toJson(github.event.pull_request.labels) }}'
+          labels=$(echo "$labels_json" | jq -r '.[].name' || true)
+          bump=patch
           if echo "$labels" | grep -q "major"; then
-            echo "label_bump=major" >> $GITHUB_ENV
+            bump=major
           elif echo "$labels" | grep -q "minor"; then
-            echo "label_bump=minor" >> $GITHUB_ENV
-          else
-            echo "label_bump=patch" >> $GITHUB_ENV
+            bump=minor
           fi
+          echo "label_bump=$bump" >> $GITHUB_OUTPUT
+        shell: bash
 
       - name: Calculate bumped version
         id: test_tag_version
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          default_bump: ${{ env.label_bump }}
+          default_bump: ${{ steps.determine_default_bump.outputs.label_bump }}
           dry_run: true
 
       - name: Run version bump script
