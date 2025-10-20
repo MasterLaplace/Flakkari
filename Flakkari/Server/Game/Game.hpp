@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.5.0
+ * Flakkari Library v0.7.1
  *
  * Flakkari Library is a C++ Library for Network.
  * @file Game.hpp
@@ -12,7 +12,7 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.5.0
+ * @version 0.7.1
  * @date 2024-01-06
  **************************************************************************/
 
@@ -35,11 +35,8 @@ namespace Flakkari {
 
 class Client;
 
-using nl_entity = nlohmann::json_abi_v3_11_3::detail::iteration_proxy_value<
-    nlohmann::json_abi_v3_11_3::detail::iter_impl<nlohmann::json_abi_v3_11_3::json>>;
-using nl_template =
-    nlohmann::basic_json<std::map, std::vector, std::string, bool, int64_t, uint64_t, double, std::allocator,
-                         nlohmann::adl_serializer, std::vector<uint8_t, std::allocator<uint8_t>>, void>;
+using nl_entity = nlohmann::detail::iteration_proxy_value<nlohmann::detail::iter_impl<nlohmann::json>>;
+using nl_template = nlohmann::json;
 using nl_component = nlohmann::json;
 
 class Game {

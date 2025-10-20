@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.5.0
+ * Flakkari Library v0.7.1
  *
  * Flakkari Library is a C++ Library for Network.
  * @file PacketQueue.hpp
@@ -10,7 +10,7 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.5.0
+ * @version 0.7.1
  * @date 2024-01-12
  **************************************************************************/
 

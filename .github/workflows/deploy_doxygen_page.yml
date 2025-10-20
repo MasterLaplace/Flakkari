@@ -1,18 +1,14 @@
 name: Doxygen GitHub Pages Deploy Action
 on:
-  pull_request:
-    types: [closed]
-    branches: [master, main]
   repository_dispatch:
-    types:
-      - update_logo_event
+    types: [ update_logo_event, deploy_doxygen_event ]
 
 jobs:
-  generate:
+  generate_doxygen:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           submodules: true
 

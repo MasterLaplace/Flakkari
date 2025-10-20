@@ -18,7 +18,7 @@ jobs:
     runs-on: ubuntu-latest
     if: ${{ contains(github.event.pull_request.labels.*.name, 'dependencies') && contains(github.event.pull_request.labels.*.name, 'github-actions') }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Extract Badge URL
         id: extract_url
@@ -55,6 +55,7 @@ jobs:
           subject-path: ".github/workflows/auto_merge_depandabot.yml"
 
       - name: Merge PR
+        if: ${{ env.should_merge == 'true' }}
         uses: peter-evans/enable-pull-request-automerge@v3
         with:
           token: ${{ secrets.GITHUB_TOKEN }}

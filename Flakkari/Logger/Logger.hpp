@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.5.0
+ * Flakkari Library v0.7.1
  *
  * Flakkari Library is a C++ Library for Network.
  * @file Logger.hpp
@@ -8,14 +8,14 @@
  * Flakkari Library is under MIT License.
  * https://opensource.org/licenses/MIT
  * © 2023 @MasterLaplace
- * @version 0.5.0
+ * @version 0.7.1
  * @date 2023-12-19
  **************************************************************************/
 
 #ifndef FLAKKARI_LOGGER_HPP_
 #define FLAKKARI_LOGGER_HPP_
 
-#include "config.h.in"
+#include "flakkari_config.h"
 
 #include <chrono>
 #include <ctime>

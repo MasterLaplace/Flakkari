@@ -68,6 +68,24 @@ def update_cmakelists_version(new_version: str) -> None:
     with open("CMakeLists.txt", "w", newline='\n') as f:
         f.write(content)
 
+def update_xmake_version(new_version: str) -> None:
+    """
+    Updates the version number in the xmake.lua file for the Flakkari-Server project.
+
+    Args:
+        new_version (str): The new version number to set in the format 'major.minor.patch'.
+
+    Returns:
+        None
+    """
+    with open("xmake.lua", "r") as f:
+        content = f.read()
+
+    content = re.sub(r'set_version\("(\d+\.\d+\.\d+)"\)', f'set_version("{new_version}")', content)
+
+    with open("xmake.lua", "w", newline='\n') as f:
+        f.write(content)
+
 def update_config_in_version(path: str, new_version: str) -> None:
     """
     Updates the version information in the specified configuration file.
@@ -108,12 +126,16 @@ def loop_in_files(path: str, current_version: str, new_version: str) -> None:
     Returns:
         None
 
-    This function searches for files with extensions .cpp, .h, .md, .hpp, and .h.in within the given directory
+    This function searches for files with extensions .cpp, .h, .md and .hpp within the given directory
     and its subdirectories. It updates the version number in these files from the current version to the new version.
     """
     for root, dirs, files in os.walk(path):
         for file in files:
-            if file.endswith(".cpp") or file.endswith(".h") or file.endswith(".md") or file.endswith(".hpp"):
+            if file.endswith("flakkari_config.h"):
+                print(f"Updating version {current_version} -> {new_version} in {file}")
+                update_config_in_version(os.path.join(root, file), new_version)
+
+            elif file.endswith(".cpp") or file.endswith(".h") or file.endswith(".md") or file.endswith(".hpp"):
                 print(f"Updating version {current_version} -> {new_version} in {file}")
                 match = re.search(r'(\d+\.\d+\.\d+)', current_version)
                 if match:
@@ -122,10 +144,6 @@ def loop_in_files(path: str, current_version: str, new_version: str) -> None:
                         content = f.read()
                     with open(os.path.join(root, file), "w", newline='\n') as f:
                         f.write(content.replace(current_version_number, new_version))
-
-            if file.endswith(".h.in"):
-                print(f"Updating version {current_version} -> {new_version} in {file}")
-                update_config_in_version(os.path.join(root, file), new_version)
 
 def apply_new_version(current_version: str, new_version: str):
     """
@@ -154,6 +172,9 @@ def apply_new_version(current_version: str, new_version: str):
 
     print(f"Updating version {current_version} -> {new_version} in CMakeLists.txt")
     update_cmakelists_version(new_version)
+
+    print(f"Updating version {current_version} -> {new_version} in xmake.lua")
+    update_xmake_version(new_version)
 
     loop_in_files("./Flakkari/", current_version, new_version)
 

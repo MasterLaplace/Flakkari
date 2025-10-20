@@ -1,4 +1,4 @@
-name: Bump Version and Create Release
+name: Bump Version, Create Release, and Upload Artifacts
 
 on:
   pull_request:
@@ -7,57 +7,54 @@ on:
 
 permissions:
   contents: write
-  id-token: write
-  attestations: write
-  security-events: write
+  checks: write
+  actions: read
+  issues: read
+  packages: write
+  pull-requests: read
+  repository-projects: read
+  statuses: read
 
 jobs:
   bump_version_and_create_release:
     name: Bump version and create release
     runs-on: ubuntu-latest
+    outputs:
+      new_tag: ${{ steps.test_tag_version.outputs.new_tag }}
     if: ${{ github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'bump') }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - name: Install Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.8'
 
       - name: Determine Default bump type
         id: determine_default_bump
         run: |
-          labels=$(cat <<EOF
-          ${{ toJson(github.event.pull_request.labels) }}
-          EOF
-          )
-          labels=$(echo "$labels" | jq -r '.[].name')
+          labels_json='${{ toJson(github.event.pull_request.labels) }}'
+          labels=$(echo "$labels_json" | jq -r '.[].name' || true)
+          bump=patch
           if echo "$labels" | grep -q "major"; then
-            echo "label_bump=major" >> $GITHUB_ENV
+            bump=major
           elif echo "$labels" | grep -q "minor"; then
-            echo "label_bump=minor" >> $GITHUB_ENV
-          else
-            echo "label_bump=patch" >> $GITHUB_ENV
+            bump=minor
           fi
+          echo "label_bump=$bump" >> $GITHUB_OUTPUT
+        shell: bash
 
       - name: Calculate bumped version
         id: test_tag_version
         uses: mathieudutour/github-tag-action@v6.2
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          default_bump: ${{ env.label_bump }}
+          default_bump: ${{ steps.determine_default_bump.outputs.label_bump }}
           dry_run: true
 
       - name: Run version bump script
         run: |
           python3 Scripts/increment_version.py ${{ steps.test_tag_version.outputs.new_tag }}
-
-      - name: Attest Build Provenance
-        uses: actions/attest-build-provenance@v2.2.0
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          subject-name: "Flakkari Version Bump"
-          subject-path: "Scripts/increment_version.py"
 
       - name: Set up Git and Push changes
         env:
@@ -78,36 +75,61 @@ jobs:
           git push origin ${{ steps.test_tag_version.outputs.new_tag }}
 
       - name: Create a GitHub release
-        uses: ncipollo/release-action@v1.15.0
+        uses: ncipollo/release-action@v1.20.0
         with:
           tag: ${{ steps.test_tag_version.outputs.new_tag }}
           name: Flakkari ${{ steps.test_tag_version.outputs.new_tag }}
           body: ${{ steps.test_tag_version.outputs.changelog }}
           generateReleaseNotes: true
 
-  build_package_artifacts:
-    name: Build package artifacts
+  build_and_upload_artifacts:
+    name: Build and Upload Artifacts
     needs: bump_version_and_create_release
+    runs-on: ${{ matrix.os }}
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
     steps:
-      - uses: actions/checkout@v4
-
-      - name: Build Flakkari Package
-        run: |
-          mkdir -p build
-          cd build
-          cmake ..
-          cmake --build . --config Release --target package
-
-      - name: Upload Flakkari Package
-        uses: actions/upload-artifact@v4.6.2
+      - name: Checkout Repository (bump tag)
+        uses: actions/checkout@v5
         with:
-          name: Flakkari-${{ matrix.os }}
-          path: |
-            build/*.exe
-            build/*.dmg
-            build/*.deb
-            build/*.rpm
+          fetch-depth: 0
+          ref: ${{ needs.bump_version_and_create_release.outputs.new_tag }}
+
+      - name: Install xmake
+        uses: xmake-io/github-action-setup-xmake@v1
+        with:
+          xmake-version: latest
+          actions-cache-folder: '.xmake-cache'
+          actions-cache-key: '${{ runner.os }}-xmake-install'
+          package-cache: true
+          package-cache-key: '${{ runner.os }}-xmake-nlohmann_json-libcurl-libgit2'
+          project-path: '.'
+
+      - name: Build Flakkari Package with xpack
+        run: |
+          xmake f -y -m release
+          xmake pack -y
+
+      - name: Upload assets via softprops/action-gh-release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./build/xpack/flakkari/*
+          tag_name: ${{ needs.bump_version_and_create_release.outputs.new_tag }}
+          overwrite_files: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy_doxygen:
+    name: Deploy Doxygen Documentation
+    needs: bump_version_and_create_release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Call the Flakkari deploy_doxygen_page workflow
+        run: |
+          curl -X POST \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.everest-preview+json" \
+            https://api.github.com/repos/${{ github.repository }}/dispatches \
+            -d '{"event_type":"deploy_doxygen_event"}'

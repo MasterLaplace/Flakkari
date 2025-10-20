@@ -9,7 +9,7 @@
 
 namespace Flakkari {
 
-#if defined(DEBUG) || defined(_DEBUG) || !defined(DEBUG)
+#if defined(DEBUG) || defined(_DEBUG)
 static Logger::Mode _mode = Logger::Mode::DEBUG;
 #else
 static Logger::Mode _mode = Logger::Mode::NORMAL;
