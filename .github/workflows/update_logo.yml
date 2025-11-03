@@ -42,7 +42,7 @@ jobs:
           else
             echo "PERIOD_EVENT=normal" >> $GITHUB_ENV
             sed -i 's|<img src="Images/Logo_1-200x200.png"|<img src="Images/Logo_200x200.png"|g' README.md
-            sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-2-200x200.png|g' Doxyfile.cfg
+            sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|g' Doxyfile.cfg
           fi
 
       - name: Commit and Push Changes
