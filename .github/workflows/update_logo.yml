@@ -6,6 +6,8 @@ on:
     - cron: '0 0 1 11 *'
     - cron: '0 0 1 12 *'
     - cron: '0 0 1 1 *'
+  push:
+    paths: ['**/update_logo.yml']
 
 env:
   GH_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -47,6 +49,7 @@ jobs:
             sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-Christmas-200x200.png|g' Doxyfile.cfg
           else
             sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-2-200x200.png|g' Doxyfile.cfg
+          fi
 
       - name: Commit and Push Changes
         run: |
