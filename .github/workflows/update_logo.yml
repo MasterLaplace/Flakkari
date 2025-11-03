@@ -30,7 +30,6 @@ jobs:
       - name: Update README and Doxyfile logos
         run: |
           current_month=$(date +'%m')
-          echo "CURRENT_MONTH=$current_month" >> $GITHUB_ENV
           if [ "$current_month" -eq "10" ]; then
             echo "PERIOD_EVENT=halloween" >> $GITHUB_ENV
             sed -i 's|<img src="Images/Logo_1-200x200.png"|<img src="Images/Logo-Halloween-200x200.png"|g' README.md
@@ -41,8 +40,8 @@ jobs:
             sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-Christmas-200x200.png|g' Doxyfile.cfg
           else
             echo "PERIOD_EVENT=normal" >> $GITHUB_ENV
-            sed -i 's|<img src="Images/Logo_1-200x200.png"|<img src="Images/Logo_200x200.png"|g' README.md
-            sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|g' Doxyfile.cfg
+            sed -E -i 's|<img src="Images/Logo[^"]*200x200.png"|<img src="Images/Logo_200x200.png"|g' README.md
+            sed -E -i 's|PROJECT_LOGO[[:space:]]*=[[:space:]]*docs/Images/Flakkari[^[:space:]]*200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|g' Doxyfile.cfg
           fi
 
       - name: Commit and Push Changes
