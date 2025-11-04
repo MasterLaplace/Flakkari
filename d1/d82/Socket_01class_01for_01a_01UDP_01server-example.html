@@ -117,11 +117,11 @@ Address</dd></dl>
 <div class="line">socket-&gt;create(12345, Address::IpType::IPv4, Address::SocketType::UDP);</div>
 <div class="line"><span class="comment">// Bind the socket</span></div>
 <div class="line">socket-&gt;bind();</div>
-<div class="line"><span class="comment">// Send data to a client</span></div>
-<div class="line">socket-&gt;sendTo(<span class="stringliteral">&quot;Hello World!&quot;</span>, socket-&gt;getAddress());</div>
 <div class="line"><span class="comment">// Receive data from a client</span></div>
 <div class="line"><span class="keyword">auto</span> data = socket-&gt;receiveFrom();</div>
 <div class="line">std::cout &lt;&lt; data-&gt;second &lt;&lt; std::endl;</div>
+<div class="line"><span class="comment">// Send data to a client</span></div>
+<div class="line">socket-&gt;sendTo(data.value(), socket-&gt;getAddress());</div>
 </div><!-- fragment --><div class="fragment"></div><!-- fragment --><p> class for a UDP server </p>
 </div><!-- contents -->
 </div><!-- doc-content -->

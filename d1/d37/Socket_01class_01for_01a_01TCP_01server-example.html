@@ -108,17 +108,17 @@ $(document).ready(function(){initNavTree('d1/d37/Socket_01class_01for_01a_01TCP_
 <div class="contents">
 <p>: </p><div class="fragment"><div class="line"><span class="comment">// Create a socket</span></div>
 <div class="line"><span class="keyword">auto</span> socket = std::make_shared&lt;Socket&gt;();</div>
-<div class="line">socket-&gt;create(12345, Address::IpType::IPv4, Address::SocketType::TCP);</div>
+<div class="line">socket-&gt;create(<span class="stringliteral">&quot;localhost&quot;</span>, 12345, Address::IpType::IPv4, Address::SocketType::TCP);</div>
 <div class="line"><span class="comment">// Bind the socket</span></div>
 <div class="line">socket-&gt;bind();</div>
 <div class="line"><span class="comment">// Listen for incoming connections</span></div>
 <div class="line">socket-&gt;listen();</div>
 <div class="line"><span class="comment">// Accept a client</span></div>
 <div class="line"><span class="keyword">auto</span> clientSocket = socket-&gt;accept();</div>
-<div class="line"><span class="comment">// Send data to a client</span></div>
-<div class="line">clientSocket-&gt;send(<span class="stringliteral">&quot;Hello World!&quot;</span>);</div>
 <div class="line"><span class="comment">// Receive data from a client</span></div>
 <div class="line"><span class="keyword">auto</span> data = clientSocket-&gt;receive();</div>
+<div class="line"><span class="comment">// Send data to a client</span></div>
+<div class="line">clientSocket-&gt;send(data.value());</div>
 </div><!-- fragment --><div class="fragment"></div><!-- fragment --><p> class for a TCP server </p>
 </div><!-- contents -->
 </div><!-- doc-content -->
