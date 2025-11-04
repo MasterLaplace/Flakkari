@@ -10,12 +10,47 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Fixed
 
-- Invalid version update bug in xmake - by @MasterLaplace in [#82](https://github.com/MasterLaplace/Flakkari/pull/82)
-- The create_release error prevents the artifacts from being published - by @MasterLaplace in [#86](https://github.com/MasterLaplace/Flakkari/pull/86)
+- Bug syntax error in update logo workflow - by @MasterLaplace in [#89](https://github.com/MasterLaplace/Flakkari/pull/89)
 
 ### Changed
 
 ### Removed
+
+
+## [0.8.0] - 2025-10-20
+
+### Added
+
+- Add Doxygen deployment workflow and update event types - by @MasterLaplace in ([85b11ac](https://github.com/MasterLaplace/Flakkari/commit/85b11ac))
+
+### Fixed
+
+- Improve the determination of the default version type in create_version workflow - by @MasterLaplace ([578215d](https://github.com/MasterLaplace/Flakkari/commit/578215d))
+
+
+## [0.7.1] - 2025-10-06
+
+### Fixed
+
+- Update checkout step to use specific tag reference and fetch depth - by @MasterLaplace ([41c66db](https://github.com/MasterLaplace/Flakkari/commit/41c66db))
+- Update Flakkari version to 0.7 and refine version update process in scripts - by @MasterLaplace ([da62661](https://github.com/MasterLaplace/Flakkari/commit/da62661))
+
+### Changed
+
+- Bug invalid assets and config version in release - by @MasterLaplace in [#88](https://github.com/MasterLaplace/Flakkari/pull/88)
+
+
+## [0.7.0] - 2025-10-06
+
+### Added
+
+- Simplify artifact upload process by using softprops/action-gh-release - by @MasterLaplace ([fd8e4b7](https://github.com/MasterLaplace/Flakkari/commit/fd8e4b7))
+
+### Fixed
+
+- Invalid version update bug in xmake - by @MasterLaplace in [#82](https://github.com/MasterLaplace/Flakkari/pull/82)
+- The create_release error prevents the artifacts from being published - by @MasterLaplace in [#86](https://github.com/MasterLaplace/Flakkari/pull/86)
+- Improve the process of creating versions and uploading artifacts - by @MasterLaplace ([59ed8bb](https://github.com/MasterLaplace/Flakkari/commit/59ed8bb))
 
 
 ## [0.6.0] - 2025-10-02
