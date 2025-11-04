@@ -14,7 +14,7 @@ static int submoduleForeachCallback(git_submodule *submodule, const char *name, 
 {
     FLAKKARI_LOG_DEBUG("Updating submodule: " + std::string(name));
 
-    git_submodule_update_options *update_options = static_cast<git_submodule_update_options *>(payload);
+    auto *update_options = static_cast<git_submodule_update_options *>(payload);
 
     if (git_submodule_update(submodule, 1, update_options) != 0)
     {

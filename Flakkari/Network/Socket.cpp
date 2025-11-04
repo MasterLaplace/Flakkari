@@ -122,6 +122,9 @@ void Socket::bind()
 
 void Socket::listen(int backlog)
 {
+    if (_address && _address->getSocketType() != Address::SocketType::TCP)
+        return FLAKKARI_LOG_ERROR("Socket is not TCP"), void();
+
     if (::listen(_socket, backlog) == SOCKET_ERROR)
         throw std::runtime_error("Failed to listen on socket, error: " + STD_ERROR);
 }
