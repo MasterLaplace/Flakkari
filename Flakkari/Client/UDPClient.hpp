@@ -18,14 +18,13 @@
 
 #include "Network/IOMultiplexer.hpp"
 #include "Network/Network.hpp"
-#include "Protocol/Packet.hpp"
 #include "Network/PacketQueue.hpp"
 #include "Network/Serializer.hpp"
+#include "Protocol/Packet.hpp"
 #include <atomic>
-#include <thread>
 #include <mutex>
 #include <optional>
-
+#include <thread>
 
 namespace Flakkari {
 
@@ -65,7 +64,6 @@ public:
      */
     UDPClient(const std::string &gameDir, const std::string &ip = "localhost", unsigned short port = 8081);
     ~UDPClient();
-
 
     /**
      * @brief Connect to the game server

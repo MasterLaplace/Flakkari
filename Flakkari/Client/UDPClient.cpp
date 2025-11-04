@@ -50,9 +50,7 @@ void UDPClient::sendPacket(const Protocol::Packet<Protocol::CommandId> &packet)
     _socket->sendTo(_socket->getAddress(), serializedPacket);
 }
 
-void UDPClient::addPacket(const Protocol::Packet<Protocol::CommandId> &packet) {
-    _packetQueue.push_back(packet);
-}
+void UDPClient::addPacket(const Protocol::Packet<Protocol::CommandId> &packet) { _packetQueue.push_back(packet); }
 
 std::optional<Protocol::Packet<Protocol::CommandId>> UDPClient::getNextPacket()
 {
