@@ -6,6 +6,8 @@ on:
     - cron: '0 0 1 11 *'
     - cron: '0 0 1 12 *'
     - cron: '0 0 1 1 *'
+  push:
+    paths: ['**/update_logo.yml']
 
 env:
   GH_PAT: ${{ secrets.GITHUB_TOKEN }}
@@ -25,33 +27,27 @@ jobs:
           git config --local user.email $GH_BOT_ACC_EMAIL
           git config --local user.name $GH_BOT_ACC_NAME
 
-      - name: Update README.md logo
+      - name: Update README and Doxyfile logos
         run: |
           current_month=$(date +'%m')
           if [ "$current_month" -eq "10" ]; then
-            echo "period_event=halloween" >> $GITHUB_ENV
+            echo "PERIOD_EVENT=halloween" >> $GITHUB_ENV
             sed -i 's|<img src="Images/Logo_1-200x200.png"|<img src="Images/Logo-Halloween-200x200.png"|g' README.md
-          elif [ "$current_month" -eq "12" ]; then
-            echo "period_event=christmas" >> $GITHUB_ENV
-            sed -i 's|<img src="Images/Logo_1-200x200.png"|<img src="Images/Logo-Christmas-200x200.png"|g' README.md
-          else
-            echo "period_event=normal" >> $GITHUB_ENV
-            sed -i 's|<img src="Images/Logo_1-200x200.png"|<img src="Images/Logo_2-200x200.png"|g' README.md
-          fi
-
-      - name: Update Doxyfile.cfg logo
-        run: |
-          if [ "$current_month" -eq "10" ]; then
             sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-Halloween-200x200.png|g' Doxyfile.cfg
           elif [ "$current_month" -eq "12" ]; then
+            echo "PERIOD_EVENT=christmas" >> $GITHUB_ENV
+            sed -i 's|<img src="Images/Logo_1-200x200.png"|<img src="Images/Logo-Christmas-200x200.png"|g' README.md
             sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-Christmas-200x200.png|g' Doxyfile.cfg
           else
-            sed -i 's|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-2-200x200.png|g' Doxyfile.cfg
+            echo "PERIOD_EVENT=normal" >> $GITHUB_ENV
+            sed -E -i 's|<img src="Images/Logo[^"]*200x200.png"|<img src="Images/Logo_200x200.png"|g' README.md
+            sed -E -i 's|PROJECT_LOGO[[:space:]]*=[[:space:]]*docs/Images/Flakkari[^[:space:]]*200x200.png|PROJECT_LOGO           = docs/Images/Flakkari-200x200.png|g' Doxyfile.cfg
+          fi
 
       - name: Commit and Push Changes
         run: |
           git add .
-          git commit -m "chore: update the Engine-3D logo for ${{ env.period_event }}" || true
+          git commit -m "chore: update the Flakkari logo for ${{ env.PERIOD_EVENT }}" || true
           git push || true
 
       - name: Call the Flakkari deploy_doxygen_page workflow

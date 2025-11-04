@@ -72,28 +72,28 @@ namespace Flakkari::Network {
  * socket->create(12345, Address::IpType::IPv4, Address::SocketType::UDP);
  * // Bind the socket
  * socket->bind();
- * // Send data to a client
- * socket->sendTo("Hello World!", socket->getAddress());
  * // Receive data from a client
  * auto data = socket->receiveFrom();
  * std::cout << data->second << std::endl;
+ * // Send data to a client
+ * socket->sendTo(data.value(), socket->getAddress());
  * @endcode
  *
  * @example "Socket class for a TCP server":
  * @code
  * // Create a socket
  * auto socket = std::make_shared<Socket>();
- * socket->create(12345, Address::IpType::IPv4, Address::SocketType::TCP);
+ * socket->create("localhost", 12345, Address::IpType::IPv4, Address::SocketType::TCP);
  * // Bind the socket
  * socket->bind();
  * // Listen for incoming connections
  * socket->listen();
  * // Accept a client
  * auto clientSocket = socket->accept();
- * // Send data to a client
- * clientSocket->send("Hello World!");
  * // Receive data from a client
  * auto data = clientSocket->receive();
+ * // Send data to a client
+ * clientSocket->send(data.value());
  * @endcode
  *
  * @example "Socket class for a UDP client":
