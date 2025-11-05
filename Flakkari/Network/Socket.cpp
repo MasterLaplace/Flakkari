@@ -12,9 +12,9 @@
 namespace Flakkari::Network {
 
 #if defined(__linux__)
+#    include <cstring>
 #    include <sys/socket.h>
 #    include <sys/uio.h>
-#    include <cstring>
 #endif
 
 void Socket::create(const std::shared_ptr<Address> &address)
@@ -394,10 +394,12 @@ std::vector<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveMany(siz
         sockaddr_storage &addr = addrs[i];
 
         auto _ip_type = (addr.ss_family == AF_INET)  ? Address::IpType::IPv4 :
-                        (addr.ss_family == AF_INET6) ? Address::IpType::IPv6 : Address::IpType::None;
+                        (addr.ss_family == AF_INET6) ? Address::IpType::IPv6 :
+                                                       Address::IpType::None;
 
-        results.emplace_back(std::make_shared<Address>(addr, _address ? _address->getSocketType() : Address::SocketType::UDP, _ip_type),
-                             Buffer(buffers[i].begin(), buffers[i].begin() + (size_t) len));
+        results.emplace_back(
+            std::make_shared<Address>(addr, _address ? _address->getSocketType() : Address::SocketType::UDP, _ip_type),
+            Buffer(buffers[i].begin(), buffers[i].begin() + (size_t) len));
     }
 
     return results;

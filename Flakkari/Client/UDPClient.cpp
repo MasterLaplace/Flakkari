@@ -49,7 +49,8 @@ void UDPClient::sendPacket(const Protocol::Packet<Protocol::CommandId> &packet)
 {
     // copy the shared_ptr atomically to ensure socket stays valid during use
     auto s = _socket.load();
-    if (!s) return;
+    if (!s)
+        return;
     auto serializedPacket = packet.serialize();
     s->sendTo(s->getAddress(), serializedPacket);
 }
@@ -75,7 +76,8 @@ void UDPClient::handlePacket()
 {
     // copy socket pointer atomically and use it without locking
     auto s = _socket.load();
-    if (!s) return;
+    if (!s)
+        return;
 
     // try to receive a batch of packets to reduce syscalls (recvmmsg on Linux)
     auto responses = s->receiveMany(32);
