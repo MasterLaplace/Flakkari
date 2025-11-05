@@ -15,13 +15,15 @@ UDPClient::UDPClient(const std::string &gameDir, const std::string &ip, unsigned
 {
     Network::init();
 
-    _socket = std::make_shared<Network::Socket>();
-    _socket->create(ip, port, Network::Address::IpType::IPv4, Network::Address::SocketType::UDP);
+    auto socketPtr = std::make_shared<Network::Socket>();
+    socketPtr->create(ip, port, Network::Address::IpType::IPv4, Network::Address::SocketType::UDP);
 
-    FLAKKARI_LOG_INFO(std::string(*_socket));
-    _socket->setBlocking(false);
+    FLAKKARI_LOG_INFO(std::string(*socketPtr));
+    socketPtr->setBlocking(false);
 
-    _io = std::make_unique<IO_SELECTED>(_socket->getSocket());
+    // store atomically and create IO multiplexer using a local copy
+    _socket.store(socketPtr);
+    _io = std::make_unique<IO_SELECTED>(socketPtr->getSocket());
 }
 
 UDPClient::~UDPClient()
@@ -45,9 +47,11 @@ void UDPClient::disconnectFromServer() { _running = false; }
 
 void UDPClient::sendPacket(const Protocol::Packet<Protocol::CommandId> &packet)
 {
-    std::lock_guard<std::mutex> lock(_mutex);
+    // copy the shared_ptr atomically to ensure socket stays valid during use
+    auto s = _socket.load();
+    if (!s) return;
     auto serializedPacket = packet.serialize();
-    _socket->sendTo(_socket->getAddress(), serializedPacket);
+    s->sendTo(s->getAddress(), serializedPacket);
 }
 
 void UDPClient::addPacket(const Protocol::Packet<Protocol::CommandId> &packet) { _packetQueue.push_back(packet); }
@@ -69,19 +73,25 @@ bool UDPClient::handleTimeout(int event)
 
 void UDPClient::handlePacket()
 {
-    std::lock_guard<std::mutex> lock(_mutex);
-    auto response = _socket->receiveFrom();
-    if (!response.has_value())
+    // copy socket pointer atomically and use it without locking
+    auto s = _socket.load();
+    if (!s) return;
+
+    // try to receive a batch of packets to reduce syscalls (recvmmsg on Linux)
+    auto responses = s->receiveMany(32);
+    if (responses.empty())
         return;
 
-    Protocol::Packet<Protocol::CommandId> packet;
-    if (!packet.deserialize(response->second))
+    for (auto &resp : responses)
     {
-        FLAKKARI_LOG_WARNING("Received an invalid packet");
-        return;
+        Protocol::Packet<Protocol::CommandId> packet;
+        if (!packet.deserialize(resp.second))
+        {
+            FLAKKARI_LOG_WARNING("Received an invalid packet");
+            continue;
+        }
+        addPacket(packet);
     }
-
-    addPacket(packet);
 }
 
 void UDPClient::run()

@@ -11,6 +11,12 @@
 
 namespace Flakkari::Network {
 
+#if defined(__linux__)
+#    include <sys/socket.h>
+#    include <sys/uio.h>
+#    include <cstring>
+#endif
+
 void Socket::create(const std::shared_ptr<Address> &address)
 {
     _address = address;
@@ -340,6 +346,72 @@ std::optional<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveFrom(i
                                                    Address::IpType::None;
 
     return std::make_pair(std::make_shared<Address>(addr, _address->getSocketType(), _ip_type), data);
+}
+
+std::vector<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveMany(size_t maxMessages, int flags)
+{
+    std::vector<std::pair<std::shared_ptr<Address>, Buffer>> results;
+    if (maxMessages == 0)
+        return results;
+
+#if defined(__linux__)
+    // Use recvmmsg for batching on Linux
+    std::vector<Buffer> buffers;
+    buffers.reserve(maxMessages);
+    for (size_t i = 0; i < maxMessages; ++i)
+        buffers.emplace_back(4096, 0);
+
+    std::vector<mmsghdr> msgs(maxMessages);
+    std::vector<iovec> iov(maxMessages);
+    std::vector<sockaddr_storage> addrs(maxMessages);
+
+    std::memset(msgs.data(), 0, sizeof(mmsghdr) * msgs.size());
+
+    for (size_t i = 0; i < maxMessages; ++i)
+    {
+        iov[i].iov_base = buffers[i].data();
+        iov[i].iov_len = buffers[i].size();
+
+        msgs[i].msg_hdr.msg_iov = &iov[i];
+        msgs[i].msg_hdr.msg_iovlen = 1;
+        msgs[i].msg_hdr.msg_name = &addrs[i];
+        msgs[i].msg_hdr.msg_namelen = sizeof(sockaddr_storage);
+    }
+
+    int received = ::recvmmsg(_socket, msgs.data(), (unsigned int) msgs.size(), flags, nullptr);
+    if (received == -1)
+    {
+        if (errno == EAGAIN || errno == EWOULDBLOCK)
+            return results;
+        FLAKKARI_LOG_ERROR("recvmmsg failed, error: " + STD_ERROR);
+        return results;
+    }
+
+    for (int i = 0; i < received; ++i)
+    {
+        auto &m = msgs[i];
+        ssize_t len = m.msg_len;
+        sockaddr_storage &addr = addrs[i];
+
+        auto _ip_type = (addr.ss_family == AF_INET)  ? Address::IpType::IPv4 :
+                        (addr.ss_family == AF_INET6) ? Address::IpType::IPv6 : Address::IpType::None;
+
+        results.emplace_back(std::make_shared<Address>(addr, _address ? _address->getSocketType() : Address::SocketType::UDP, _ip_type),
+                             Buffer(buffers[i].begin(), buffers[i].begin() + (size_t) len));
+    }
+
+    return results;
+#else
+    // Fallback: repeated recvfrom until EAGAIN or maxMessages reached
+    for (size_t i = 0; i < maxMessages; ++i)
+    {
+        auto pkt = receiveFrom(flags);
+        if (!pkt.has_value())
+            break;
+        results.push_back(std::move(*pkt));
+    }
+    return results;
+#endif
 }
 
 void Socket::close()

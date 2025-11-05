@@ -23,6 +23,7 @@
 #include <memory>
 #include <optional>
 #include <utility>
+#include <vector>
 
 #ifdef _WIN32
 typedef SOCKET SOCKET;
@@ -278,6 +279,15 @@ public:
      * sender.
      */
     std::optional<std::pair<std::shared_ptr<Address>, Buffer>> receiveFrom(int flags = 0);
+
+    /**
+     * @brief Receive multiple UDP messages in one syscall (batch).
+     * @param maxMessages Maximum number of messages to receive in one call.
+     * @param flags Flags to pass to recvfrom / recvmmsg.
+     * @return vector of (Address, Buffer) pairs received. Empty if none or on EAGAIN/EWOULDBLOCK.
+     * @note On Linux this uses recvmmsg for efficiency. On other platforms it falls back to repeated recvfrom.
+     */
+    std::vector<std::pair<std::shared_ptr<Address>, Buffer>> receiveMany(size_t maxMessages = 16, int flags = 0);
 
     /**
      * @brief Close the socket.

@@ -119,11 +119,10 @@ private:
     void run();
 
 private:
-    std::shared_ptr<Network::Socket> _socket;
+    std::atomic<std::shared_ptr<Network::Socket>> _socket;
     std::unique_ptr<IO_SELECTED> _io;
     std::atomic<bool> _running{false};
     std::thread _thread;
-    std::mutex _mutex;
     Network::PacketQueue<Protocol::Packet<Protocol::CommandId>> _packetQueue;
 };
 
