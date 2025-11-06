@@ -289,7 +289,8 @@ public:
      * @return vector of (Address, Buffer) pairs received. Empty if none or on EAGAIN/EWOULDBLOCK.
      * @note On Linux this uses recvmmsg for efficiency. On other platforms it falls back to repeated recvfrom.
      */
-    std::vector<std::pair<std::shared_ptr<Address>, Buffer>> receiveBatch(uint32_t maxMessages = 16u, int flags = 0) const;
+    std::vector<std::pair<std::shared_ptr<Address>, Buffer>> receiveBatch(uint32_t maxMessages = 16u,
+                                                                          int flags = 0) const;
 
     /**
      * @brief Close the socket.

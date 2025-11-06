@@ -384,9 +384,8 @@ std::vector<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveBatch(ui
         sockaddr_storage &addr = addrs[i];
         Address::IpType ip_type = getIpTypeFromFamily(addr);
 
-        results.emplace_back(
-            std::make_shared<Address>(addr, socket_type, ip_type),
-            Buffer(buffers[i].begin(), buffers[i].begin() + (size_t) len));
+        results.emplace_back(std::make_shared<Address>(addr, socket_type, ip_type),
+                             Buffer(buffers[i].begin(), buffers[i].begin() + (size_t) len));
     }
 
     return results;
@@ -442,12 +441,9 @@ inline Address::IpType Socket::getIpTypeFromFamily(const sockaddr_storage &addrS
 {
     switch (addrStorage.ss_family)
     {
-    case AF_INET:
-        return Address::IpType::IPv4;
-    case AF_INET6:
-        return Address::IpType::IPv6;
-    default:
-        return Address::IpType::None;
+    case AF_INET: return Address::IpType::IPv4;
+    case AF_INET6: return Address::IpType::IPv6;
+    default: return Address::IpType::None;
     }
 }
 
