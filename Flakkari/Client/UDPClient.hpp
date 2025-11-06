@@ -22,7 +22,6 @@
 #include "Network/Serializer.hpp"
 #include "Protocol/Packet.hpp"
 #include <atomic>
-#include <mutex>
 #include <optional>
 #include <thread>
 
@@ -79,6 +78,11 @@ public:
      */
     void disconnectFromServer();
 
+    /**
+     * @brief Send a packet to the server
+     *
+     * @param packet The packet to send
+     */
     void sendPacket(const Protocol::Packet<Protocol::CommandId> &packet);
 
     /**
@@ -119,7 +123,7 @@ private:
     void run();
 
 private:
-    std::atomic<std::shared_ptr<Network::Socket>> _socket;
+    std::shared_ptr<Network::Socket> _socket;
     std::unique_ptr<IO_SELECTED> _io;
     std::atomic<bool> _running{false};
     std::thread _thread;

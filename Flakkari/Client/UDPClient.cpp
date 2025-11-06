@@ -15,15 +15,13 @@ UDPClient::UDPClient(const std::string &gameDir, const std::string &ip, unsigned
 {
     Network::init();
 
-    auto socketPtr = std::make_shared<Network::Socket>();
-    socketPtr->create(ip, port, Network::Address::IpType::IPv4, Network::Address::SocketType::UDP);
+    _socket = std::make_shared<Network::Socket>();
+    _socket->create(ip, port, Network::Address::IpType::IPv4, Network::Address::SocketType::UDP);
 
-    FLAKKARI_LOG_INFO(std::string(*socketPtr));
-    socketPtr->setBlocking(false);
+    FLAKKARI_LOG_INFO(std::string(*_socket));
+    _socket->setBlocking(false);
 
-    // store atomically and create IO multiplexer using a local copy
-    _socket.store(socketPtr);
-    _io = std::make_unique<IO_SELECTED>(socketPtr->getSocket());
+    _io = std::make_unique<IO_SELECTED>(_socket->getSocket());
 }
 
 UDPClient::~UDPClient()
@@ -47,12 +45,10 @@ void UDPClient::disconnectFromServer() { _running = false; }
 
 void UDPClient::sendPacket(const Protocol::Packet<Protocol::CommandId> &packet)
 {
-    // copy the shared_ptr atomically to ensure socket stays valid during use
-    auto s = _socket.load();
-    if (!s)
+    if (!_socket)
         return;
     auto serializedPacket = packet.serialize();
-    s->sendTo(s->getAddress(), serializedPacket);
+    _socket->sendTo(_socket->getAddress(), serializedPacket);
 }
 
 void UDPClient::addPacket(const Protocol::Packet<Protocol::CommandId> &packet) { _packetQueue.push_back(packet); }
@@ -74,13 +70,10 @@ bool UDPClient::handleTimeout(int event)
 
 void UDPClient::handlePacket()
 {
-    // copy socket pointer atomically and use it without locking
-    auto s = _socket.load();
-    if (!s)
+    if (!_socket)
         return;
 
-    // try to receive a batch of packets to reduce syscalls (recvmmsg on Linux)
-    auto responses = s->receiveMany(32);
+    auto responses = _socket->receiveBatch(32);
     if (responses.empty())
         return;
 
