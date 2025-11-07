@@ -35,21 +35,21 @@ namespace Flakkari {
 #endif
 
 /**
- * @brief UDP Client class that handles incoming packets and clients
+ * @brief UDP Client class that handles incoming and outgoing packets
  *
- * @details This class is the main class of the server, it handles incoming
- * packets and clients, it also handles the client's timeout and disconnection
+ * @details This class is the main class of the client, it handles incoming
+ * packets from the server and outgoing packets to the server.
  *
  * @example "Flakkari/Client/UDPClient.cpp"
  * @code
  * #include "UDPClient.hpp"
  *
- * Flakkari::UDPClient server("Games", "localhost", 8081);
- * server.connectToServer();
+ * Flakkari::UDPClient client("localhost", 8081);
+ * client.connectToServer();
  * auto packet = Protocol::Packet<Protocol::CommandId>();
- * server.sendPacket(packet);
- * packet = server.getNextPacket();
- * server.disconnectFromServer();
+ * client.sendPacket(packet.serialize());
+ * packet = client.getNextPacket();
+ * client.disconnectFromServer();
  * @endcode
  */
 class UDPClient {
@@ -57,11 +57,12 @@ public:
     /**
      * @brief Construct a new UDPClient object
      *
-     * @param gameDir The directory of the games folder
+     * @param game The name of the game
      * @param ip The ip to bind the server to (default: localhost)
      * @param port The port to bind the server to (default: 8081)
+     * @param keepAliveInterval The interval to send keep alive packets (default: 3000 ms)
      */
-    UDPClient(const std::string &gameDir, const std::string &ip = "localhost", unsigned short port = 8081);
+    UDPClient(const std::string &game, const std::string &ip = "localhost", unsigned short port = 8081, long int keepAliveInterval = 3000);
     ~UDPClient();
 
     /**
@@ -84,6 +85,14 @@ public:
      * @param serializedPacket The serialized packet to send
      */
     void sendPacket(const Flakkari::Network::Buffer &serializedPacket);
+
+    /**
+     * @brief Send a REQ_USER_UPDATES packet to the server
+     *
+     * @param events The list of events to send
+     * @param axisEvents The dictionary of axis events to send
+     */
+    void reqUserUpdates(std::vector<Protocol::Event> events, std::unordered_map<Protocol::EventId, float> axisEvents);
 
     /**
      * @brief Get the next packet from the packet queue
@@ -116,7 +125,7 @@ private:
     void handlePacket();
 
     /**
-     * @brief Run the server and wait for incoming packets and clients
+     * @brief Run the client and wait for incoming packets
      *
      * @details This function is blocking, it will wait for incoming packets
      */
@@ -128,6 +137,8 @@ private:
     std::atomic<bool> _running{false};
     std::thread _thread;
     Network::PacketQueue<Protocol::Packet<Protocol::CommandId>> _packetQueue;
+    const long int _KEEP_ALIVE_INTERVAL = 3000; // 3 seconds
+    const std::string _GAME_NAME;
 };
 
 } /* namespace Flakkari */

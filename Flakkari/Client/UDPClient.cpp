@@ -11,7 +11,8 @@
 
 namespace Flakkari {
 
-UDPClient::UDPClient(const std::string &gameDir, const std::string &ip, unsigned short port)
+UDPClient::UDPClient(const std::string &game, const std::string &ip, unsigned short port, long int keepAliveInterval)
+    : _KEEP_ALIVE_INTERVAL(keepAliveInterval), _GAME_NAME(game)
 {
     Network::init();
 
@@ -21,7 +22,7 @@ UDPClient::UDPClient(const std::string &gameDir, const std::string &ip, unsigned
     FLAKKARI_LOG_INFO(std::string(*_socket));
     _socket->setBlocking(false);
 
-    _io = std::make_unique<IO_SELECTED>(_socket->getSocket());
+    _io = std::make_unique<IO_SELECTED>(_socket->getSocket(), _KEEP_ALIVE_INTERVAL);
 }
 
 UDPClient::~UDPClient()
@@ -39,15 +40,47 @@ void UDPClient::connectToServer()
     _running = true;
 
     _thread = std::thread(&UDPClient::run, this);
+
+    Protocol::Packet<Protocol::CommandId> packet;
+    packet.header._apiVersion = packet.header._apiVersion;
+    packet.header._commandId = Protocol::CommandId::REQ_CONNECT;
+    packet.injectString(_GAME_NAME);
+    sendPacket(packet.serialize());
 }
 
 void UDPClient::disconnectFromServer() { _running = false; }
 
-void UDPClient::sendPacket(const Flakkari::Network::Buffer &serializedPacket)
+void UDPClient::sendPacket(const Network::Buffer &serializedPacket)
 {
     if (!_socket)
         return;
     _socket->sendTo(_socket->getAddress(), serializedPacket);
+}
+
+void UDPClient::reqUserUpdates(std::vector<Protocol::Event> events,
+                               std::unordered_map<Protocol::EventId, float> axisEvents)
+{
+    if (events.empty() && axisEvents.empty())
+        return;
+
+    Protocol::Packet<Protocol::CommandId> packet;
+    packet.header._priority = Protocol::Priority::HIGH;
+    packet.header._commandId = Protocol::CommandId::REQ_USER_UPDATES;
+
+    ushort eventCount = static_cast<ushort>(events.size());
+    packet << eventCount;
+    for (const auto &event : events)
+        packet << event;
+
+    ushort axisEventCount = static_cast<ushort>(axisEvents.size());
+    packet << axisEventCount;
+    for (const auto &[eventId, value] : axisEvents)
+    {
+        packet << eventId;
+        packet << value;
+    }
+
+    sendPacket(packet.serialize());
 }
 
 void UDPClient::addPacket(const Protocol::Packet<Protocol::CommandId> &packet) { _packetQueue.push_back(packet); }
@@ -63,7 +96,11 @@ bool UDPClient::handleTimeout(int event)
 {
     if (event != 0)
         return false;
-    FLAKKARI_LOG_DEBUG(LPL_TOSTRING(IO_SELECTED) " timed out");
+
+    Protocol::Packet<Protocol::CommandId> packet;
+    packet.header._apiVersion = packet.header._apiVersion;
+    packet.header._commandId = Protocol::CommandId::REQ_HEARTBEAT;
+    sendPacket(packet.serialize());
     return true;
 }
 

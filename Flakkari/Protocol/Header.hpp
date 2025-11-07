@@ -39,6 +39,7 @@ using ulong = uint64_t;  // 64 bits (max: 18446744073709551615) (8 bytes)
 enum class ApiVersion : byte {
     V_0 = 0,
     V_1 = 1,
+    LAST_VERSION = V_1,
     MAX_VERSION
 };
 
