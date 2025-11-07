@@ -79,11 +79,11 @@ public:
     void disconnectFromServer();
 
     /**
-     * @brief Send a packet to the server
+     * @brief Send a serialized packet to the server
      *
-     * @param packet The packet to send
+     * @param serializedPacket The serialized packet to send
      */
-    void sendPacket(const Protocol::Packet<Protocol::CommandId> &packet);
+    void sendPacket(const Flakkari::Network::Buffer &serializedPacket);
 
     /**
      * @brief Get the next packet from the packet queue

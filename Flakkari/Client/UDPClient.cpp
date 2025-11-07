@@ -43,11 +43,10 @@ void UDPClient::connectToServer()
 
 void UDPClient::disconnectFromServer() { _running = false; }
 
-void UDPClient::sendPacket(const Protocol::Packet<Protocol::CommandId> &packet)
+void UDPClient::sendPacket(const Flakkari::Network::Buffer &serializedPacket)
 {
     if (!_socket)
         return;
-    auto serializedPacket = packet.serialize();
     _socket->sendTo(_socket->getAddress(), serializedPacket);
 }
 

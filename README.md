@@ -69,7 +69,9 @@
 
 ## :pencil: **DESCRIPTION**
 
-Flakkari is a UDP/TCP server initially developed for the R-Type Epitech project and updated for the Video Games course at University Laval. It enables network-based gameplay, supporting multiple games and clients simultaneously through its multi-threaded architecture. The server is designed to handle high concurrency and ensure low latency, making it suitable for real-time multiplayer games. Flakkari also includes features such as game state synchronization, player authentication, and robust error handling to provide a seamless gaming experience.
+Flakkari is a UDP/TCP server and client library initially developed for the R-Type Epitech project and updated for the Video Games course at University Laval. It enables network-based gameplay, supporting multiple games and clients simultaneously through its multi-threaded architecture. The server is designed to handle high concurrency and ensure low latency, making it suitable for real-time multiplayer games. Flakkari also includes features such as game state synchronization, player authentication, and robust error handling to provide a seamless gaming experience.
+
+**🎮 Client Library:** Flakkari provides a static library (`flakkari-client`) that can be integrated into your game projects. This library handles network communication, packet serialization, and game state synchronization, allowing you to focus on game logic.
 
 **🔄 Auto-Update Feature:** Flakkari supports automatic game downloads from remote repositories, allowing the server to fetch and update games dynamically. This feature can be disabled for environments requiring pure MIT licensing.
 
@@ -134,18 +136,66 @@ $> export FLAKKARI_GAME_DIR="$(pwd)/Games"
 # Build with XMake (recommended, cross-platform)
 $> xmake
 
+# Build both server and client
+$> xmake build flakkari-server flakkari-client
+
+# Or build only the server
+$> xmake build flakkari-server
+
+# Or build only the client library
+$> xmake build flakkari-client
+
 # Alternative: Build with CMake
 $> mkdir build && cd build
 $> cmake .. && cmake --build .
 
 # Run the server executable
-$> xmake run
-# Or manually: ./build/linux/x86_64/release/flakkari
+$> xmake run flakkari-server
+# Or manually: ./build/linux/x86_64/release/flakkari-server
 
 # Alternative: Run with explicit arguments (no env variable needed):
-$> ./build/linux/x86_64/release/flakkari -g Games -i localhost -p 8081
-# XMake: or on Windows: .\build\windows\x64\release\flakkari.exe -g Games -i localhost -p 8081
-# CMake: or from build directory: ./flakkari -g Games -i localhost -p 8081
+$> ./build/linux/x86_64/release/flakkari-server -g Games -i localhost -p 8081
+# XMake: or on Windows: .\build\windows\x64\release\flakkari-server.exe -g Games -i localhost -p 8081
+# CMake: or from build directory: ./flakkari-server -g Games -i localhost -p 8081
+```
+
+**Using the Client Library:**
+
+```cpp
+#include "Client/UDPClient.hpp"
+
+// Create a client instance
+Flakkari::UDPClient client("Games", "localhost", 8081);
+
+// Connect to the server
+client.connectToServer();
+
+// Send a packet
+Protocol::Packet<Protocol::CommandId> packet;
+// ... configure packet ...;
+client.sendPacket(packet.serialize());
+
+// Receive packets
+auto receivedPacket = client.getNextPacket();
+if (receivedPacket.has_value()) {
+    // Process packet
+}
+
+// Disconnect
+client.disconnectFromServer();
+```
+
+To link the client library in your project:
+
+```shell
+# With XMake
+add_requires("flakkari-client")
+target("your-game")
+    add_packages("flakkari-client")
+
+# With CMake
+find_package(flakkari-client REQUIRED)
+target_link_libraries(your-game PRIVATE flakkari-client)
 ```
 
 To run the server with
@@ -217,15 +267,42 @@ $> xmake f -m debug && xmake
 # Build in release mode (default)
 $> xmake f -m release && xmake
 
+# Build specific target
+$> xmake build flakkari-server  # Server only
+$> xmake build flakkari-client  # Client library only
+
 # Install the project
 $> xmake install
 
-# Package the project
+# Package the project (see packaging options below)
 $> xmake pack
 
 # Run tests (if available)
 $> xmake test
 ```
+
+**Packaging options:**
+
+```shell
+# Package both server and client (default)
+$> xmake pack -y
+
+# Package only the server
+$> xmake f --pack-server=y --pack-client=n -y
+$> xmake pack -y
+
+# Package only the client library
+$> xmake f --pack-server=n --pack-client=y -y
+$> xmake pack -y
+
+# Back to full package
+$> xmake f --pack-server=y --pack-client=y -y
+```
+
+The packages will be generated in `build/xpack/flakkari/` with names like:
+- `flakkari-full-linux-x86_64-v0.8.0.zip` (both server and client)
+- `flakkari-server-linux-x86_64-v0.8.0.zip` (server only)
+- `flakkari-client-linux-x86_64-v0.8.0.zip` (client library only)
 
 **Alternative CMake commands:**
 

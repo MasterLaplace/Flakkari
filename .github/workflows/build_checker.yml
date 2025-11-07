@@ -20,6 +20,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
+        target: [flakkari-server, flakkari-client]
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v5
@@ -34,6 +35,6 @@ jobs:
           package-cache-key: '${{ runner.os }}-xmake-nlohmann_json-libcurl-libgit2'
           project-path: '.'
 
-      - name: Configure and Build
-        run: xmake build -y
+      - name: Configure and Build ${{ matrix.target }}
+        run: xmake build ${{ matrix.target }} -y
         timeout-minutes: 5
