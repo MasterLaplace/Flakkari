@@ -62,7 +62,8 @@ public:
      * @param port The port to bind the server to (default: 8081)
      * @param keepAliveInterval The interval to send keep alive packets (default: 3000 ms)
      */
-    UDPClient(const std::string &game, const std::string &ip = "localhost", unsigned short port = 8081, long int keepAliveInterval = 3000);
+    UDPClient(const std::string &game, const std::string &ip = "localhost", unsigned short port = 8081,
+              long int keepAliveInterval = 3000);
     ~UDPClient();
 
     /**
