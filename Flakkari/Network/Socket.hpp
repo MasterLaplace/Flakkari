@@ -306,6 +306,12 @@ public:
     operator std::string() const;
 
 private:
+    /**
+     * @brief Get the Ip Type From Family object
+     *
+     * @param addrStorage  The sockaddr_storage to get the family from
+     * @return Address::IpType  The IpType
+     */
     [[nodiscard]] inline Address::IpType getIpTypeFromFamily(const sockaddr_storage &addrStorage) const;
 
 protected:

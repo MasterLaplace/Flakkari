@@ -10,7 +10,6 @@
 #include "Game.hpp"
 #include "../Client/ClientManager.hpp"
 #include "Engine/EntityComponentSystem/Components/ComponentsCommon.hpp"
-#include "Protocol/PacketFactory.hpp"
 #include "ResourceManager.hpp"
 
 namespace Flakkari {

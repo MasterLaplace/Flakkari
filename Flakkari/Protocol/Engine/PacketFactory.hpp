@@ -20,6 +20,7 @@
 #include "flakkari_config.h"
 
 #include "Engine/EntityComponentSystem/Systems/Systems.hpp"
+#include "Engine/Components.hpp"
 #include "Packet.hpp"
 
 namespace Flakkari::Protocol {

@@ -100,7 +100,7 @@ public:
      *
      * @return Protocol::Packet<Protocol::CommandId>  The next packet
      */
-    std::optional<Protocol::Packet<Protocol::CommandId>> getNextPacket();
+    [[nodiscard]] std::optional<Protocol::Packet<Protocol::CommandId>> getNextPacket();
 
 private:
     /**
