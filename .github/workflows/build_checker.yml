@@ -41,5 +41,7 @@ jobs:
           project-path: '.'
 
       - name: Configure and Build ${{ matrix.target }}
-        run: xmake build ${{ matrix.target }} -y
+        run: |
+          xmake require --install -y || true
+          xmake build ${{ matrix.target }} -y
         timeout-minutes: 5
