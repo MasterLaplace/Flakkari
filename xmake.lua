@@ -108,18 +108,17 @@ target("flakkari-client")
 
     remove_files("Flakkari/*.cpp")
     remove_files("Flakkari/Server/**.cpp")
+    remove_files("Flakkari/Engine/**.cpp")
+    remove_files("Flakkari/Protocol/Engine/**.cpp")
 
     add_headerfiles("Flakkari/**.h", { public = true })
     add_headerfiles("Flakkari/**.hpp", { public = true })
 
     remove_headerfiles("Flakkari/Server/**.hpp")
+    remove_headerfiles("Flakkari/Engine/**.hpp")
+    remove_headerfiles("Flakkari/Protocol/Engine/**.hpp")
 
     add_includedirs("Flakkari/", { public = true })
-    add_includedirs("Flakkari/Engine", { public = true })
-    add_includedirs("Flakkari/Engine/EntityComponentSystem", { public = true })
-    add_includedirs("Flakkari/Engine/EntityComponentSystem/Components", { public = true })
-    add_includedirs("Flakkari/Engine/EntityComponentSystem/Systems", { public = true })
-    add_includedirs("Flakkari/Engine/Math", { public = true })
     add_includedirs("Flakkari/Logger", { public = true })
     add_includedirs("Flakkari/Network", { public = true })
     add_includedirs("Flakkari/Protocol", { public = true })
