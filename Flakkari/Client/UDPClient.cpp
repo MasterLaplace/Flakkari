@@ -67,12 +67,12 @@ void UDPClient::reqUserUpdates(std::vector<Protocol::Event> events,
     packet.header._priority = Protocol::Priority::HIGH;
     packet.header._commandId = Protocol::CommandId::REQ_USER_UPDATES;
 
-    uint16_t eventCount = static_cast<uint16_t>(events.size());
+    auto eventCount = static_cast<uint16_t>(events.size());
     packet << eventCount;
     for (const auto &event : events)
         packet << event;
 
-    uint16_t axisEventCount = static_cast<uint16_t>(axisEvents.size());
+    auto axisEventCount = static_cast<uint16_t>(axisEvents.size());
     packet << axisEventCount;
     for (const auto &[eventId, value] : axisEvents)
     {
