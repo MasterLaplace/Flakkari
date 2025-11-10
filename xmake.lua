@@ -28,6 +28,7 @@ if has_config("with-autoupdate") then
 end
 
 includes("@builtin/xpack")
+includes("examples")
 
 set_project("Flakkari")
 set_license("MIT")
