@@ -1,8 +1,8 @@
 /*
-** EPITECH PROJECT, 2023
+** EPITECH PROJECT, 2025
 ** Title: Flakkari
 ** Author: MasterLaplace
-** Created: 2023-12-24
+** Created: 2025-11-04
 ** File description:
 ** UDPClient
 */
