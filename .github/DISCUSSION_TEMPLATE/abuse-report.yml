@@ -43,7 +43,8 @@ body:
     id: details
     attributes:
       label: Details and evidence
-      description: Provide as much detail as possible: links to issues/PRs, exact
+      description: >
+        Provide as much detail as possible - links to issues/PRs, exact
         quotes, screenshots, or logs. Attach files using the GitHub attachment UI.
       placeholder: |
         - Links to relevant issues/PRs/comments
