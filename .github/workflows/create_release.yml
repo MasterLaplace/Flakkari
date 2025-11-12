@@ -89,7 +89,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
-        package-type: [full, server, client]
+        package-type: [server, client]
     steps:
       - name: Checkout Repository (bump tag)
         uses: actions/checkout@v5
@@ -107,13 +107,11 @@ jobs:
           package-cache-key: '${{ runner.os }}-xmake-nlohmann_json-libcurl-libgit2'
           project-path: '.'
 
-      - name: Configure package type
+      - name: Configure package type (Unix)
+        if: runner.os != 'Windows'
         shell: bash
         run: |
           case "${{ matrix.package-type }}" in
-            full)
-              xmake f -y -m release --pack-server=y --pack-client=y
-              ;;
             server)
               xmake f -y -m release --pack-server=y --pack-client=n
               ;;
@@ -121,6 +119,19 @@ jobs:
               xmake f -y -m release --pack-server=n --pack-client=y
               ;;
           esac
+
+      - name: Configure package type (Windows)
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          switch ("${{ matrix.package-type }}") {
+            "server" {
+              xmake f -y -m release --pack-server=y --pack-client=n
+            }
+            "client" {
+              xmake f -y -m release --pack-server=n --pack-client=y
+            }
+          }
 
       - name: Build Flakkari Package with xpack
         run: xmake pack -y
