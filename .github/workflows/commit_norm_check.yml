@@ -8,8 +8,8 @@ on:
 
 jobs:
   verify-commit-name:
+    name: Verify Commit Name
     runs-on: ubuntu-latest
-
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v5

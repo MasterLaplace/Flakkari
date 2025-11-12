@@ -10,7 +10,7 @@ nationality, personal appearance, race, caste, color, religion, or sexual
 identity and orientation.
 
 We pledge to act and interact in ways that contribute to an open, welcoming,
-diverse, inclusive, and healthy community.
+and healthy community.
 
 ## Our Standards
 
@@ -57,14 +57,14 @@ posting via an official social media account, or acting as an appointed
 representative at an online or offline event.
 
 ## Enforcement
+Instances of abusive, harassing, or otherwise unacceptable behavior must be
+reported by opening a new public Discussion in this repository's Discussions
+area using the `abuse-report` category and attaching any relevant evidence
+(screenshots, links, logs, etc.). This discussion is public and will be the
+primary place for handling the report: maintainers will monitor and respond
+only in that category.
 
-Instances of abusive, harassing, or otherwise unacceptable behavior may be
-reported to the community leaders responsible for enforcement at
-[INSERT CONTACT METHOD].
-All complaints will be reviewed and investigated promptly and fairly.
-
-All community leaders are obligated to respect the privacy and security of the
-reporter of any incident.
+All reports will be reviewed promptly and fairly.
 
 ## Enforcement Guidelines
 
@@ -116,7 +116,8 @@ community.
 
 This Code of Conduct is adapted from the [Contributor Covenant][homepage],
 version 2.1, available at
-[https://www.contributor-covenant.org/version/2/1/code_of_conduct.html][v2.1].
+[https://www.contributor-covenant.org/version/2/1/code_of_conduct.html][v2.1]
+and edited by [MasterLaplace](https://github.com/MasterLaplace).
 
 Community Impact Guidelines were inspired by
 [Mozilla's code of conduct enforcement ladder][Mozilla CoC].

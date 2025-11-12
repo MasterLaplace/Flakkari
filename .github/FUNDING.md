@@ -15,3 +15,9 @@ As a financial contributor, you will receive the following benefits:
 - Access to our private discussion channel for direct discussions with the team.
 
 We thank you for your ongoing support!
+
+# Sponsors
+
+Proper thanks to all our sponsors! Your support is invaluable to us.
+
+<!-- sponsors --><!-- sponsors -->

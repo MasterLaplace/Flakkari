@@ -1,10 +1,12 @@
 name: Doxygen GitHub Pages Deploy Action
+
 on:
   repository_dispatch:
     types: [ update_logo_event, deploy_doxygen_event ]
 
 jobs:
   generate_doxygen:
+    name: Generate and Deploy Doxygen Documentation
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository

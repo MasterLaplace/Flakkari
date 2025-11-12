@@ -6,7 +6,7 @@ Welcome to the support center for Flakkari! If you have questions, encounter iss
 
 If you come across a bug or want to report an enhancement, please open a new issue on GitHub. Be sure to provide as much information as possible, including reproduction steps and screenshots if appropriate.
 
-[Open a New Issue](https://github.com/MasterLaplace/Flakkari/issues/new)
+[Open a New Issue](https://github.com/MasterLaplace/Flakkari/issues/new/choose)
 
 ## Questions and Discussions
 
@@ -30,4 +30,4 @@ Thank you for your interest in Flakkari, and we look forward to assisting you!
 
 If you have a question and need assistance, you can use our question template to provide more context and structure to your inquiry.
 
-[Open a New Question](https://github.com/MasterLaplace/Flakkari/issues/new?assignees=&labels=question&template=.github/ISSUE_TEMPLATE/question.yml)
+[Open a New Question](https://github.com/MasterLaplace/Flakkari/issues/new?template=question.yml)

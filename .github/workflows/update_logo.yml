@@ -16,8 +16,8 @@ env:
 
 jobs:
   update_logo:
+    name: Update Flakkari Logo
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v5

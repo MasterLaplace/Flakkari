@@ -16,6 +16,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Changed
 
+- Update documentation for sponsors and code of conduct - by @MasterLaplace in [#94](https://github.com/MasterLaplace/Flakkari/pull/94)
+
 ### Removed
 
 
