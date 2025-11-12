@@ -19,13 +19,17 @@ jobs:
         run: |
           Write-Host "==================== SYSTEM INFO ====================" -ForegroundColor Cyan
           Write-Host "OS Version:" -ForegroundColor Yellow
-          systeminfo | findstr /B /C:"OS Name" /C:"OS Version"
+          Get-ComputerInfo | Select-Object WindowsProductName, WindowsVersion, OsHardwareAbstractionLayer
+
           Write-Host "`nProcessor:" -ForegroundColor Yellow
-          wmic cpu get name
+          Get-CimInstance -ClassName Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors
+
           Write-Host "`nArchitecture:" -ForegroundColor Yellow
-          echo $env:PROCESSOR_ARCHITECTURE
+          Write-Host $env:PROCESSOR_ARCHITECTURE
+
           Write-Host "`nAvailable RAM:" -ForegroundColor Yellow
-          wmic ComputerSystem get TotalPhysicalMemory
+          $ram = Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum
+          Write-Host "$([math]::round($ram.sum / 1GB, 2)) GB"
 
       - name: 2️⃣ Check Visual Studio Installation
         shell: pwsh
