@@ -1,0 +1,77 @@
+name: Test Label Bump Detection
+
+on:
+  pull_request:
+    types: [labeled, unlabeled]
+    branches: [master, main]
+
+permissions:
+  contents: read
+  pull-requests: read
+
+jobs:
+  test_bump_detection:
+    name: Test Bump Type Detection
+    runs-on: ubuntu-latest
+    if: ${{ contains(github.event.pull_request.labels.*.name, 'bump') }}
+    steps:
+      - name: Dump PR Context
+        env:
+          LABELS_JSON: ${{ toJson(github.event.pull_request.labels) }}
+        run: |
+          echo "=== PR EVENT CONTEXT ==="
+          echo "PR Number: ${{ github.event.pull_request.number }}"
+          echo "PR Title: ${{ github.event.pull_request.title }}"
+          echo "PR Merged: ${{ github.event.pull_request.merged }}"
+          echo "Action: ${{ github.event.action }}"
+          echo ""
+          echo "=== LABELS (raw JSON) ==="
+          echo "$LABELS_JSON" | jq '.'
+
+      - name: Determine Bump Type
+        id: determine_bump
+        env:
+          LABELS_JSON: ${{ toJson(github.event.pull_request.labels) }}
+        run: |
+          echo "=== DETERMINING BUMP TYPE ==="
+          labels=$(echo "$LABELS_JSON" | jq -r '.[].name' || true)
+
+          echo "Labels detected:"
+          echo "$labels"
+          echo ""
+
+          bump=patch
+          if echo "$labels" | grep -q "major"; then
+            bump=major
+          elif echo "$labels" | grep -q "minor"; then
+            bump=minor
+          fi
+
+          echo "Determined bump type: $bump"
+          echo "label_bump=$bump" >> $GITHUB_OUTPUT
+
+      - name: Display Result
+        run: |
+          echo "🎯 BUMP TYPE DETECTED: ${{ steps.determine_bump.outputs.label_bump }}"
+          echo ""
+          echo "✅ Condition 'bump' label: PASSED"
+          echo "✅ Label parsing: SUCCESS"
+          echo ""
+          echo "This PR would trigger a '${{ steps.determine_bump.outputs.label_bump }}' version bump on merge."
+
+  test_bump_missing:
+    name: Test No Bump Label
+    runs-on: ubuntu-latest
+    if: ${{ !contains(github.event.pull_request.labels.*.name, 'bump') }}
+    steps:
+      - name: Display Skip Reason
+        env:
+          LABELS_JSON: ${{ toJson(github.event.pull_request.labels) }}
+        run: |
+          echo "⚠️  BUMP LABEL MISSING"
+          echo ""
+          echo "Current labels:"
+          echo "$LABELS_JSON" | jq -r '.[].name'
+          echo ""
+          echo "❌ This PR would be SKIPPED by create_release.yml"
+          echo "💡 Add the 'bump' label to enable release creation on merge."
