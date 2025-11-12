@@ -46,7 +46,7 @@ ClientManager::addClient(const std::shared_ptr<Network::Address> &client, Networ
         return std::nullopt;
     }
 
-    std::string gameName = std::string((const char *) packet.payload.getData(), packet.payload.getSize());
+    std::string gameName = packet.extractString();
     auto apiVersion = packet.header._apiVersion;
     _clients[clientString] = std::make_shared<Client>(client, gameName, apiVersion);
 

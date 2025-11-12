@@ -26,6 +26,9 @@ GameManager::GameManager(const std::string &gameDir) : _game_dir(gameDir)
         std::string gameName = entry.path().string();
         gameName = gameName.substr(std::max(gameName.find_last_of("/") + 1, gameName.find_last_of("\\") + 1));
 
+        if (gameName == ".gitkeep")
+            continue;
+
         if (_gamesStore.find(gameName) != _gamesStore.end())
         {
             FLAKKARI_LOG_ERROR("game already loaded");
