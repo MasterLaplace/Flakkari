@@ -162,17 +162,17 @@ $> ./build/linux/x86_64/release/flakkari-server -g Games -i localhost -p 8081
 **Using the Client Library:**
 
 ```cpp
-#include "Client/UDPClient.hpp"
+#include "Flakkari/Client/UDPClient.hpp"
 
 // Create a client instance
-Flakkari::UDPClient client("Games", "localhost", 8081);
+Flakkari::UDPClient client("MyGame", "127.0.0.1", 8081);
 
 // Connect to the server
 client.connectToServer();
 
 // Send a packet
 Protocol::Packet<Protocol::CommandId> packet;
-// ... configure packet ...;
+// ... configure packet ...
 client.sendPacket(packet.serialize());
 
 // Receive packets
@@ -185,13 +185,36 @@ if (receivedPacket.has_value()) {
 client.disconnectFromServer();
 ```
 
-To link the client library in your project:
+**Running the Example Client:**
+
+A complete example client is available in `examples/client.cpp`:
+
+```shell
+# Build the example client
+$> xmake build example-client
+
+# Start the server in one terminal
+$> export FLAKKARI_GAME_DIR="$(pwd)/Games"
+$> xmake run flakkari-server -g Games -i 127.0.0.1 -p 12345
+
+# Run the example client in another terminal
+$> xmake run example-client
+
+# Expected output:
+# [CLIENT] Starting Flakkari example client...
+# [CLIENT] Connecting to server at 127.0.0.1:12345
+# [CLIENT] Connected! Waiting for packets...
+# [CLIENT] Press Ctrl+C to stop
+```
+
+**Integrating the Client Library in Your Project:**
 
 ```shell
 # With XMake
-add_requires("flakkari-client")
+add_deps("flakkari-client")
 target("your-game")
-    add_packages("flakkari-client")
+    add_deps("flakkari-client")
+    add_includedirs("$(projectdir)")  -- For Flakkari/ prefix
 
 # With CMake
 find_package(flakkari-client REQUIRED)
