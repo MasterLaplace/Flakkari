@@ -38,7 +38,7 @@ jobs:
               xmake f -y -m release --pack-server=y --pack-client=n
               ;;
             client)
-              xmake f -y -m release --pack-server=n --pack-client=y
+              xmake f -y -m release --pack-server=y --pack-client=n
               ;;
           esac
 
