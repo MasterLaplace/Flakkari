@@ -1,4 +1,5 @@
 name: Issue translator
+
 on:
   issue_comment:
     types: [created]
@@ -7,6 +8,7 @@ on:
 
 jobs:
   translate_issue:
+    name: Translate Issue
     runs-on: ubuntu-latest
     steps:
       - uses: usthe/issues-translate-action@v2.7

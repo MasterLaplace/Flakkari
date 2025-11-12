@@ -3,6 +3,9 @@ description: Report a bug
 title: '[Bug]: '
 labels:
   - bug
+assignees:
+  - {{ github.actor }}
+  - MasterLaplace
 body:
   - type: textarea
     id: what-happened
