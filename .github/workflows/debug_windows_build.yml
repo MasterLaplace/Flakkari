@@ -14,93 +14,7 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: 1️⃣ System Information
-        shell: pwsh
-        run: |
-          Write-Host "==================== SYSTEM INFO ====================" -ForegroundColor Cyan
-          Write-Host "OS Version:" -ForegroundColor Yellow
-          Get-ComputerInfo | Select-Object WindowsProductName, WindowsVersion, OsHardwareAbstractionLayer
-
-          Write-Host "`nProcessor:" -ForegroundColor Yellow
-          Get-CimInstance -ClassName Win32_Processor | Select-Object Name, NumberOfCores, NumberOfLogicalProcessors
-
-          Write-Host "`nArchitecture:" -ForegroundColor Yellow
-          Write-Host $env:PROCESSOR_ARCHITECTURE
-
-          Write-Host "`nAvailable RAM:" -ForegroundColor Yellow
-          $ram = Get-CimInstance Win32_PhysicalMemory | Measure-Object -Property capacity -Sum
-          Write-Host "$([math]::round($ram.sum / 1GB, 2)) GB"
-
-      - name: 2️⃣ Check Visual Studio Installation
-        shell: pwsh
-        run: |
-          Write-Host "==================== VISUAL STUDIO ====================" -ForegroundColor Cyan
-          Write-Host "`nSearching for Visual Studio installations..." -ForegroundColor Yellow
-
-          # Check vswhere
-          $vswhere = "${env:ProgramFiles(x86)}\Microsoft Visual Studio\Installer\vswhere.exe"
-          if (Test-Path $vswhere) {
-            Write-Host "`nvswhere found at: $vswhere" -ForegroundColor Green
-            & $vswhere -all
-          } else {
-            Write-Host "`nvswhere NOT FOUND" -ForegroundColor Red
-          }
-
-          # Check common VS paths
-          Write-Host "`nChecking common VS paths..." -ForegroundColor Yellow
-          $vsPaths = @(
-            "${env:ProgramFiles}\Microsoft Visual Studio\2022",
-            "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2022",
-            "${env:ProgramFiles}\Microsoft Visual Studio\2019",
-            "${env:ProgramFiles(x86)}\Microsoft Visual Studio\2019"
-          )
-          foreach ($path in $vsPaths) {
-            if (Test-Path $path) {
-              Write-Host "✓ Found: $path" -ForegroundColor Green
-              Get-ChildItem $path -Directory | Select-Object Name
-            } else {
-              Write-Host "✗ Not found: $path" -ForegroundColor Red
-            }
-          }
-
-      - name: 3️⃣ Check MSVC Compiler
-        shell: pwsh
-        run: |
-          Write-Host "==================== MSVC COMPILER ====================" -ForegroundColor Cyan
-
-          # Try to find cl.exe
-          Write-Host "`nSearching for cl.exe..." -ForegroundColor Yellow
-          Get-ChildItem -Path "C:\Program Files" -Filter "cl.exe" -Recurse -ErrorAction SilentlyContinue | Select-Object FullName
-
-          # Check environment variables
-          Write-Host "`nRelevant Environment Variables:" -ForegroundColor Yellow
-          Get-ChildItem Env: | Where-Object { $_.Name -like "*VS*" -or $_.Name -like "*MSVC*" } | Format-Table Name, Value -AutoSize
-
-      - name: 4️⃣ Check Available Compilers
-        shell: pwsh
-        run: |
-          Write-Host "==================== AVAILABLE COMPILERS ====================" -ForegroundColor Cyan
-
-          Write-Host "`nChecking for gcc/g++..." -ForegroundColor Yellow
-          try {
-            gcc --version
-            Write-Host "✓ gcc found" -ForegroundColor Green
-          } catch {
-            Write-Host "✗ gcc not found" -ForegroundColor Red
-          }
-
-          Write-Host "`nChecking for clang..." -ForegroundColor Yellow
-          try {
-            clang --version
-            Write-Host "✓ clang found" -ForegroundColor Green
-          } catch {
-            Write-Host "✗ clang not found" -ForegroundColor Red
-          }
-
-          Write-Host "`nChecking PATH for compilers..." -ForegroundColor Yellow
-          $env:PATH -split ';' | Where-Object { $_ -match 'Visual Studio|MSVC|mingw|gcc|clang' }
-
-      - name: 5️⃣ Install xmake
+      - name: 1️⃣ Install xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
           xmake-version: latest
@@ -110,81 +24,90 @@ jobs:
           package-cache-key: 'debug-${{ runner.os }}-xmake-packages'
           project-path: '.'
 
-      - name: 6️⃣ XMake Detection (before config)
-        shell: pwsh
-        run: |
-          Write-Host "==================== XMAKE DETECTION ====================" -ForegroundColor Cyan
-
-          Write-Host "`nXMake version:" -ForegroundColor Yellow
-          xmake --version
-
-          Write-Host "`nXMake global config:" -ForegroundColor Yellow
-          xmake g --show
-
-          Write-Host "`nAvailable toolchains:" -ForegroundColor Yellow
-          xmake show -l toolchains
-
-      - name: 7️⃣ XMake Config with Verbose Output
+      - name: 2️⃣ XMake Config with Full Diagnosis
         shell: pwsh
         run: |
           Write-Host "==================== XMAKE CONFIG ====================" -ForegroundColor Cyan
-          Write-Host "`nConfiguring with verbose output..." -ForegroundColor Yellow
-          xmake f -y -m release -v --diagnosis
+          Write-Host "`nConfiguring with full diagnosis..." -ForegroundColor Yellow
+          xmake f -y -m release -vD
 
-      - name: 8️⃣ XMake Config Details
+      - name: 3️⃣ Show Configuration Details
         shell: pwsh
         run: |
           Write-Host "==================== CONFIG DETAILS ====================" -ForegroundColor Cyan
 
           Write-Host "`nProject configuration:" -ForegroundColor Yellow
-          xmake f --show
+          xmake f -p windows
 
-          Write-Host "`nDetected compiler:" -ForegroundColor Yellow
-          xmake l -c "import('core.tool.toolchain'); local tc = toolchain.load('msvc'); if tc then print('MSVC found: ' .. (tc:check() and 'YES' or 'NO')); for k,v in pairs(tc:config()) do print(k .. ' = ' .. tostring(v)) end else print('MSVC toolchain not found') end"
+          Write-Host "`n`n==================== MSVC TOOLCHAIN CHECK ====================" -ForegroundColor Cyan
+          xmake l -c "import('core.tool.toolchain'); local tc = toolchain.load('msvc'); if tc then print('MSVC toolchain loaded'); print('Check result: ' .. tostring(tc:check())); local cfg = tc:config(); for k,v in pairs(cfg) do print('  ' .. k .. ' = ' .. tostring(v)) end else print('ERROR: MSVC toolchain not found') end"
 
-      - name: 9️⃣ Try Building a Simple Target
-        shell: pwsh
-        run: |
-          Write-Host "==================== BUILD TEST ====================" -ForegroundColor Cyan
-          Write-Host "`nAttempting to build flakkari-client..." -ForegroundColor Yellow
-          xmake build flakkari-client -v
-
-      - name: 🔟 Check Package Requirements
+      - name: 4️⃣ List Required Packages
         shell: pwsh
         run: |
           Write-Host "==================== PACKAGE REQUIREMENTS ====================" -ForegroundColor Cyan
-          Write-Host "`nChecking required packages..." -ForegroundColor Yellow
           xmake require --list
 
-          Write-Host "`nPackage installation directory:" -ForegroundColor Yellow
-          xmake l -c "import('core.package.package'); print(package.installdir())"
+      - name: 5️⃣ Try Building Client (should work)
+        shell: pwsh
+        run: |
+          Write-Host "==================== BUILD CLIENT TEST ====================" -ForegroundColor Cyan
+          xmake build flakkari-client      - name: 6️⃣ Configure for Pack (client only)
+        shell: pwsh
+        run: |
+          Write-Host "==================== CONFIGURE FOR PACK ====================" -ForegroundColor Cyan
+          xmake f -y -m release --pack-server=n --pack-client=y -vD
 
-      - name: 1️⃣1️⃣ Try Pack Command with Verbose
+      - name: 7️⃣ Try Pack with Full Diagnosis
         shell: pwsh
         run: |
           Write-Host "==================== PACK COMMAND ====================" -ForegroundColor Cyan
-          Write-Host "`nAttempting xmake pack..." -ForegroundColor Yellow
-          xmake f -y -m release --pack-server=n --pack-client=y -v
-          xmake pack -y -v --diagnosis
+          xmake pack -y -vD
 
-      - name: 1️⃣2️⃣ Summary and Diagnostics
+      - name: 8️⃣ Check Build Output
         if: always()
         shell: pwsh
         run: |
-          Write-Host "==================== SUMMARY ====================" -ForegroundColor Cyan
-          Write-Host "`nBuild directory contents:" -ForegroundColor Yellow
+          Write-Host "==================== BUILD OUTPUT ====================" -ForegroundColor Cyan
+
+          Write-Host "`nbuild/ directory:" -ForegroundColor Yellow
           if (Test-Path "build") {
-            Get-ChildItem -Path "build" -Recurse | Select-Object FullName
+            Get-ChildItem -Path "build" -Recurse -File | Select-Object FullName, Length | Format-Table -AutoSize
           } else {
-            Write-Host "Build directory not found" -ForegroundColor Red
+            Write-Host "No build directory found" -ForegroundColor Red
           }
 
-          Write-Host "`nXMake cache directory:" -ForegroundColor Yellow
+          Write-Host "`n`nbuild/xpack/ directory:" -ForegroundColor Yellow
+          if (Test-Path "build/xpack") {
+            Get-ChildItem -Path "build/xpack" -Recurse | Select-Object FullName
+          } else {
+            Write-Host "No build/xpack directory found" -ForegroundColor Red
+          }
+
+      - name: 9️⃣ Check for Error Logs
+        if: always()
+        shell: pwsh
+        run: |
+          Write-Host "==================== ERROR LOGS ====================" -ForegroundColor Cyan
+
+          Write-Host "`nSearching for .log files..." -ForegroundColor Yellow
+          $logs = Get-ChildItem -Path "." -Filter "*.log" -Recurse -ErrorAction SilentlyContinue
+          if ($logs) {
+            foreach ($log in $logs) {
+              Write-Host "`n--- $($log.FullName) ---" -ForegroundColor Yellow
+              Get-Content $log.FullName -Tail 50
+            }
+          } else {
+            Write-Host "No log files found" -ForegroundColor Green
+          }
+
+          Write-Host "`n`nSearching for .xmake logs..." -ForegroundColor Yellow
           if (Test-Path ".xmake") {
-            Get-ChildItem -Path ".xmake" -Recurse -Depth 2 | Select-Object FullName
-          } else {
-            Write-Host ".xmake directory not found" -ForegroundColor Red
+            $xmakelogs = Get-ChildItem -Path ".xmake" -Filter "*.log" -Recurse -ErrorAction SilentlyContinue
+            if ($xmakelogs) {
+              foreach ($log in $xmakelogs) {
+                Write-Host "`n--- $($log.FullName) ---" -ForegroundColor Yellow
+                Get-Content $log.FullName -Tail 100
+              }
+            }
           }
-
-          Write-Host "`nCheck for error logs..." -ForegroundColor Yellow
-          Get-ChildItem -Path "." -Filter "*.log" -Recurse -ErrorAction SilentlyContinue | Select-Object FullName
