@@ -33,8 +33,7 @@ jobs:
       - name: Determine Default bump type
         id: determine_default_bump
         run: |
-          labels_json='${{ toJson(github.event.pull_request.labels) }}'
-          labels=$(echo "$labels_json" | jq -r '.[].name' || true)
+          labels=$(echo '${{ toJson(github.event.pull_request.labels) }}' | jq -r '.[].name' || true)
           bump=patch
           if echo "$labels" | grep -q "major"; then
             bump=major
