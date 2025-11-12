@@ -1,4 +1,4 @@
-name: Debug Windows Build Environment
+name: Build and Upload Windows Artifacts
 
 on:
   push:
@@ -7,109 +7,83 @@ on:
   workflow_dispatch:
 
 jobs:
-  debug_windows_environment:
-    name: Debug Windows Build Environment
+  build_and_upload_windows:
+    name: Build and Upload Windows Artifacts
     runs-on: windows-latest
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v5
 
-      - name: 1️⃣ Install xmake
+      - name: Setup xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
           xmake-version: latest
           actions-cache-folder: '.xmake-cache'
-          actions-cache-key: 'debug-${{ runner.os }}-xmake-install'
+          actions-cache-key: 'windows-${{ runner.os }}-xmake-install'
           package-cache: true
-          package-cache-key: 'debug-${{ runner.os }}-xmake-packages'
+          package-cache-key: 'windows-${{ runner.os }}-xmake-packages'
           project-path: '.'
 
-      - name: 2️⃣ XMake Config with Full Diagnosis
+      - name: Configure for Windows Release
         shell: pwsh
         run: |
-          Write-Host "==================== XMAKE CONFIG ====================" -ForegroundColor Cyan
-          Write-Host "`nConfiguring with full diagnosis..." -ForegroundColor Yellow
-          xmake f -y -m release -vD
+          Write-Host "Configuring xmake for Windows release build..." -ForegroundColor Cyan
+          xmake f -y -m release --pack-server=n --pack-client=y -v
 
-      - name: 3️⃣ Show Configuration Details
+      - name: Build Client
         shell: pwsh
         run: |
-          Write-Host "==================== CONFIG DETAILS ====================" -ForegroundColor Cyan
+          Write-Host "Building flakkari-client..." -ForegroundColor Cyan
+          xmake build flakkari-client -v
 
-          Write-Host "`nProject configuration:" -ForegroundColor Yellow
-          xmake f -p windows
-
-          Write-Host "`n`n==================== MSVC TOOLCHAIN CHECK ====================" -ForegroundColor Cyan
-          xmake l -c "import('core.tool.toolchain'); local tc = toolchain.load('msvc'); if tc then print('MSVC toolchain loaded'); print('Check result: ' .. tostring(tc:check())); local cfg = tc:config(); for k,v in pairs(cfg) do print('  ' .. k .. ' = ' .. tostring(v)) end else print('ERROR: MSVC toolchain not found') end"
-
-      - name: 4️⃣ List Required Packages
+      - name: Pack Client Artifacts
         shell: pwsh
         run: |
-          Write-Host "==================== PACKAGE REQUIREMENTS ====================" -ForegroundColor Cyan
-          xmake require --list
+          Write-Host "Creating client packages..." -ForegroundColor Cyan
+          xmake pack -y -v
 
-      - name: 5️⃣ Try Building Client (should work)
+      - name: List Generated Artifacts
         shell: pwsh
         run: |
-          Write-Host "==================== BUILD CLIENT TEST ====================" -ForegroundColor Cyan
-          xmake build flakkari-client
-
-      - name: 6️⃣ Configure for Pack (client only)
-        shell: pwsh
-        run: |
-          Write-Host "==================== CONFIGURE FOR PACK ====================" -ForegroundColor Cyan
-          xmake f -y -m release --pack-server=n --pack-client=y -vD
-
-      - name: 7️⃣ Try Pack with Full Diagnosis
-        shell: pwsh
-        run: |
-          Write-Host "==================== PACK COMMAND ====================" -ForegroundColor Cyan
-          xmake pack -y -vD
-
-      - name: 8️⃣ Check Build Output
-        if: always()
-        shell: pwsh
-        run: |
-          Write-Host "==================== BUILD OUTPUT ====================" -ForegroundColor Cyan
-
-          Write-Host "`nbuild/ directory:" -ForegroundColor Yellow
-          if (Test-Path "build") {
-            Get-ChildItem -Path "build" -Recurse -File | Select-Object FullName, Length | Format-Table -AutoSize
-          } else {
-            Write-Host "No build directory found" -ForegroundColor Red
-          }
-
-          Write-Host "`n`nbuild/xpack/ directory:" -ForegroundColor Yellow
+          Write-Host "==================== GENERATED ARTIFACTS ====================" -ForegroundColor Cyan
           if (Test-Path "build/xpack") {
-            Get-ChildItem -Path "build/xpack" -Recurse | Select-Object FullName
+            Get-ChildItem -Path "build/xpack" -Recurse -File | Select-Object Name, Length, FullName | Format-Table -AutoSize
           } else {
-            Write-Host "No build/xpack directory found" -ForegroundColor Red
+            Write-Host "No artifacts found!" -ForegroundColor Red
+            exit 1
           }
 
-      - name: 9️⃣ Check for Error Logs
-        if: always()
+      - name: Upload Artifacts to Release v0.9.0
         shell: pwsh
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          Write-Host "==================== ERROR LOGS ====================" -ForegroundColor Cyan
-
-          Write-Host "`nSearching for .log files..." -ForegroundColor Yellow
-          $logs = Get-ChildItem -Path "." -Filter "*.log" -Recurse -ErrorAction SilentlyContinue
-          if ($logs) {
-            foreach ($log in $logs) {
-              Write-Host "`n--- $($log.FullName) ---" -ForegroundColor Yellow
-              Get-Content $log.FullName -Tail 50
-            }
-          } else {
-            Write-Host "No log files found" -ForegroundColor Green
+          Write-Host "Uploading artifacts to release v0.9.0..." -ForegroundColor Cyan
+          
+          $releaseTag = "v0.9.0"
+          $artifacts = Get-ChildItem -Path "build/xpack/flakkari" -File
+          
+          # Get release ID
+          $release = gh release view $releaseTag --json id,uploadUrl | ConvertFrom-Json
+          
+          if (-not $release) {
+            Write-Host "Release $releaseTag not found!" -ForegroundColor Red
+            exit 1
           }
-
-          Write-Host "`n`nSearching for .xmake logs..." -ForegroundColor Yellow
-          if (Test-Path ".xmake") {
-            $xmakelogs = Get-ChildItem -Path ".xmake" -Filter "*.log" -Recurse -ErrorAction SilentlyContinue
-            if ($xmakelogs) {
-              foreach ($log in $xmakelogs) {
-                Write-Host "`n--- $($log.FullName) ---" -ForegroundColor Yellow
-                Get-Content $log.FullName -Tail 100
-              }
+          
+          Write-Host "Found release: $releaseTag (ID: $($release.id))" -ForegroundColor Green
+          
+          # Upload each artifact
+          foreach ($artifact in $artifacts) {
+            Write-Host "`nUploading: $($artifact.Name) ($([math]::Round($artifact.Length/1KB, 2)) KB)" -ForegroundColor Yellow
+            gh release upload $releaseTag $artifact.FullName --clobber
+            
+            if ($LASTEXITCODE -eq 0) {
+              Write-Host "✅ Successfully uploaded: $($artifact.Name)" -ForegroundColor Green
+            } else {
+              Write-Host "❌ Failed to upload: $($artifact.Name)" -ForegroundColor Red
+              exit 1
             }
           }
+          
+          Write-Host "`n🎉 All artifacts uploaded successfully!" -ForegroundColor Green
