@@ -38,7 +38,7 @@ target("flakkari-server")
     set_default(true)
     set_languages("cxx20")
     set_policy("build.warning", true)
-    set_version("0.8.0")
+    set_version("0.9.0")
 
     add_packages("nlohmann_json", "singleton")
 
@@ -94,7 +94,7 @@ target("flakkari-client")
     set_default(false)
     set_languages("cxx20")
     set_policy("build.warning", true)
-    set_version("0.8.0")
+    set_version("0.9.0")
 
     if is_mode("debug") then
         add_defines("_DEBUG")
@@ -135,7 +135,7 @@ xpack("flakkari")
     set_homepage("https://github.com/MasterLaplace/Flakkari")
     set_licensefile("LICENSE")
     set_copyright("Copyright (C) 2023-present, Me.inc & MasterLaplace")
-    set_version("0.8.0")
+    set_version("0.9.0")
 
     if has_config("pack-server") then
         add_targets("flakkari-server")
