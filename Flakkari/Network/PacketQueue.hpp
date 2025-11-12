@@ -22,6 +22,18 @@
 
 namespace Flakkari::Network {
 
+/**
+ * @brief Thread-safe packet queue class
+ * @tparam T Type of packets to be stored in the queue
+ *
+ * @example "Flakkari/Network/PacketQueue.hpp"
+ * @code
+ * #include "PacketQueue.hpp"
+ * PacketQueue<Protocol::Packet<Protocol::CommandId>> packetQueue;
+ * packetQueue.push_back(packet);
+ * auto packet = packetQueue.pop_front();
+ * @endcode
+ */
 template <typename T> class PacketQueue {
 public:
     PacketQueue() = default;

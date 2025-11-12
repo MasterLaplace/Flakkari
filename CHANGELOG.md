@@ -8,6 +8,8 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 
 ### Added
 
+- Add client side library in cpp - by @MasterLaplace in [#92](https://github.com/MasterLaplace/Flakkari/pull/92)
+
 ### Fixed
 
 - Bug syntax error in update logo workflow - by @MasterLaplace in [#89](https://github.com/MasterLaplace/Flakkari/pull/89)

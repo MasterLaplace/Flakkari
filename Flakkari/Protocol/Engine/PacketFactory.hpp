@@ -19,6 +19,7 @@
 
 #include "flakkari_config.h"
 
+#include "Engine/Components.hpp"
 #include "Engine/EntityComponentSystem/Systems/Systems.hpp"
 #include "Packet.hpp"
 

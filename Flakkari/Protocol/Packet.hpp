@@ -21,7 +21,6 @@
 #ifndef PACKET_HPP_
 #define PACKET_HPP_
 
-#include "Components.hpp"
 #include "Events.hpp"
 #include "Header.hpp"
 #include "Logger/Logger.hpp"

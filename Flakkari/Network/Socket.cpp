@@ -11,12 +11,18 @@
 
 namespace Flakkari::Network {
 
+#if defined(__linux__)
+#    include <cstring>
+#    include <sys/socket.h>
+#    include <sys/uio.h>
+#endif
+
 void Socket::create(const std::shared_ptr<Address> &address)
 {
     _address = address;
     _socket = INVALID_SOCKET;
 
-    auto &addr = _address->getAddrInfo();
+    const auto &addr = _address->getAddrInfo();
 
     if (addr == nullptr)
     {
@@ -60,7 +66,7 @@ void Socket::create(const Address &address)
     _address = std::make_shared<Address>(address);
     _socket = INVALID_SOCKET;
 
-    auto &addr = _address->getAddrInfo();
+    const auto &addr = _address->getAddrInfo();
 
     if (addr == nullptr)
     {
@@ -86,7 +92,7 @@ void Socket::create(ip_t address, port_t port, Address::IpType ip_type, Address:
     _address = std::make_shared<Address>(address, port, socket_type, ip_type);
     _socket = INVALID_SOCKET;
 
-    auto &addr = _address->getAddrInfo();
+    const auto &addr = _address->getAddrInfo();
 
     if (addr == nullptr)
     {
@@ -109,9 +115,9 @@ void Socket::create(ip_t address, port_t port, Address::IpType ip_type, Address:
 
 Socket::~Socket() { this->close(); }
 
-void Socket::bind()
+void Socket::bind() const
 {
-    auto &addr = _address->getAddrInfo();
+    const auto &addr = _address->getAddrInfo();
 
     if (addr == nullptr)
         return FLAKKARI_LOG_ERROR("Address is nullptr"), void();
@@ -120,7 +126,7 @@ void Socket::bind()
         throw std::runtime_error("Failed to bind socket, error: " + STD_ERROR);
 }
 
-void Socket::listen(int backlog)
+void Socket::listen(int backlog) const
 {
     if (_address && _address->getSocketType() != Address::SocketType::TCP)
         return FLAKKARI_LOG_ERROR("Socket is not TCP"), void();
@@ -129,9 +135,9 @@ void Socket::listen(int backlog)
         throw std::runtime_error("Failed to listen on socket, error: " + STD_ERROR);
 }
 
-void Socket::connect()
+void Socket::connect() const
 {
-    auto &addr = _address->getAddrInfo();
+    const auto &addr = _address->getAddrInfo();
 
     if (addr == nullptr)
         return FLAKKARI_LOG_ERROR("Address is nullptr"), void();
@@ -165,7 +171,7 @@ void Socket::disconnect()
     _socket = INVALID_SOCKET;
 }
 
-std::shared_ptr<Socket> Socket::accept()
+std::shared_ptr<Socket> Socket::accept() const
 {
     sockaddr_storage clientAddr;
     socklen_t clientAddrLen = sizeof(clientAddr);
@@ -174,17 +180,15 @@ std::shared_ptr<Socket> Socket::accept()
     if (clientSocket == INVALID_SOCKET)
         throw std::runtime_error("Failed to accept socket, error: " + STD_ERROR);
 
-    auto _ip_type = (clientAddr.ss_family == AF_INET)  ? Address::IpType::IPv4 :
-                    (clientAddr.ss_family == AF_INET6) ? Address::IpType::IPv6 :
-                                                         Address::IpType::None;
+    Address::IpType ip_type = getIpTypeFromFamily(clientAddr);
 
-    auto clientAddress = std::make_shared<Address>(clientAddr, _address->getSocketType(), _ip_type);
+    auto clientAddress = std::make_shared<Address>(clientAddr, _address->getSocketType(), ip_type);
     auto client = std::make_shared<Socket>();
     client->create(clientSocket, clientAddress);
     return client;
 }
 
-void Socket::send(const Buffer &data, int flags)
+void Socket::send(const Buffer &data, int flags) const
 {
 #ifdef _WIN32
     if (::send(_socket, (const char *) data.getData(), (int) data.getSize(), flags) == SOCKET_ERROR)
@@ -203,7 +207,7 @@ void Socket::send(const Buffer &data, int flags)
 #endif
 }
 
-void Socket::send(const Buffer &data, size_t size, int flags)
+void Socket::send(const Buffer &data, size_t size, int flags) const
 {
 #ifdef _WIN32
     if (::send(_socket, (const char *) data.getData(), (int) size, flags) == SOCKET_ERROR)
@@ -222,10 +226,9 @@ void Socket::send(const Buffer &data, size_t size, int flags)
 #endif
 }
 
-void Socket::sendTo(const std::shared_ptr<Address> &address, const Buffer &data, int flags)
+void Socket::sendTo(const std::shared_ptr<Address> &address, const Buffer &data, int flags) const
 {
-    std::lock_guard<std::mutex> lock(_mutex);
-    auto &addr = address->getAddrInfo();
+    const auto &addr = address->getAddrInfo();
 
     if (addr == nullptr)
         return FLAKKARI_LOG_ERROR("Address is nullptr"), void();
@@ -248,9 +251,9 @@ void Socket::sendTo(const std::shared_ptr<Address> &address, const Buffer &data,
 #endif
 }
 
-void Socket::sendTo(const std::shared_ptr<Address> &address, const byte *data, const size_t &size, int flags)
+void Socket::sendTo(const std::shared_ptr<Address> &address, const byte *data, const size_t &size, int flags) const
 {
-    auto &addr = address->getAddrInfo();
+    const auto &addr = address->getAddrInfo();
 
     if (addr == nullptr)
         return FLAKKARI_LOG_ERROR("Address is nullptr"), void();
@@ -273,7 +276,7 @@ void Socket::sendTo(const std::shared_ptr<Address> &address, const byte *data, c
 #endif
 }
 
-std::optional<Buffer> Socket::receive(size_t size, int flags)
+std::optional<Buffer> Socket::receive(size_t size, int flags) const
 {
     Buffer data(size, 0);
 
@@ -285,7 +288,7 @@ std::optional<Buffer> Socket::receive(size_t size, int flags)
     return data;
 }
 
-std::optional<Buffer> Socket::receive(int flags)
+std::optional<Buffer> Socket::receive(int flags) const
 {
     Buffer data(4096, 0);
 
@@ -297,7 +300,7 @@ std::optional<Buffer> Socket::receive(int flags)
     return data;
 }
 
-std::optional<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveFrom(size_t size, int flags)
+std::optional<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveFrom(size_t size, int flags) const
 {
     Buffer data(size, 0);
     sockaddr_storage addr;
@@ -312,15 +315,13 @@ std::optional<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveFrom(s
         return {};
     }
 
-    auto _ip_type = (addr.ss_family == AF_INET)  ? Address::IpType::IPv4 :
-                    (addr.ss_family == AF_INET6) ? Address::IpType::IPv6 :
-                                                   Address::IpType::None;
+    Address::IpType ip_type = getIpTypeFromFamily(addr);
 
-    return std::make_pair(std::make_shared<Address>(addr, _address->getSocketType(), _ip_type),
+    return std::make_pair(std::make_shared<Address>(addr, _address->getSocketType(), ip_type),
                           Buffer(data.begin(), data.end()));
 }
 
-std::optional<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveFrom(int flags)
+std::optional<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveFrom(int flags) const
 {
     Buffer data(4096, 0);
     sockaddr_storage addr;
@@ -335,14 +336,72 @@ std::optional<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveFrom(i
         return {};
     }
 
-    auto _ip_type = (addr.ss_family == AF_INET)  ? Address::IpType::IPv4 :
-                    (addr.ss_family == AF_INET6) ? Address::IpType::IPv6 :
-                                                   Address::IpType::None;
+    Address::IpType ip_type = getIpTypeFromFamily(addr);
 
-    return std::make_pair(std::make_shared<Address>(addr, _address->getSocketType(), _ip_type), data);
+    return std::make_pair(std::make_shared<Address>(addr, _address->getSocketType(), ip_type), data);
 }
 
-void Socket::close()
+std::vector<std::pair<std::shared_ptr<Address>, Buffer>> Socket::receiveBatch(uint32_t maxMessages, int flags) const
+{
+    std::vector<std::pair<std::shared_ptr<Address>, Buffer>> results;
+    if (maxMessages == 0u)
+        return results;
+
+#if defined(__linux__)
+    std::vector<Buffer> buffers(maxMessages, Buffer(4096, 0));
+    std::vector<mmsghdr> msgs(maxMessages);
+    std::vector<iovec> iov(maxMessages);
+    std::vector<sockaddr_storage> addrs(maxMessages);
+
+    std::memset(msgs.data(), 0u, sizeof(mmsghdr) * msgs.size());
+
+    for (uint32_t i = 0u; i < maxMessages; ++i)
+    {
+        iov[i].iov_base = buffers[i].data();
+        iov[i].iov_len = buffers[i].size();
+
+        msgs[i].msg_hdr.msg_iov = &iov[i];
+        msgs[i].msg_hdr.msg_iovlen = 1u;
+        msgs[i].msg_hdr.msg_name = &addrs[i];
+        msgs[i].msg_hdr.msg_namelen = sizeof(sockaddr_storage);
+    }
+
+    int received = ::recvmmsg(_socket, msgs.data(), (uint32_t) msgs.size(), flags, nullptr);
+    if (received == -1)
+    {
+        if (errno == EAGAIN || errno == EWOULDBLOCK)
+            return results;
+        FLAKKARI_LOG_ERROR("recvmmsg failed, error: " + STD_ERROR);
+        return results;
+    }
+
+    Address::SocketType socket_type = _address ? _address->getSocketType() : Address::SocketType::UDP;
+
+    for (int i = 0; i < received; ++i)
+    {
+        auto &m = msgs[i];
+        ssize_t len = m.msg_len;
+        sockaddr_storage &addr = addrs[i];
+        Address::IpType ip_type = getIpTypeFromFamily(addr);
+
+        results.emplace_back(std::make_shared<Address>(addr, socket_type, ip_type),
+                             Buffer(buffers[i].begin(), buffers[i].begin() + (size_t) len));
+    }
+
+    return results;
+#else
+    for (uint32_t i = 0u; i < maxMessages; ++i)
+    {
+        auto pkt = receiveFrom(flags);
+        if (!pkt.has_value())
+            break;
+        results.emplace_back(std::move(*pkt));
+    }
+    return results;
+#endif
+}
+
+void Socket::close() const
 {
 #ifdef _WIN32
     ::closesocket(_socket);
@@ -351,7 +410,7 @@ void Socket::close()
 #endif
 }
 
-void Socket::setBlocking(bool blocking)
+void Socket::setBlocking(bool blocking) const
 {
 #ifdef _WIN32
     u_long mode = blocking ? 0 : 1;
@@ -376,6 +435,16 @@ void Socket::setBlocking(bool blocking)
 Socket::operator std::string() const
 {
     return std::string(std::string(*(this->getAddress())) + " (" + std::to_string(this->getSocket()) + ")");
+}
+
+inline Address::IpType Socket::getIpTypeFromFamily(const sockaddr_storage &addrStorage) const
+{
+    switch (addrStorage.ss_family)
+    {
+    case AF_INET: return Address::IpType::IPv4;
+    case AF_INET6: return Address::IpType::IPv6;
+    default: return Address::IpType::None;
+    }
 }
 
 std::ostream &operator<<(std::ostream &os, const Socket &socket)

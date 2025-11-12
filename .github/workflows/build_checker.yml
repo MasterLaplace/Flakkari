@@ -1,5 +1,9 @@
 name: Build Checker CI
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 on:
   push:
     branches-ignore: [ga-ignore-**, gh-pages]
@@ -12,6 +16,7 @@ on:
       - '**.inl'
       - '**.txt'
       - '**.lua'
+      - '**/build_checker.yml'
 
 jobs:
   build_checker:
@@ -20,6 +25,7 @@ jobs:
     strategy:
       matrix:
         os: [windows-latest, ubuntu-latest, macos-latest]
+        target: [flakkari-server, flakkari-client]
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v5
@@ -34,6 +40,8 @@ jobs:
           package-cache-key: '${{ runner.os }}-xmake-nlohmann_json-libcurl-libgit2'
           project-path: '.'
 
-      - name: Configure and Build
-        run: xmake build -y
+      - name: Configure and Build ${{ matrix.target }}
+        run: |
+          xmake config -y
+          xmake build ${{ matrix.target }}
         timeout-minutes: 5

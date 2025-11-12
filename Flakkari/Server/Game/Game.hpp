@@ -27,7 +27,7 @@
 #include "Engine/EntityComponentSystem/Factory.hpp"
 #include "Engine/EntityComponentSystem/Systems/Systems.hpp"
 
-#include "Protocol/PacketFactory.hpp"
+#include "Protocol/Engine/PacketFactory.hpp"
 
 #include "ResourceManager.hpp"
 
