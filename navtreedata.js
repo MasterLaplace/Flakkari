@@ -104,7 +104,8 @@ var NAVTREE =
       [ "Support and Contact", "d2/dc1/md_CONTRIBUTING.html#support-and-contact", null ]
     ] ],
     [ "Contributors", "d0/d98/md_CONTRIBUTORS.html", [
-      [ "👥 Flakkari Team", "d0/d98/md_CONTRIBUTORS.html#autotoc_md-flakkari-team", null ]
+      [ "👥 Flakkari Team", "d0/d98/md_CONTRIBUTORS.html#autotoc_md-flakkari-team", null ],
+      [ "Contributors graph", "d0/d98/md_CONTRIBUTORS.html#contributors-graph", null ]
     ] ],
     [ "Contributor Covenant Code of Conduct", "d8/d3b/md__8github_2CODE__OF__CONDUCT.html", [
       [ "Our Pledge", "d8/d3b/md__8github_2CODE__OF__CONDUCT.html#our-pledge", null ],
@@ -122,7 +123,8 @@ var NAVTREE =
     ] ],
     [ "Support this Project", "d5/dbb/md__8github_2FUNDING.html", [
       [ "Funding Methods", "d5/dbb/md__8github_2FUNDING.html#funding-methods", null ],
-      [ "Benefits for Financial Contributors", "d5/dbb/md__8github_2FUNDING.html#benefits-for-financial-contributors", null ]
+      [ "Benefits for Financial Contributors", "d5/dbb/md__8github_2FUNDING.html#benefits-for-financial-contributors", null ],
+      [ "Sponsors", "d5/dbb/md__8github_2FUNDING.html#sponsors", null ]
     ] ],
     [ "Changes", "d7/df1/md__8github_2PULL__REQUEST__TEMPLATE.html", [
       [ "Standards checklist:", "d7/df1/md__8github_2PULL__REQUEST__TEMPLATE.html#standards-checklist", null ],
@@ -173,14 +175,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d1/d66/Network_8cpp.html#af7789e98dd3f4a6551008f0ab4be5f4d",
-"d4/d40/md_CHANGELOG.html#added-2",
-"d5/dd2/classFlakkari_1_1Engine_1_1ECS_1_1SparseArrays.html#aa2bdaf1433a56fd6b7785bc9767e5c56",
-"d8/d3b/md__8github_2CODE__OF__CONDUCT.html#enforcement",
-"da/de0/core_8cpp.html#ac8199b7b8d995e036e2765a414c671fa",
-"dc/d4b/Commands_8hpp.html#adeff7b48bf0c05fe02740289753786b3a821f9eced63cf702ec460d54197118cc",
-"dd/ddd/classFlakkari_1_1Game.html#aa756e63e4f39ceb17cffb3b35efe89b5",
-"df/d81/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Level.html"
+"d1/d66/Network_8cpp.html#abc911a84c51081d6a333fae2eca8a773",
+"d4/d40/md_CHANGELOG.html#added-1",
+"d5/dd2/classFlakkari_1_1Engine_1_1ECS_1_1SparseArrays.html#a9e8917ff83eeec73a5d9fc627ab9b70b",
+"d8/d3b/md__8github_2CODE__OF__CONDUCT.html#autotoc_md3-temporary-ban",
+"da/daf/NetworkEvent_8hpp_source.html",
+"dc/d4b/Commands_8hpp.html#adeff7b48bf0c05fe02740289753786b3a740b0976f08e561b6ce7da4bd95a57a1",
+"dd/ddd/classFlakkari_1_1Game.html#aa3fb1b7dc6a9c7e9177242a37bf3339f",
+"df/d7e/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1RigidBody.html#ae6a500999f711d462f2d55d445d1e357"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
