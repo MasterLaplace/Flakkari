@@ -1,5 +1,5 @@
 /**************************************************************************
- * Flakkari Library v0.9.0
+ * Flakkari Library v0.10.0
  *
  * Flakkari is a server/client game library that is designed to be fast and easy
  * to use.
@@ -16,7 +16,7 @@
  * @brief Compile-Time exportation of the project path.
  *
  * @author @MasterLaplace
- * @version 0.9.0
+ * @version 0.10.0
  * @date 2025-03-26
  **************************************************************************/
 
