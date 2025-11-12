@@ -1,4 +1,4 @@
-name: Build and Upload Windows Artifacts
+name: Build and Upload Windows Artifacts for v0.9.0
 
 on:
   push:
@@ -8,82 +8,49 @@ on:
 
 jobs:
   build_and_upload_windows:
-    name: Build and Upload Windows Artifacts
+    name: Build and Upload ${{ matrix.package-type }} Artifacts
     runs-on: windows-latest
+    strategy:
+      matrix:
+        package-type: [server, client]
     steps:
-      - name: Checkout Repository
+      - name: Checkout Repository (v0.9.0 tag)
         uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          ref: v0.9.0
 
-      - name: Setup xmake
+      - name: Install xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
           xmake-version: latest
           actions-cache-folder: '.xmake-cache'
-          actions-cache-key: 'windows-${{ runner.os }}-xmake-install'
+          actions-cache-key: '${{ runner.os }}-xmake-install'
           package-cache: true
-          package-cache-key: 'windows-${{ runner.os }}-xmake-packages'
+          package-cache-key: '${{ runner.os }}-xmake-nlohmann_json-libcurl-libgit2'
           project-path: '.'
 
-      - name: Configure for Windows Release
-        shell: pwsh
+      - name: Configure package type
+        shell: bash
         run: |
-          Write-Host "Configuring xmake for Windows release build..." -ForegroundColor Cyan
-          xmake f -y -m release --pack-server=n --pack-client=y
+          case "${{ matrix.package-type }}" in
+            server)
+              xmake f -y -m release --pack-server=y --pack-client=n
+              ;;
+            client)
+              xmake f -y -m release --pack-server=n --pack-client=y
+              ;;
+          esac
 
-      - name: Build Client
-        shell: pwsh
-        run: |
-          Write-Host "Building flakkari-client..." -ForegroundColor Cyan
-          xmake build flakkari-client
+      - name: Build Flakkari Package with xpack
+        run: xmake pack -y
 
-      - name: Pack Client Artifacts
-        shell: pwsh
-        run: |
-          Write-Host "Creating client packages..." -ForegroundColor Cyan
-          xmake pack -y
-
-      - name: List Generated Artifacts
-        shell: pwsh
-        run: |
-          Write-Host "==================== GENERATED ARTIFACTS ====================" -ForegroundColor Cyan
-          if (Test-Path "build/xpack") {
-            Get-ChildItem -Path "build/xpack" -Recurse -File | Select-Object Name, Length, FullName | Format-Table -AutoSize
-          } else {
-            Write-Host "No artifacts found!" -ForegroundColor Red
-            exit 1
-          }
-
-      - name: Upload Artifacts to Release v0.9.0
-        shell: pwsh
+      - name: Upload ${{ matrix.package-type }} package
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./build/xpack/flakkari/*
+          tag_name: v0.9.0
+          overwrite_files: true
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          Write-Host "Uploading artifacts to release v0.9.0..." -ForegroundColor Cyan
-
-          $releaseTag = "v0.9.0"
-          $artifacts = Get-ChildItem -Path "build/xpack/flakkari" -File
-
-          # Get release ID
-          $release = gh release view $releaseTag --json id,uploadUrl | ConvertFrom-Json
-
-          if (-not $release) {
-            Write-Host "Release $releaseTag not found!" -ForegroundColor Red
-            exit 1
-          }
-
-          Write-Host "Found release: $releaseTag (ID: $($release.id))" -ForegroundColor Green
-
-          # Upload each artifact
-          foreach ($artifact in $artifacts) {
-            Write-Host "`nUploading: $($artifact.Name) ($([math]::Round($artifact.Length/1KB, 2)) KB)" -ForegroundColor Yellow
-            gh release upload $releaseTag $artifact.FullName --clobber
-
-            if ($LASTEXITCODE -eq 0) {
-              Write-Host "✅ Successfully uploaded: $($artifact.Name)" -ForegroundColor Green
-            } else {
-              Write-Host "❌ Failed to upload: $($artifact.Name)" -ForegroundColor Red
-              exit 1
-            }
-          }
-
-          Write-Host "`n🎉 All artifacts uploaded successfully!" -ForegroundColor Green
