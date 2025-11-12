@@ -31,16 +31,16 @@ jobs:
           project-path: '.'
 
       - name: Configure package type
-        shell: bash
+        shell: pwsh
         run: |
-          case "${{ matrix.package-type }}" in
-            server)
+          switch ("${{ matrix.package-type }}") {
+            "server" {
               xmake f -y -m release --pack-server=y --pack-client=n
-              ;;
-            client)
-              xmake f -y -m release --pack-server=y --pack-client=n
-              ;;
-          esac
+            }
+            "client" {
+              xmake f -y -m release --pack-server=n --pack-client=y
+            }
+          }
 
       - name: Build Flakkari Package with xpack
         run: xmake pack -y
