@@ -2,7 +2,7 @@
 
 **This pull request makes the following changes:**
 
-> - what changed?
+> - what changed? you can link to a related issue or PR if applicable.
 
 ## Standards checklist:
 
@@ -16,8 +16,8 @@
 
 ## Additional information
 
-**Flakkari Client requesting: (if applicable)**
+**Flakkari requesting: (if applicable)**
 
 - [ ] Contributor has read Flakkari's [GitHub code of conduct](https://MasterLaplace/Flakkari/blob/main/.github/CODE_OF_CONDUCT.md)
-- [ ] Contributor would like to be mentioned in the release notes as: (fill in this blank)
+- [ ] Contributor would like to be mentioned in the release notes as: _(fill in this blank)_
 - [ ] Contributor agrees to the license terms of this repository.

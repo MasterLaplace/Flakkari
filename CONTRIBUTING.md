@@ -55,7 +55,7 @@ Make sure to read and understand our [Code of Conduct](.github/CODE_OF_CONDUCT.m
 
 ### Creating an Issue
 
-Before contributing, make sure to check if there's an existing issue for the task you want to work on. If not, [create a new issue](https://github.com/MasterLaplace/Flakkari/issues/new) to discuss your proposal. This will help us maintainers to give you feedback and suggestions on your work.
+Before contributing, make sure to check if there's an existing issue for the task you want to work on. If not, [create a new issue](https://github.com/MasterLaplace/Flakkari/issues/new/choose) to discuss your proposal. This will help us maintainers to give you feedback and suggestions on your work.
 
 ### Creating a Pull Request
 
