@@ -9,11 +9,9 @@ digraph "Flakkari::ClientManager::addClient"
   Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
   Node2 [id="Node000002",label="Flakkari::Protocol\l::Packet::deserialize",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a14c7a93d5175df091256374f407ad186",tooltip="Deserialize the buffer into a packet."];
   Node2 -> Node3 [id="edge2_Node000002_Node000003",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="Flakkari::Network::\lBuffer::extractData",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df8/classFlakkari_1_1Network_1_1Buffer.html#ad7ad2e3a4a5727c72a585093d93cd016",tooltip="Get the data of the buffer."];
+  Node3 [id="Node000003",label="Flakkari::Protocol\l::Packet::size",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a582b8f7654507bb11286866d96e7d5c3",tooltip="Get the size of the packet."];
   Node1 -> Node4 [id="edge3_Node000001_Node000004",color="steelblue1",style="solid",tooltip=" "];
-  Node4 [id="Node000004",label="Flakkari::Network::\lBuffer::getData",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df8/classFlakkari_1_1Network_1_1Buffer.html#ae308d60e79fe9387b58c0cb8640e5ef7",tooltip="Get the data of the buffer."];
+  Node4 [id="Node000004",label="Flakkari::Protocol\l::Packet::extractString",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#aa5caa609b705c9d3dceaa6d547a5dfc1",tooltip="Extract a string from the packet."];
   Node1 -> Node5 [id="edge4_Node000001_Node000005",color="steelblue1",style="solid",tooltip=" "];
-  Node5 [id="Node000005",label="Flakkari::Network::\lBuffer::getSize",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df8/classFlakkari_1_1Network_1_1Buffer.html#a273543a4d7a5cfca6e0c8e22f14c6501",tooltip="Get the size of the buffer."];
-  Node1 -> Node6 [id="edge5_Node000001_Node000006",color="steelblue1",style="solid",tooltip=" "];
-  Node6 [id="Node000006",label="Flakkari::ClientManager\l::isBanned",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/da5/classFlakkari_1_1ClientManager.html#a5d7bf49567aaf1c2c5ffb3f1a8779866",tooltip="Check if a client is banned."];
+  Node5 [id="Node000005",label="Flakkari::ClientManager\l::isBanned",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/da5/classFlakkari_1_1ClientManager.html#a5d7bf49567aaf1c2c5ffb3f1a8779866",tooltip="Check if a client is banned."];
 }

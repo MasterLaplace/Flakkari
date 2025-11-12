@@ -11,10 +11,10 @@ digraph "Flakkari/Server/Client"
   dir_7e06220f9d8ad8af8703f9c9be194f68 [label="Client", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_7e06220f9d8ad8af8703f9c9be194f68.html",tooltip=""];
   }
   dir_a8832efbf453ed375786272748b42b6e [label="Engine", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_a8832efbf453ed375786272748b42b6e.html",tooltip=""];
-  dir_c5bb1fc07982e0126fd8087c13a737b0 [label="Protocol", fillcolor="#edf0f7", color="grey50", style="filled", URL="dir_c5bb1fc07982e0126fd8087c13a737b0.html",tooltip=""];
+  dir_c5bb1fc07982e0126fd8087c13a737b0 [label="Protocol", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_c5bb1fc07982e0126fd8087c13a737b0.html",tooltip=""];
   dir_dc3bc5b104a4f9709e6dd6d8ef9cb2d5 [label="Network", fillcolor="#edf0f7", color="grey50", style="filled", URL="dir_dc3bc5b104a4f9709e6dd6d8ef9cb2d5.html",tooltip=""];
-  dir_7e06220f9d8ad8af8703f9c9be194f68->dir_96390089ad122cc0e79a3d516a8e4be8 [headlabel="2", labeldistance=1.5 headhref="dir_000003_000009.html" href="dir_000003_000009.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_7e06220f9d8ad8af8703f9c9be194f68->dir_a8832efbf453ed375786272748b42b6e [headlabel="1", labeldistance=1.5 headhref="dir_000003_000006.html" href="dir_000003_000006.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_7e06220f9d8ad8af8703f9c9be194f68->dir_c5bb1fc07982e0126fd8087c13a737b0 [headlabel="1", labeldistance=1.5 headhref="dir_000003_000014.html" href="dir_000003_000014.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_7e06220f9d8ad8af8703f9c9be194f68->dir_dc3bc5b104a4f9709e6dd6d8ef9cb2d5 [headlabel="4", labeldistance=1.5 headhref="dir_000003_000013.html" href="dir_000003_000013.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_7e06220f9d8ad8af8703f9c9be194f68->dir_96390089ad122cc0e79a3d516a8e4be8 [headlabel="2", labeldistance=1.5 headhref="dir_000004_000011.html" href="dir_000004_000011.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_7e06220f9d8ad8af8703f9c9be194f68->dir_a8832efbf453ed375786272748b42b6e [headlabel="1", labeldistance=1.5 headhref="dir_000004_000007.html" href="dir_000004_000007.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_7e06220f9d8ad8af8703f9c9be194f68->dir_c5bb1fc07982e0126fd8087c13a737b0 [headlabel="1", labeldistance=1.5 headhref="dir_000004_000016.html" href="dir_000004_000016.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_7e06220f9d8ad8af8703f9c9be194f68->dir_dc3bc5b104a4f9709e6dd6d8ef9cb2d5 [headlabel="4", labeldistance=1.5 headhref="dir_000004_000015.html" href="dir_000004_000015.html" color="steelblue1" fontcolor="steelblue1"];
 }

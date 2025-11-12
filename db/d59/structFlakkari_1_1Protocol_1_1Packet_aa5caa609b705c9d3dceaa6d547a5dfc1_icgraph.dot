@@ -1,0 +1,11 @@
+digraph "Flakkari::Protocol::Packet::extractString"
+{
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname=Helvetica,fontsize=10,labelfontname=Helvetica,labelfontsize=10];
+  node [fontname=Helvetica,fontsize=10,shape=box,height=0.2,width=0.4];
+  rankdir="RL";
+  Node1 [id="Node000001",label="Flakkari::Protocol\l::Packet::extractString",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Extract a string from the packet."];
+  Node1 -> Node2 [id="edge1_Node000001_Node000002",dir="back",color="steelblue1",style="solid",tooltip=" "];
+  Node2 [id="Node000002",label="Flakkari::ClientManager\l::addClient",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d5/da5/classFlakkari_1_1ClientManager.html#adb7842df0768fcab21fb46b1b2a60b75",tooltip="Add a client to the client manager or update the last activity of the client."];
+}

@@ -15,6 +15,7 @@ var namespaceFlakkari_1_1Protocol =
     [ "ApiVersion", "dc/d58/namespaceFlakkari_1_1Protocol.html#a302e0d2f906390c0a05e720dc87fd30d", [
       [ "V_0", "dc/d58/namespaceFlakkari_1_1Protocol.html#a302e0d2f906390c0a05e720dc87fd30da9ef5db61af0c0d69875ff753a249bd2f", null ],
       [ "V_1", "dc/d58/namespaceFlakkari_1_1Protocol.html#a302e0d2f906390c0a05e720dc87fd30da47e205a9f01f6951d4dc6de16c404a8d", null ],
+      [ "LAST_VERSION", "dc/d58/namespaceFlakkari_1_1Protocol.html#a302e0d2f906390c0a05e720dc87fd30da5d0b4fa7229f9f7bc2356c94c230d178", null ],
       [ "MAX_VERSION", "dc/d58/namespaceFlakkari_1_1Protocol.html#a302e0d2f906390c0a05e720dc87fd30da9950aba67d5500417e8a8d87e5394cfb", null ]
     ] ],
     [ "CommandId", "db/dc9/namespaceFlakkari_1_1Protocol_1_1V__1.html#ae68eb0705ee27e6b3c4e7362bf345914", [

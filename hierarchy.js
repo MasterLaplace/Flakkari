@@ -60,6 +60,7 @@ var hierarchy =
     [ "Flakkari::Engine::ECS::Components::Common::Timer", "d2/d13/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1Common_1_1Timer.html", null ],
     [ "Flakkari::Engine::ECS::Components::_2D::Transform", "d6/dd8/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__2D_1_1Transform.html", null ],
     [ "Flakkari::Engine::ECS::Components::_3D::Transform", "da/dae/structFlakkari_1_1Engine_1_1ECS_1_1Components_1_1__3D_1_1Transform.html", null ],
+    [ "Flakkari::UDPClient", "db/d4e/classFlakkari_1_1UDPClient.html", null ],
     [ "Flakkari::UDPServer", "d0/dd1/classFlakkari_1_1UDPServer.html", null ],
     [ "Flakkari::Protocol::PacketFactory::UpdateMovement", "df/df6/structFlakkari_1_1Protocol_1_1PacketFactory_1_1UpdateMovement.html", null ],
     [ "Flakkari::Engine::Math::Vector< Type >", "de/d55/structFlakkari_1_1Engine_1_1Math_1_1Vector.html", null ],

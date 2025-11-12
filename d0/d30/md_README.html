@@ -140,7 +140,8 @@ $(document).ready(function(){initNavTree('d0/d30/md_README.html','../../'); init
 <hr  />
 <div id="description"></div><h1><a class="anchor" id="pencil-description"></a>
 :pencil: &lt;strong&gt;DESCRIPTION&lt;/strong&gt;</h1>
-<p><a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> is a UDP/TCP server initially developed for the R-Type Epitech project and updated for the Video Games course at University Laval. It enables network-based gameplay, supporting multiple games and clients simultaneously through its multi-threaded architecture. The server is designed to handle high concurrency and ensure low latency, making it suitable for real-time multiplayer games. <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> also includes features such as game state synchronization, player authentication, and robust error handling to provide a seamless gaming experience.</p>
+<p><a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> is a UDP/TCP server and client library initially developed for the R-Type Epitech project and updated for the Video Games course at University Laval. It enables network-based gameplay, supporting multiple games and clients simultaneously through its multi-threaded architecture. The server is designed to handle high concurrency and ensure low latency, making it suitable for real-time multiplayer games. <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> also includes features such as game state synchronization, player authentication, and robust error handling to provide a seamless gaming experience.</p>
+<p><b>🎮 Client Library:</b> <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> provides a static library (<code>flakkari-client</code>) that can be integrated into your game projects. This library handles network communication, packet serialization, and game state synchronization, allowing you to focus on game logic.</p>
 <p><b>🔄 Auto-Update Feature:</b> <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> supports automatic game downloads from remote repositories, allowing the server to fetch and update games dynamically. This feature can be disabled for environments requiring pure MIT licensing.</p>
 <p><a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> also has a Unity client library to facilitate the development of multiplayer games. This library is available in C# and can be used to connect to the <a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> server, send and receive messages and manage game events. It is designed to be easy to integrate into existing game projects and provides advanced features to simplify the development of multiplayer games.</p>
 <blockquote class="doxtable">
@@ -184,18 +185,78 @@ $(document).ready(function(){initNavTree('d0/d30/md_README.html','../../'); init
 <div class="line"># Build with XMake (recommended, cross-platform)</div>
 <div class="line">$&gt; xmake</div>
 <div class="line"> </div>
+<div class="line"># Build both server and client</div>
+<div class="line">$&gt; xmake build flakkari-server flakkari-client</div>
+<div class="line"> </div>
+<div class="line"># Or build only the server</div>
+<div class="line">$&gt; xmake build flakkari-server</div>
+<div class="line"> </div>
+<div class="line"># Or build only the client library</div>
+<div class="line">$&gt; xmake build flakkari-client</div>
+<div class="line"> </div>
 <div class="line"># Alternative: Build with CMake</div>
 <div class="line">$&gt; mkdir build &amp;&amp; cd build</div>
 <div class="line">$&gt; cmake .. &amp;&amp; cmake --build .</div>
 <div class="line"> </div>
 <div class="line"># Run the server executable</div>
-<div class="line">$&gt; xmake run</div>
-<div class="line"># Or manually: ./build/linux/x86_64/release/flakkari</div>
+<div class="line">$&gt; xmake run flakkari-server</div>
+<div class="line"># Or manually: ./build/linux/x86_64/release/flakkari-server</div>
 <div class="line"> </div>
 <div class="line"># Alternative: Run with explicit arguments (no env variable needed):</div>
-<div class="line">$&gt; ./build/linux/x86_64/release/flakkari -g Games -i localhost -p 8081</div>
-<div class="line"># XMake: or on Windows: .\build\windows\x64\release\flakkari.exe -g Games -i localhost -p 8081</div>
-<div class="line"># CMake: or from build directory: ./flakkari -g Games -i localhost -p 8081</div>
+<div class="line">$&gt; ./build/linux/x86_64/release/flakkari-server -g Games -i localhost -p 8081</div>
+<div class="line"># XMake: or on Windows: .\build\windows\x64\release\flakkari-server.exe -g Games -i localhost -p 8081</div>
+<div class="line"># CMake: or from build directory: ./flakkari-server -g Games -i localhost -p 8081</div>
+</div><!-- fragment --><p><b>Using the Client Library:</b></p>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../d5/d33/UDPClient_8hpp.html">Flakkari/Client/UDPClient.hpp</a>&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Create a client instance</span></div>
+<div class="line"><a class="code hl_class" href="../../db/d4e/classFlakkari_1_1UDPClient.html">Flakkari::UDPClient</a> client(<span class="stringliteral">&quot;MyGame&quot;</span>, <span class="stringliteral">&quot;127.0.0.1&quot;</span>, 8081);</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Connect to the server</span></div>
+<div class="line">client.connectToServer();</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Send a packet</span></div>
+<div class="line">Protocol::Packet&lt;Protocol::CommandId&gt; packet;</div>
+<div class="line"><span class="comment">// ... configure packet ...</span></div>
+<div class="line">client.sendPacket(packet.serialize());</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Receive packets</span></div>
+<div class="line"><span class="keyword">auto</span> receivedPacket = client.getNextPacket();</div>
+<div class="line"><span class="keywordflow">if</span> (receivedPacket.has_value()) {</div>
+<div class="line">    <span class="comment">// Process packet</span></div>
+<div class="line">}</div>
+<div class="line"> </div>
+<div class="line"><span class="comment">// Disconnect</span></div>
+<div class="line">client.disconnectFromServer();</div>
+<div class="ttc" id="aUDPClient_8hpp_html"><div class="ttname"><a href="../../d5/d33/UDPClient_8hpp.html">UDPClient.hpp</a></div></div>
+<div class="ttc" id="aclassFlakkari_1_1UDPClient_html"><div class="ttname"><a href="../../db/d4e/classFlakkari_1_1UDPClient.html">Flakkari::UDPClient</a></div><div class="ttdef"><b>Definition</b> UDPClient.hpp:55</div></div>
+</div><!-- fragment --><p><b>Running the Example Client:</b></p>
+<p>A complete example client is available in <code>examples/client.cpp</code>:</p>
+<div class="fragment"><div class="line"># Build the example client</div>
+<div class="line">$&gt; xmake build example-client</div>
+<div class="line"> </div>
+<div class="line"># Start the server in one terminal</div>
+<div class="line">$&gt; export FLAKKARI_GAME_DIR=&quot;$(pwd)/Games&quot;</div>
+<div class="line">$&gt; xmake run flakkari-server -g Games -i 127.0.0.1 -p 12345</div>
+<div class="line"> </div>
+<div class="line"># Run the example client in another terminal</div>
+<div class="line">$&gt; xmake run example-client</div>
+<div class="line"> </div>
+<div class="line"># Expected output:</div>
+<div class="line"># [CLIENT] Starting Flakkari example client...</div>
+<div class="line"># [CLIENT] Connecting to server at 127.0.0.1:12345</div>
+<div class="line"># [CLIENT] Connected! Waiting for packets...</div>
+<div class="line"># [CLIENT] Press Ctrl+C to stop</div>
+</div><!-- fragment --><p><b>Integrating the Client Library in Your Project:</b></p>
+<div class="fragment"><div class="line"># With XMake</div>
+<div class="line">add_deps(&quot;flakkari-client&quot;)</div>
+<div class="line">target(&quot;your-game&quot;)</div>
+<div class="line">    add_deps(&quot;flakkari-client&quot;)</div>
+<div class="line">    add_includedirs(&quot;$(projectdir)&quot;)  -- For Flakkari/ prefix</div>
+<div class="line"> </div>
+<div class="line"># With CMake</div>
+<div class="line">find_package(flakkari-client REQUIRED)</div>
+<div class="line">target_link_libraries(your-game PRIVATE flakkari-client)</div>
 </div><!-- fragment --><p>To run the server with</p>
 <ul>
 <li>the games directory: <code>./Games</code> that contains the games configurations</li>
@@ -244,15 +305,38 @@ $(document).ready(function(){initNavTree('d0/d30/md_README.html','../../'); init
 <div class="line"># Build in release mode (default)</div>
 <div class="line">$&gt; xmake f -m release &amp;&amp; xmake</div>
 <div class="line"> </div>
+<div class="line"># Build specific target</div>
+<div class="line">$&gt; xmake build flakkari-server  # Server only</div>
+<div class="line">$&gt; xmake build flakkari-client  # Client library only</div>
+<div class="line"> </div>
 <div class="line"># Install the project</div>
 <div class="line">$&gt; xmake install</div>
 <div class="line"> </div>
-<div class="line"># Package the project</div>
+<div class="line"># Package the project (see packaging options below)</div>
 <div class="line">$&gt; xmake pack</div>
 <div class="line"> </div>
 <div class="line"># Run tests (if available)</div>
 <div class="line">$&gt; xmake test</div>
-</div><!-- fragment --><p><b>Alternative CMake commands:</b></p>
+</div><!-- fragment --><p><b>Packaging options:</b></p>
+<div class="fragment"><div class="line"># Package both server and client (default)</div>
+<div class="line">$&gt; xmake pack -y</div>
+<div class="line"> </div>
+<div class="line"># Package only the server</div>
+<div class="line">$&gt; xmake f --pack-server=y --pack-client=n -y</div>
+<div class="line">$&gt; xmake pack -y</div>
+<div class="line"> </div>
+<div class="line"># Package only the client library</div>
+<div class="line">$&gt; xmake f --pack-server=n --pack-client=y -y</div>
+<div class="line">$&gt; xmake pack -y</div>
+<div class="line"> </div>
+<div class="line"># Back to full package</div>
+<div class="line">$&gt; xmake f --pack-server=y --pack-client=y -y</div>
+</div><!-- fragment --><p>The packages will be generated in <code>build/xpack/flakkari/</code> with names like:</p><ul>
+<li><code>flakkari-full-linux-x86_64-v0.8.0.zip</code> (both server and client)</li>
+<li><code>flakkari-server-linux-x86_64-v0.8.0.zip</code> (server only)</li>
+<li><code>flakkari-client-linux-x86_64-v0.8.0.zip</code> (client library only)</li>
+</ul>
+<p><b>Alternative CMake commands:</b></p>
 <div class="fragment"><div class="line"># Create build directory</div>
 <div class="line">$&gt; mkdir build &amp;&amp; cd build</div>
 <div class="line"> </div>

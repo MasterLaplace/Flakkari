@@ -9,6 +9,6 @@ digraph "Flakkari/Engine/EntityComponentSystem/Systems"
     graph [ bgcolor="#edf0f7", pencolor="grey50", label="EntityComponentSystem", fontname=Helvetica,fontsize=10 style="filled,dashed", URL="dir_a60a0a50912261337a6df9770eafa8d1.html",tooltip=""]
   dir_cc6d98a17b49648a94b8f9291bc1f318 [label="Systems", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_cc6d98a17b49648a94b8f9291bc1f318.html",tooltip=""];
   }
-  dir_c5bb1fc07982e0126fd8087c13a737b0 [label="Protocol", fillcolor="#edf0f7", color="grey50", style="filled", URL="dir_c5bb1fc07982e0126fd8087c13a737b0.html",tooltip=""];
-  dir_cc6d98a17b49648a94b8f9291bc1f318->dir_c5bb1fc07982e0126fd8087c13a737b0 [headlabel="1", labeldistance=1.5 headhref="dir_000016_000014.html" href="dir_000016_000014.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_c5bb1fc07982e0126fd8087c13a737b0 [label="Protocol", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_c5bb1fc07982e0126fd8087c13a737b0.html",tooltip=""];
+  dir_cc6d98a17b49648a94b8f9291bc1f318->dir_c5bb1fc07982e0126fd8087c13a737b0 [headlabel="1", labeldistance=1.5 headhref="dir_000018_000016.html" href="dir_000018_000016.html" color="steelblue1" fontcolor="steelblue1"];
 }

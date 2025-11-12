@@ -10,4 +10,6 @@ digraph "Flakkari::Game::sendAllEntitiesToPlayer"
   Node2 [id="Node000002",label="Flakkari::Protocol\l::PacketFactory::addComponents\lToPacketByEntity",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d7/d06/classFlakkari_1_1Protocol_1_1PacketFactory.html#a1b3ecd6a8b5169c43a3a24d7b6bb6069",tooltip="Add all the components of an entity to a packet."];
   Node1 -> Node3 [id="edge2_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
   Node3 [id="Node000003",label="Flakkari::Protocol\l::Packet::injectString",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#aae09336594708e0910cc950db4ca3076",tooltip="Inject a string into the packet."];
+  Node3 -> Node4 [id="edge3_Node000003_Node000004",color="steelblue1",style="solid",tooltip=" "];
+  Node4 [id="Node000004",label="Flakkari::Protocol\l::Packet::size",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a582b8f7654507bb11286866d96e7d5c3",tooltip="Get the size of the packet."];
 }

@@ -15,8 +15,8 @@ digraph "Flakkari/Engine/EntityComponentSystem"
   dir_cc6d98a17b49648a94b8f9291bc1f318 [label="Systems", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_cc6d98a17b49648a94b8f9291bc1f318.html",tooltip=""];
   }
   }
-  dir_c5bb1fc07982e0126fd8087c13a737b0 [label="Protocol", fillcolor="#edf0f7", color="grey50", style="filled", URL="dir_c5bb1fc07982e0126fd8087c13a737b0.html",tooltip=""];
-  dir_a60a0a50912261337a6df9770eafa8d1->dir_6b151d91432e5e3a835f5b0d29761f9f [headlabel="27", labeldistance=1.5 headhref="dir_000007_000005.html" href="dir_000007_000005.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_6b151d91432e5e3a835f5b0d29761f9f->dir_91bfd317f0d822e02c021ee39d31f634 [headlabel="11", labeldistance=1.5 headhref="dir_000005_000012.html" href="dir_000005_000012.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_cc6d98a17b49648a94b8f9291bc1f318->dir_c5bb1fc07982e0126fd8087c13a737b0 [headlabel="1", labeldistance=1.5 headhref="dir_000016_000014.html" href="dir_000016_000014.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_c5bb1fc07982e0126fd8087c13a737b0 [label="Protocol", fillcolor="#edf0f7", color="red", style="filled,dashed", URL="dir_c5bb1fc07982e0126fd8087c13a737b0.html",tooltip=""];
+  dir_a60a0a50912261337a6df9770eafa8d1->dir_6b151d91432e5e3a835f5b0d29761f9f [headlabel="27", labeldistance=1.5 headhref="dir_000009_000006.html" href="dir_000009_000006.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_6b151d91432e5e3a835f5b0d29761f9f->dir_91bfd317f0d822e02c021ee39d31f634 [headlabel="11", labeldistance=1.5 headhref="dir_000006_000014.html" href="dir_000006_000014.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_cc6d98a17b49648a94b8f9291bc1f318->dir_c5bb1fc07982e0126fd8087c13a737b0 [headlabel="1", labeldistance=1.5 headhref="dir_000018_000016.html" href="dir_000018_000016.html" color="steelblue1" fontcolor="steelblue1"];
 }

@@ -7,5 +7,5 @@ digraph "Flakkari::Protocol::Packet::deserialize"
   rankdir="LR";
   Node1 [id="Node000001",label="Flakkari::Protocol\l::Packet::deserialize",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip="Deserialize the buffer into a packet."];
   Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
-  Node2 [id="Node000002",label="Flakkari::Network::\lBuffer::extractData",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df8/classFlakkari_1_1Network_1_1Buffer.html#ad7ad2e3a4a5727c72a585093d93cd016",tooltip="Get the data of the buffer."];
+  Node2 [id="Node000002",label="Flakkari::Protocol\l::Packet::size",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$db/d59/structFlakkari_1_1Protocol_1_1Packet.html#a582b8f7654507bb11286866d96e7d5c3",tooltip="Get the size of the packet."];
 }

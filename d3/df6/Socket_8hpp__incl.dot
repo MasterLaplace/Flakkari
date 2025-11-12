@@ -46,4 +46,5 @@ digraph "Flakkari/Network/Socket.hpp"
   Node1 -> Node8 [id="edge23_Node000001_Node000008",color="steelblue1",style="solid",tooltip=" "];
   Node1 -> Node18 [id="edge24_Node000001_Node000018",color="steelblue1",style="solid",tooltip=" "];
   Node18 [id="Node000018",label="utility",height=0.2,width=0.4,color="grey60", fillcolor="#E0E0E0", style="filled",tooltip=" "];
+  Node1 -> Node17 [id="edge25_Node000001_Node000017",color="steelblue1",style="solid",tooltip=" "];
 }

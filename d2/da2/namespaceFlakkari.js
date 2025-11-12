@@ -11,6 +11,7 @@ var namespaceFlakkari =
     [ "Logger", "d5/d86/classFlakkari_1_1Logger.html", "d5/d86/classFlakkari_1_1Logger" ],
     [ "ParseArgument", "d6/df7/classFlakkari_1_1ParseArgument.html", "d6/df7/classFlakkari_1_1ParseArgument" ],
     [ "ResourceManager", "d0/d1e/classFlakkari_1_1ResourceManager.html", "d0/d1e/classFlakkari_1_1ResourceManager" ],
+    [ "UDPClient", "db/d4e/classFlakkari_1_1UDPClient.html", "db/d4e/classFlakkari_1_1UDPClient" ],
     [ "UDPServer", "d0/dd1/classFlakkari_1_1UDPServer.html", "d0/dd1/classFlakkari_1_1UDPServer" ],
     [ "nl_component", "d2/da2/namespaceFlakkari.html#a60f33623bdcaae18c88b3d1fdd23f8d1", null ],
     [ "nl_entity", "d2/da2/namespaceFlakkari.html#a05f244ef5270c32adf80d3bc26b9c72e", null ],

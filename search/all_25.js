@@ -12,5 +12,6 @@ var searchData=
   ['_7eresourcemanager_9',['~ResourceManager',['../d0/d1e/classFlakkari_1_1ResourceManager.html#a8bb03c73770d54d3484f6b22223f3bce',1,'Flakkari::ResourceManager']]],
   ['_7esocket_10',['~Socket',['../d2/dea/classFlakkari_1_1Network_1_1Socket.html#a250e9ae37435f110701780a262bcbb21',1,'Flakkari::Network::Socket']]],
   ['_7esparsearrays_11',['~SparseArrays',['../d5/dd2/classFlakkari_1_1Engine_1_1ECS_1_1SparseArrays.html#a0ddb943d6595b10329168c25c8bba258',1,'Flakkari::Engine::ECS::SparseArrays']]],
-  ['_7eudpserver_12',['~UDPServer',['../d0/dd1/classFlakkari_1_1UDPServer.html#a09b1a38f1a03d3832f85fe05e6370a11',1,'Flakkari::UDPServer']]]
+  ['_7eudpclient_12',['~UDPClient',['../db/d4e/classFlakkari_1_1UDPClient.html#a140f08cd1f46daec480ee97d40761813',1,'Flakkari::UDPClient']]],
+  ['_7eudpserver_13',['~UDPServer',['../d0/dd1/classFlakkari_1_1UDPServer.html#a09b1a38f1a03d3832f85fe05e6370a11',1,'Flakkari::UDPServer']]]
 ];

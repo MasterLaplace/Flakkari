@@ -117,7 +117,7 @@ $(document).ready(function(){initNavTree('db/d4f/structFlakkari_1_1Protocol_1_1V
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a5101251ba28b2ddbd84bc796257ad2db" id="r_a5101251ba28b2ddbd84bc796257ad2db"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html#a5101251ba28b2ddbd84bc796257ad2db">size</a> () const</td></tr>
+<tr class="memitem:a5101251ba28b2ddbd84bc796257ad2db" id="r_a5101251ba28b2ddbd84bc796257ad2db"><td class="memItemLeft" align="right" valign="top">std::size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html#a5101251ba28b2ddbd84bc796257ad2db">size</a> () <a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">const</a></td></tr>
 <tr class="separator:a5101251ba28b2ddbd84bc796257ad2db"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
@@ -128,13 +128,13 @@ Data Fields</h2></td></tr>
 <tr class="separator:ae24a85f61128be2f98468ca127cee5bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2edd92b240bb17179fb2628242805d5e" id="r_a2edd92b240bb17179fb2628242805d5e"><td class="memItemLeft" align="right" valign="top">Id&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html#a2edd92b240bb17179fb2628242805d5e">_commandId</a></td></tr>
 <tr class="separator:a2edd92b240bb17179fb2628242805d5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af9c19def339cb0c3d072a60d220cbee1" id="r_af9c19def339cb0c3d072a60d220cbee1"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html#af9c19def339cb0c3d072a60d220cbee1">_contentLength</a> = 0</td></tr>
+<tr class="memitem:af9c19def339cb0c3d072a60d220cbee1" id="r_af9c19def339cb0c3d072a60d220cbee1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">uint16_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html#af9c19def339cb0c3d072a60d220cbee1">_contentLength</a> = 0</td></tr>
 <tr class="separator:af9c19def339cb0c3d072a60d220cbee1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a637e296510a1ec8adcaab401fcf79a53" id="r_a637e296510a1ec8adcaab401fcf79a53"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html#a637e296510a1ec8adcaab401fcf79a53">_sequenceNumber</a></td></tr>
+<tr class="memitem:a637e296510a1ec8adcaab401fcf79a53" id="r_a637e296510a1ec8adcaab401fcf79a53"><td class="memItemLeft" align="right" valign="top"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">uint64_t</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html#a637e296510a1ec8adcaab401fcf79a53">_sequenceNumber</a></td></tr>
 <tr class="separator:a637e296510a1ec8adcaab401fcf79a53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><div class="compoundTemplParams">template&lt;typename Id&gt;<br />
+<div class="textblock"><div class="compoundTemplParams">template&lt;<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">typename</a> Id&gt;<br />
 struct Flakkari::Protocol::V_1::Header&lt; Id &gt;</div><p><a class="el" href="../../d2/da2/namespaceFlakkari.html">Flakkari</a> <a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html" title="Flakkari Header v1 (new header)">Header</a> v1 (new header) </p>
 <p>0 1 2 3 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ |Priority| Api V.| CommandId | ContentLength | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ | SequenceNumber | | | +-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+ </p>
 </div><h2 class="groupheader">Member Function Documentation</h2>
@@ -144,7 +144,7 @@ struct Flakkari::Protocol::V_1::Header&lt; Id &gt;</div><p><a class="el" href=".
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Id &gt; </div>
+template&lt;<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">typename</a> Id &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
@@ -172,7 +172,7 @@ template&lt;typename Id &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Id &gt; </div>
+template&lt;<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">typename</a> Id &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../dc/d58/namespaceFlakkari_1_1Protocol.html#a302e0d2f906390c0a05e720dc87fd30d">ApiVersion</a> <a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html">Flakkari::Protocol::V_1::Header</a>&lt; Id &gt;::_apiVersion</td>
@@ -188,7 +188,7 @@ template&lt;typename Id &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Id &gt; </div>
+template&lt;<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">typename</a> Id &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname">Id <a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html">Flakkari::Protocol::V_1::Header</a>&lt; Id &gt;::_commandId</td>
@@ -204,10 +204,10 @@ template&lt;typename Id &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Id &gt; </div>
+template&lt;<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">typename</a> Id &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">uint16_t <a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html">Flakkari::Protocol::V_1::Header</a>&lt; Id &gt;::_contentLength = 0</td>
+          <td class="memname"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">uint16_t</a> <a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html">Flakkari::Protocol::V_1::Header</a>&lt; Id &gt;::_contentLength = 0</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -220,7 +220,7 @@ template&lt;typename Id &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Id &gt; </div>
+template&lt;<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">typename</a> Id &gt; </div>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="../../dc/d58/namespaceFlakkari_1_1Protocol.html#a187fd40521978f81f0b19f809e448835">Priority</a> <a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html">Flakkari::Protocol::V_1::Header</a>&lt; Id &gt;::_priority</td>
@@ -236,10 +236,10 @@ template&lt;typename Id &gt; </div>
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename Id &gt; </div>
+template&lt;<a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">typename</a> Id &gt; </div>
       <table class="memname">
         <tr>
-          <td class="memname">uint64_t <a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html">Flakkari::Protocol::V_1::Header</a>&lt; Id &gt;::_sequenceNumber</td>
+          <td class="memname"><a class="el" href="../../db/d59/structFlakkari_1_1Protocol_1_1Packet.html">uint64_t</a> <a class="el" href="../../db/d4f/structFlakkari_1_1Protocol_1_1V__1_1_1Header.html">Flakkari::Protocol::V_1::Header</a>&lt; Id &gt;::_sequenceNumber</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -250,7 +250,7 @@ template&lt;typename Id &gt; </div>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>Flakkari/Protocol/<a class="el" href="../../d4/d64/Header_8hpp_source.html">Header.hpp (111  371 3084 /home/runner/work/Flakkari/Flakkari/Flakkari/Protocol/Header.hpp)</a></li>
+<li>Flakkari/Protocol/<a class="el" href="../../d4/d64/Header_8hpp_source.html">Header.hpp (112  374 3108 /home/runner/work/Flakkari/Flakkari/Flakkari/Protocol/Header.hpp)</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

@@ -10,9 +10,13 @@ digraph "Flakkari/Protocol"
   dir_45889462d704ec0e5c2ce024817bc167 [label="Logger", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_45889462d704ec0e5c2ce024817bc167.html",tooltip=""];
   dir_a8832efbf453ed375786272748b42b6e [label="Engine", fillcolor="#a2b4d6", color="red", style="filled", URL="dir_a8832efbf453ed375786272748b42b6e.html",tooltip=""];
   dir_dc3bc5b104a4f9709e6dd6d8ef9cb2d5 [label="Network", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_dc3bc5b104a4f9709e6dd6d8ef9cb2d5.html",tooltip=""];
-  dir_c5bb1fc07982e0126fd8087c13a737b0 [label="Protocol", fillcolor="#edf0f7", color="grey25", style="filled,bold", URL="dir_c5bb1fc07982e0126fd8087c13a737b0.html",tooltip=""];
+  subgraph clusterdir_c5bb1fc07982e0126fd8087c13a737b0 {
+    graph [ bgcolor="#edf0f7", pencolor="grey25", label="", fontname=Helvetica,fontsize=10 style="filled,bold", URL="dir_c5bb1fc07982e0126fd8087c13a737b0.html",tooltip=""]
+    dir_c5bb1fc07982e0126fd8087c13a737b0 [shape=plaintext, label="Protocol"];
+  dir_7db309a9ac2727f2bf5e2bcacf187946 [label="Engine", fillcolor="#a2b4d6", color="grey25", style="filled", URL="dir_7db309a9ac2727f2bf5e2bcacf187946.html",tooltip=""];
   }
-  dir_c5bb1fc07982e0126fd8087c13a737b0->dir_45889462d704ec0e5c2ce024817bc167 [headlabel="1", labeldistance=1.5 headhref="dir_000014_000011.html" href="dir_000014_000011.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_c5bb1fc07982e0126fd8087c13a737b0->dir_a8832efbf453ed375786272748b42b6e [headlabel="1", labeldistance=1.5 headhref="dir_000014_000006.html" href="dir_000014_000006.html" color="steelblue1" fontcolor="steelblue1"];
-  dir_c5bb1fc07982e0126fd8087c13a737b0->dir_dc3bc5b104a4f9709e6dd6d8ef9cb2d5 [headlabel="1", labeldistance=1.5 headhref="dir_000014_000013.html" href="dir_000014_000013.html" color="steelblue1" fontcolor="steelblue1"];
+  }
+  dir_c5bb1fc07982e0126fd8087c13a737b0->dir_45889462d704ec0e5c2ce024817bc167 [headlabel="1", labeldistance=1.5 headhref="dir_000016_000013.html" href="dir_000016_000013.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_c5bb1fc07982e0126fd8087c13a737b0->dir_dc3bc5b104a4f9709e6dd6d8ef9cb2d5 [headlabel="1", labeldistance=1.5 headhref="dir_000016_000015.html" href="dir_000016_000015.html" color="steelblue1" fontcolor="steelblue1"];
+  dir_7db309a9ac2727f2bf5e2bcacf187946->dir_a8832efbf453ed375786272748b42b6e [headlabel="1", labeldistance=1.5 headhref="dir_000008_000007.html" href="dir_000008_000007.html" color="steelblue1" fontcolor="steelblue1"];
 }

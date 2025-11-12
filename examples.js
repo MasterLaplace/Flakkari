@@ -1,8 +1,10 @@
 var examples =
 [
+    [ "Flakkari/Client/UDPClient.cpp", "d7/d6b/Flakkari_2Client_2UDPClient_8cpp-example.html", null ],
     [ "Flakkari/Network/Buffer.cpp", "df/dc0/Flakkari_2Network_2Buffer_8cpp-example.html", null ],
     [ "PSELECT example", "d0/d4b/PSELECT_01example-example.html", null ],
     [ "PPOLL example", "dc/de7/PPOLL_01example-example.html", null ],
+    [ "Flakkari/Network/PacketQueue.hpp", "d7/d4a/Flakkari_2Network_2PacketQueue_8hpp-example.html", null ],
     [ "Socket class for a UDP server", "d1/d82/Socket_01class_01for_01a_01UDP_01server-example.html", null ],
     [ "Socket class for a TCP server", "d1/d37/Socket_01class_01for_01a_01TCP_01server-example.html", null ],
     [ "Socket class for a UDP client", "d1/d91/Socket_01class_01for_01a_01UDP_01client-example.html", null ],

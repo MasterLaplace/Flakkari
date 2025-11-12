@@ -9,7 +9,7 @@ digraph "Flakkari::Network::Socket::send"
   Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
   Node2 [id="Node000002",label="Flakkari::Network::\lBuffer::getData",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df8/classFlakkari_1_1Network_1_1Buffer.html#ae308d60e79fe9387b58c0cb8640e5ef7",tooltip="Get the data of the buffer."];
   Node1 -> Node3 [id="edge2_Node000001_Node000003",color="steelblue1",style="solid",tooltip=" "];
-  Node3 [id="Node000003",label="Flakkari::Network::\lSocket::send",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/dea/classFlakkari_1_1Network_1_1Socket.html#a00e05b303136f53ee0219576c61ecef3",tooltip="Send data to the socket. This function is only used by TCP sockets."];
+  Node3 [id="Node000003",label="Flakkari::Network::\lSocket::send",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/dea/classFlakkari_1_1Network_1_1Socket.html#a3b4e6cd3932129a31e6d0741119b46ea",tooltip="Send data to the socket. This function is only used by TCP sockets."];
   Node3 -> Node2 [id="edge3_Node000003_Node000002",color="steelblue1",style="solid",tooltip=" "];
   Node3 -> Node4 [id="edge4_Node000003_Node000004",color="steelblue1",style="solid",tooltip=" "];
   Node4 [id="Node000004",label="Flakkari::Network::\lBuffer::getSize",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d4/df8/classFlakkari_1_1Network_1_1Buffer.html#a273543a4d7a5cfca6e0c8e22f14c6501",tooltip="Get the size of the buffer."];

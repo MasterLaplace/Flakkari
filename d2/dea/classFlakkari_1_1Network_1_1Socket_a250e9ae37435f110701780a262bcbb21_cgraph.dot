@@ -7,6 +7,6 @@ digraph "Flakkari::Network::Socket::~Socket"
   rankdir="LR";
   Node1 [id="Node000001",label="Flakkari::Network::\lSocket::~Socket",height=0.2,width=0.4,color="gray40", fillcolor="grey60", style="filled", fontcolor="black",tooltip=" "];
   Node1 -> Node2 [id="edge1_Node000001_Node000002",color="steelblue1",style="solid",tooltip=" "];
-  Node2 [id="Node000002",label="Flakkari::Network::\lSocket::close",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/dea/classFlakkari_1_1Network_1_1Socket.html#a1cd2ff590c45ec06127f754cb1e74819",tooltip="Close the socket."];
+  Node2 [id="Node000002",label="Flakkari::Network::\lSocket::close",height=0.2,width=0.4,color="grey40", fillcolor="white", style="filled",URL="$d2/dea/classFlakkari_1_1Network_1_1Socket.html#a6594c95c512700b70eebcfc5da053314",tooltip="Close the socket."];
   Node2 -> Node2 [id="edge2_Node000002_Node000002",color="steelblue1",style="solid",tooltip=" "];
 }
