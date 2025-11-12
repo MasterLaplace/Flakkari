@@ -1,0 +1,60 @@
+title: "[Report] "
+labels: ["abuse", "report"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form to report abuse, harassment, safety issues, doxxing, or
+        other policy violations related to this repository or its community.
+
+        This discussion is public and will remain public. Maintainers will
+        monitor and respond in this discussion. Attach any relevant evidence
+        (screenshots, links, logs) to support your report.
+
+  - type: input
+    id: summary
+    attributes:
+      label: Short summary
+      description: One-line summary of the report (required)
+      placeholder: "e.g. Harassment in issue #123 or Offensive content in PR #45"
+    validations:
+      required: true
+
+  - type: input
+    id: incident_date
+    attributes:
+      label: Date (approx.)
+      description: When did this occur? Use YYYY-MM-DD if known.
+      placeholder: "2025-11-01"
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Severity
+      options:
+        - Low
+        - Medium
+        - High
+        - Critical
+    validations:
+      required: true
+
+  - type: textarea
+    id: details
+    attributes:
+      label: Details and evidence
+      description: Provide as much detail as possible: links to issues/PRs, exact
+        quotes, screenshots, or logs. Attach files using the GitHub attachment UI.
+      placeholder: |
+        - Links to relevant issues/PRs/comments
+        - Copy/paste of offending text
+        - Screenshots or logs (attach below)
+    validations:
+      required: true
+
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report this. All discussions and
+        follow-ups will happen in this public thread. Maintainers will review
+        and respond here.
