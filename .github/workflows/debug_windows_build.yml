@@ -52,7 +52,9 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "==================== BUILD CLIENT TEST ====================" -ForegroundColor Cyan
-          xmake build flakkari-client      - name: 6️⃣ Configure for Pack (client only)
+          xmake build flakkari-client
+
+      - name: 6️⃣ Configure for Pack (client only)
         shell: pwsh
         run: |
           Write-Host "==================== CONFIGURE FOR PACK ====================" -ForegroundColor Cyan
