@@ -20,5 +20,4 @@ We thank you for your ongoing support!
 
 Proper thanks to all our sponsors! Your support is invaluable to us.
 
-<!-- sponsors -->
-<!-- sponsors -->
+<!-- sponsors --><!-- sponsors -->
