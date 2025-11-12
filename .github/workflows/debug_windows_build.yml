@@ -28,19 +28,19 @@ jobs:
         shell: pwsh
         run: |
           Write-Host "Configuring xmake for Windows release build..." -ForegroundColor Cyan
-          xmake f -y -m release --pack-server=n --pack-client=y -v
+          xmake f -y -m release --pack-server=n --pack-client=y
 
       - name: Build Client
         shell: pwsh
         run: |
           Write-Host "Building flakkari-client..." -ForegroundColor Cyan
-          xmake build flakkari-client -v
+          xmake build flakkari-client
 
       - name: Pack Client Artifacts
         shell: pwsh
         run: |
           Write-Host "Creating client packages..." -ForegroundColor Cyan
-          xmake pack -y -v
+          xmake pack -y
 
       - name: List Generated Artifacts
         shell: pwsh
@@ -59,25 +59,25 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           Write-Host "Uploading artifacts to release v0.9.0..." -ForegroundColor Cyan
-          
+
           $releaseTag = "v0.9.0"
           $artifacts = Get-ChildItem -Path "build/xpack/flakkari" -File
-          
+
           # Get release ID
           $release = gh release view $releaseTag --json id,uploadUrl | ConvertFrom-Json
-          
+
           if (-not $release) {
             Write-Host "Release $releaseTag not found!" -ForegroundColor Red
             exit 1
           }
-          
+
           Write-Host "Found release: $releaseTag (ID: $($release.id))" -ForegroundColor Green
-          
+
           # Upload each artifact
           foreach ($artifact in $artifacts) {
             Write-Host "`nUploading: $($artifact.Name) ($([math]::Round($artifact.Length/1KB, 2)) KB)" -ForegroundColor Yellow
             gh release upload $releaseTag $artifact.FullName --clobber
-            
+
             if ($LASTEXITCODE -eq 0) {
               Write-Host "✅ Successfully uploaded: $($artifact.Name)" -ForegroundColor Green
             } else {
@@ -85,5 +85,5 @@ jobs:
               exit 1
             }
           }
-          
+
           Write-Host "`n🎉 All artifacts uploaded successfully!" -ForegroundColor Green
