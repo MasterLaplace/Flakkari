@@ -21,7 +21,7 @@ option("pack-client")
 option_end()
 
 option("engine-squared")
-    set_default(false)
+    set_default(true)
     set_showmenu(true)
     set_description("Add EngineSquared in the engines list")
 option_end()
