@@ -30,6 +30,18 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v5
 
+      - name: Cache xmake and downloaded packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.xmake
+            ~/.xmake/cache
+            ~/.xmake/packages
+            .xmake-cache
+          key: ${{ runner.os }}-xmake-${{ hashFiles('xmake.lua') }}
+          restore-keys: |
+            ${{ runner.os }}-xmake-
+
       - name: Install xmake
         uses: xmake-io/github-action-setup-xmake@v1
         with:
@@ -37,7 +49,7 @@ jobs:
           actions-cache-folder: '.xmake-cache'
           actions-cache-key: '${{ runner.os }}-xmake-install'
           package-cache: true
-          package-cache-key: '${{ runner.os }}-xmake-nlohmann_json-libcurl-libgit2'
+          package-cache-key: "${{ runner.os }}-xmake-${{ hashFiles('xmake.lua') }}"
           project-path: '.'
 
       - name: Install system dependencies (Linux)
@@ -54,8 +66,11 @@ jobs:
           brew update
           brew install pkg-config freetype glew
 
-      - name: Configure and Build ${{ matrix.target }}
+      - name: Configure
         run: |
           xmake config -y
+
+      - name: Build ${{ matrix.target }}
+        run: |
           xmake build ${{ matrix.target }}
-        timeout-minutes: 5
+        timeout-minutes: 6
