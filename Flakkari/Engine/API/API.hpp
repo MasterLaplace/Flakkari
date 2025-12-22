@@ -12,9 +12,9 @@
 #define FLAKKARI_ENGINE_API_HPP_
 
 // Core API interfaces
+#include "EngineFactory.hpp"
 #include "IEntity.hpp"
 #include "IRegistry.hpp"
-#include "EngineFactory.hpp"
 
 // Flakkari native ECS wrapper
 #include "EntityComponentSystem/FlakkariEntity.hpp"
@@ -22,8 +22,8 @@
 
 // EngineSquared wrapper (conditionally included)
 #ifdef FLAKKARI_HAS_ENGINESQUARED
-#include "EngineSquared/Entity.hpp"
-#include "EngineSquared/Registry.hpp"
+#    include "EngineSquared/Entity.hpp"
+#    include "EngineSquared/Registry.hpp"
 #endif
 
 #endif /* !FLAKKARI_ENGINE_API_HPP_ */

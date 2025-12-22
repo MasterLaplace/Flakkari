@@ -121,19 +121,13 @@ public:
      * @brief Pre-increment operator.
      * @return The incremented entity ID.
      */
-    std::size_t operator++()
-    {
-        return ++_id;
-    }
+    std::size_t operator++() { return ++_id; }
 
     /**
      * @brief Post-increment operator.
      * @return The entity ID before increment.
      */
-    std::size_t operator++(int)
-    {
-        return _id++;
-    }
+    std::size_t operator++(int) { return _id++; }
 
 private:
     std::size_t _id;

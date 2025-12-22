@@ -141,7 +141,8 @@ public:
      * @param entity  Entity to get the components from.
      */
     template <typename Id>
-    static void add2dToPacketByEntity(Packet<Id> &packet, Engine::API::FlakkariRegistry &registry, Engine::API::IEntity entity)
+    static void add2dToPacketByEntity(Packet<Id> &packet, Engine::API::FlakkariRegistry &registry,
+                                      Engine::API::IEntity entity)
     {
         auto transform = registry.getComponents<Engine::ECS::Components::_2D::Transform>()[entity];
 
@@ -209,7 +210,8 @@ public:
      * @param entity  Entity to get the components from.
      */
     template <typename Id>
-    static void add3dToPacketByEntity(Packet<Id> &packet, Engine::API::FlakkariRegistry &registry, Engine::API::IEntity entity)
+    static void add3dToPacketByEntity(Packet<Id> &packet, Engine::API::FlakkariRegistry &registry,
+                                      Engine::API::IEntity entity)
     {
         auto transform = registry.getComponents<Engine::ECS::Components::_3D::Transform>()[entity];
 

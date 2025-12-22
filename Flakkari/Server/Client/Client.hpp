@@ -19,8 +19,8 @@
 #include <chrono>
 #include <mutex>
 
-#include "Game/GameManager.hpp"
 #include "API/IEntity.hpp"
+#include "Game/GameManager.hpp"
 #include "Network/PacketQueue.hpp"
 #include "Network/Socket.hpp"
 #include "Protocol/Packet.hpp"

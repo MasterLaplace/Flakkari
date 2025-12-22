@@ -10,8 +10,8 @@
 
 #include "IRegistry.hpp"
 #include <memory>
-#include <string>
 #include <stdexcept>
+#include <string>
 
 // Forward declarations - actual includes happen in the .cpp or when using specific engine
 namespace Flakkari::Engine::API {

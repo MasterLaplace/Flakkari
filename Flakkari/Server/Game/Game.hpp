@@ -63,7 +63,8 @@ public: // Loaders
      * @param sceneName  Name of the scene to load.
      * @param sysName  Name of the system to load.
      */
-    void loadSystems(std::unique_ptr<Engine::API::IRegistry> &registry, const std::string &sceneName, const std::string &sysName);
+    void loadSystems(std::unique_ptr<Engine::API::IRegistry> &registry, const std::string &sceneName,
+                     const std::string &sysName);
 
     /**
      * @brief Add all the entities of the game to the registry.
@@ -72,7 +73,8 @@ public: // Loaders
      * @param entity  Entity to add to the registry.
      * @param templates  Templates of the game.
      */
-    void loadEntityFromTemplate(std::unique_ptr<Engine::API::IRegistry> &registry, const nl_entity &entity, const nl_template &templates);
+    void loadEntityFromTemplate(std::unique_ptr<Engine::API::IRegistry> &registry, const nl_entity &entity,
+                                const nl_template &templates);
 
     /**
      * @brief Load a scene from the game.
@@ -182,14 +184,15 @@ public: // Getters
 
 protected:
 private:
-    bool _running = false;                                                                    // Is the game running
-    std::thread _thread;                                                                      // Thread of the game
-    std::string _name;                                                                        // Name of the game
-    std::shared_ptr<nlohmann::json> _config;                                                  // Config of the game
-    std::vector<std::shared_ptr<Client>> _players;                                            // Players of the game
-    float _deltaTime;                                                                         // Time between two frames
-    std::chrono::steady_clock::time_point _time;                                              // Time of the last frame
-    std::unordered_map<std::string /*sceneName*/, std::unique_ptr<Engine::API::IRegistry> /*content*/> _scenes; // Scenes of the game
+    bool _running = false;                         // Is the game running
+    std::thread _thread;                           // Thread of the game
+    std::string _name;                             // Name of the game
+    std::shared_ptr<nlohmann::json> _config;       // Config of the game
+    std::vector<std::shared_ptr<Client>> _players; // Players of the game
+    float _deltaTime;                              // Time between two frames
+    std::chrono::steady_clock::time_point _time;   // Time of the last frame
+    std::unordered_map<std::string /*sceneName*/, std::unique_ptr<Engine::API::IRegistry> /*content*/>
+        _scenes; // Scenes of the game
 };
 
 } /* namespace Flakkari */

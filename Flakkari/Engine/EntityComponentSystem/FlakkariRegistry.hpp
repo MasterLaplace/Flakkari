@@ -9,9 +9,9 @@
 #define FLAKKARI_FLAKKARI_REGISTRY_HPP_
 
 #include "API/IRegistry.hpp"
+#include "FlakkariEntity.hpp"
 #include "Registry.hpp"
 #include "SparseArrays.hpp"
-#include "FlakkariEntity.hpp"
 
 #include <unordered_set>
 
@@ -85,8 +85,7 @@ public:
         auto it = _componentStorage.find(typeIndex);
         if (it != _componentStorage.end())
         {
-            const auto &storage =
-                std::any_cast<const std::unordered_map<std::size_t, std::any> &>(it->second);
+            const auto &storage = std::any_cast<const std::unordered_map<std::size_t, std::any> &>(it->second);
             return storage.find(entityId) != storage.end();
         }
         return false;
@@ -127,8 +126,7 @@ public:
         auto it = _componentStorage.find(typeIndex);
         if (it != _componentStorage.end())
         {
-            const auto &storage =
-                std::any_cast<const std::unordered_map<std::size_t, std::any> &>(it->second);
+            const auto &storage = std::any_cast<const std::unordered_map<std::size_t, std::any> &>(it->second);
             return storage.size();
         }
         return 0;
@@ -202,7 +200,7 @@ public:
      */
     template <typename Component>
     typename ECS::SparseArrays<Component>::reference_type addNativeComponent(std::size_t entityId,
-                                                                              Component &&component)
+                                                                             Component &&component)
     {
         return _registry.add_component<Component>(ECS::Entity(entityId), std::forward<Component>(component));
     }

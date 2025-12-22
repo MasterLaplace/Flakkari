@@ -10,7 +10,7 @@
 
 // Conditionally include EngineSquared if available
 #ifdef FLAKKARI_HAS_ENGINESQUARED
-#include "EngineSquared/Registry.hpp"
+#    include "EngineSquared/Registry.hpp"
 #endif
 
 #include <algorithm>
@@ -22,8 +22,7 @@ std::unique_ptr<IRegistry> EngineFactory::createRegistry(EngineType type)
 {
     switch (type)
     {
-    case EngineType::Flakkari:
-        return std::make_unique<FlakkariRegistry>();
+    case EngineType::Flakkari: return std::make_unique<FlakkariRegistry>();
 
     case EngineType::EngineSquared:
 #ifdef FLAKKARI_HAS_ENGINESQUARED
@@ -40,8 +39,7 @@ std::unique_ptr<IRegistry> EngineFactory::createRegistry(EngineType type)
         return std::make_unique<FlakkariRegistry>();
 #endif
 
-    default:
-        throw std::runtime_error("Unknown engine type");
+    default: throw std::runtime_error("Unknown engine type");
     }
 }
 
@@ -54,14 +52,10 @@ std::string EngineFactory::getEngineName(EngineType type)
 {
     switch (type)
     {
-    case EngineType::Flakkari:
-        return "Flakkari";
-    case EngineType::EngineSquared:
-        return "EngineSquared";
-    case EngineType::Auto:
-        return "Auto";
-    default:
-        return "Unknown";
+    case EngineType::Flakkari: return "Flakkari";
+    case EngineType::EngineSquared: return "EngineSquared";
+    case EngineType::Auto: return "Auto";
+    default: return "Unknown";
     }
 }
 
@@ -76,8 +70,8 @@ EngineType EngineFactory::parseEngineType(const std::string &name)
     {
         return EngineType::Flakkari;
     }
-    else if (lowerName == "enginesquared" || lowerName == "engine_squared" ||
-             lowerName == "engine-squared" || lowerName == "es")
+    else if (lowerName == "enginesquared" || lowerName == "engine_squared" || lowerName == "engine-squared" ||
+             lowerName == "es")
     {
         return EngineType::EngineSquared;
     }
@@ -86,16 +80,14 @@ EngineType EngineFactory::parseEngineType(const std::string &name)
         return EngineType::Auto;
     }
 
-    throw std::runtime_error("Unknown engine type: " + name +
-                             ". Valid options are: Flakkari, EngineSquared, ES, Auto");
+    throw std::runtime_error("Unknown engine type: " + name + ". Valid options are: Flakkari, EngineSquared, ES, Auto");
 }
 
 bool EngineFactory::isEngineAvailable(EngineType type)
 {
     switch (type)
     {
-    case EngineType::Flakkari:
-        return true; // Always available
+    case EngineType::Flakkari: return true; // Always available
 
     case EngineType::EngineSquared:
 #ifdef FLAKKARI_HAS_ENGINESQUARED
@@ -104,11 +96,9 @@ bool EngineFactory::isEngineAvailable(EngineType type)
         return false;
 #endif
 
-    case EngineType::Auto:
-        return true; // Auto always has a fallback
+    case EngineType::Auto: return true; // Auto always has a fallback
 
-    default:
-        return false;
+    default: return false;
     }
 }
 

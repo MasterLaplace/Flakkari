@@ -57,10 +57,7 @@ public:
 
     // ==================== Component Management (Type-Erased) ====================
 
-    void registerComponentType(std::type_index typeIndex) override
-    {
-        _registeredTypes.insert(typeIndex);
-    }
+    void registerComponentType(std::type_index typeIndex) override { _registeredTypes.insert(typeIndex); }
 
     void addComponentAny(std::size_t entityId, std::type_index typeIndex, std::any component) override
     {
@@ -90,8 +87,7 @@ public:
         auto it = _componentStorage.find(typeIndex);
         if (it != _componentStorage.end())
         {
-            const auto &storage =
-                std::any_cast<const std::unordered_map<std::size_t, std::any> &>(it->second);
+            const auto &storage = std::any_cast<const std::unordered_map<std::size_t, std::any> &>(it->second);
             return storage.find(entityId) != storage.end();
         }
         return false;
@@ -132,8 +128,7 @@ public:
         auto it = _componentStorage.find(typeIndex);
         if (it != _componentStorage.end())
         {
-            const auto &storage =
-                std::any_cast<const std::unordered_map<std::size_t, std::any> &>(it->second);
+            const auto &storage = std::any_cast<const std::unordered_map<std::size_t, std::any> &>(it->second);
             return storage.size();
         }
         return 0;
@@ -211,7 +206,8 @@ public:
      * @param args Constructor arguments.
      * @return Reference to the added component.
      */
-    template <typename TComponent, typename... TArgs> decltype(auto) emplaceNativeComponent(std::size_t entityId, TArgs &&...args)
+    template <typename TComponent, typename... TArgs>
+    decltype(auto) emplaceNativeComponent(std::size_t entityId, TArgs &&...args)
     {
         ::Engine::Entity entity(static_cast<::Engine::Entity::entity_id_type>(entityId));
         _registeredTypes.insert(std::type_index(typeid(TComponent)));

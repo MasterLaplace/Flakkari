@@ -38,7 +38,8 @@ Game::~Game()
     FLAKKARI_LOG_INFO("game \"" + _name + "\" is now stopped");
 }
 
-void Game::loadSystems(std::unique_ptr<Engine::API::IRegistry> &registry, const std::string &sceneName, const std::string &sysName)
+void Game::loadSystems(std::unique_ptr<Engine::API::IRegistry> &registry, const std::string &sceneName,
+                       const std::string &sysName)
 {
     // Cast to FlakkariRegistry for Flakkari-specific systems
     auto *flakkariReg = dynamic_cast<Engine::API::FlakkariRegistry *>(registry.get());
@@ -69,7 +70,8 @@ void Game::loadSystems(std::unique_ptr<Engine::API::IRegistry> &registry, const 
                 packet << Engine::API::IEntity(entity.getId());
                 packet.injectString(templateName);
 
-                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg, Engine::API::IEntity(entity.getId()));
+                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg,
+                                                                       Engine::API::IEntity(entity.getId()));
 
                 this->sendOnSameScene(sceneName, packet);
             }
@@ -86,7 +88,8 @@ void Game::loadSystems(std::unique_ptr<Engine::API::IRegistry> &registry, const 
                 packet.header._commandId = Protocol::CommandId::REQ_ENTITY_UPDATE;
                 packet << Engine::API::IEntity(entity.getId());
 
-                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg, Engine::API::IEntity(entity.getId()));
+                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg,
+                                                                       Engine::API::IEntity(entity.getId()));
 
                 this->sendOnSameScene(sceneName, packet);
             }
@@ -112,7 +115,8 @@ void Game::loadSystems(std::unique_ptr<Engine::API::IRegistry> &registry, const 
                 packet.header._commandId = Protocol::CommandId::REQ_ENTITY_UPDATE;
                 packet << Engine::API::IEntity(entity.first.getId());
 
-                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg, Engine::API::IEntity(entity.first.getId()));
+                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg,
+                                                                       Engine::API::IEntity(entity.first.getId()));
 
                 this->sendOnSameScene(sceneName, packet);
             }
@@ -136,8 +140,8 @@ void Game::loadEntityFromTemplate(std::unique_ptr<Engine::API::IRegistry> &regis
     {
         if (entity.value() != templateInfo.value().begin().key())
             continue;
-        Engine::ECS::Factory::RegistryEntityByTemplate(flakkariReg->getNative(), newEntity, templateInfo.value().begin().value(),
-                                                       templates);
+        Engine::ECS::Factory::RegistryEntityByTemplate(flakkariReg->getNative(), newEntity,
+                                                       templateInfo.value().begin().value(), templates);
     }
 }
 
@@ -526,7 +530,8 @@ bool Game::addPlayer(std::shared_ptr<Client> player)
         ResourceManager::UnlockInstance();
         return false;
     }
-    Engine::ECS::Factory::RegistryEntityByTemplate(*flakkariReg, Engine::ECS::Entity(newEntity.getId()), player_info.value());
+    Engine::ECS::Factory::RegistryEntityByTemplate(*flakkariReg, Engine::ECS::Entity(newEntity.getId()),
+                                                   player_info.value());
     ResourceManager::UnlockInstance();
 
     player->setEntity(newEntity);
