@@ -275,7 +275,7 @@ public:
      */
     template <typename... Components, typename Function> void add_system(Function &&f)
     {
-        add_system([sys = std::forward<Function>(f)](IRegistry &r) mutable { sys(r); });
+        add_system(SystemFn([sys = std::forward<Function>(f)](IRegistry &r) mutable { sys(r); }));
     }
 };
 
