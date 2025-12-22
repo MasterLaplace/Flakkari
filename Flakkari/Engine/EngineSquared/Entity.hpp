@@ -43,19 +43,19 @@ public:
      */
     explicit ESEntity(std::size_t id) : _entityId(static_cast<entity_id_type>(id)) {}
 
-    ~ESEntity() override = default;
+    ~ESEntity() = default;
 
     /**
      * @brief Get the entity's unique identifier.
      * @return The entity ID as size_t.
      */
-    std::size_t getId() const override { return static_cast<std::size_t>(_entityId); }
+    std::size_t getId() const { return static_cast<std::size_t>(_entityId); }
 
     /**
      * @brief Clone this entity.
      * @return A new ESEntity with the same ID.
      */
-    std::unique_ptr<IEntity> clone() const override { return std::make_unique<ESEntity>(_entityId); }
+    std::unique_ptr<IEntity> clone() const { return std::make_unique<ESEntity>(_entityId); }
 
     /**
      * @brief Get the raw entity ID.
