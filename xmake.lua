@@ -3,7 +3,7 @@ add_repositories("package_repo_singleton https://github.com/MasterLaplace/Single
 add_rules("mode.debug", "mode.release", "plugin.vsxmake.autoupdate")
 
 option("with-autoupdate")
-    set_default(true)
+    set_default(false)
     set_showmenu(true)
     set_description("Enable automatic game download/update feature")
 option_end()
@@ -84,6 +84,10 @@ target("flakkari-server")
 
     add_headerfiles("Flakkari/**.h", { public = true })
     add_headerfiles("Flakkari/**.hpp", { public = true })
+
+    if not has_config("engine-squared") then
+        remove_headerfiles("Flakkari/Engine/EngineSquared/**.hpp")
+    end
 
     remove_headerfiles("Flakkari/Client/**.hpp")
 
