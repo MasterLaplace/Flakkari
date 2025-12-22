@@ -4,6 +4,7 @@
     "url": "https://github.com/MasterLaplace/IFT2103A24_TP3_Equipe21.git",
     "description": "SpaceWar is a 2D space shooter game where you control a spaceship and fight against enemy spaceships.",
     "license": "MIT",
+    "engine": "Flakkari",
     "authors": [
         {
             "name": "MasterLaplace"

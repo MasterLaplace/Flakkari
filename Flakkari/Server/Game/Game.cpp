@@ -8,8 +8,8 @@
 */
 
 #include "Game.hpp"
-#include "../Client/ClientManager.hpp"
-#include "Engine/EntityComponentSystem/Components/ComponentsCommon.hpp"
+#include "Client/ClientManager.hpp"
+#include "EntityComponentSystem/Components/ComponentsCommon.hpp"
 #include "ResourceManager.hpp"
 
 namespace Flakkari {
@@ -38,53 +38,64 @@ Game::~Game()
     FLAKKARI_LOG_INFO("game \"" + _name + "\" is now stopped");
 }
 
-void Game::loadSystems(Engine::ECS::Registry &registry, const std::string &sceneName, const std::string &sysName)
+void Game::loadSystems(std::unique_ptr<Engine::API::IRegistry> &registry, const std::string &sceneName, const std::string &sysName)
 {
+    // Cast to FlakkariRegistry for Flakkari-specific systems
+    auto *flakkariReg = dynamic_cast<Engine::API::FlakkariRegistry *>(registry.get());
+    if (!flakkariReg)
+    {
+        FLAKKARI_LOG_ERROR("Game::loadSystems: Registry is not a FlakkariRegistry");
+        return;
+    }
+
     if (sysName == "position")
-        registry.add_system([this](Engine::ECS::Registry &r) { Engine::ECS::Systems::_2D::position(r, _deltaTime); });
+        registry->add_system([this, flakkariReg](Engine::API::IRegistry &) {
+            Engine::ECS::Systems::_2D::position(flakkariReg->getNative(), _deltaTime);
+        });
 
     else if (sysName == "apply_movable")
-        registry.add_system(
-            [this](Engine::ECS::Registry &r) { Engine::ECS::Systems::_3D::apply_movable(r, _deltaTime); });
+        registry->add_system([this, flakkariReg](Engine::API::IRegistry &) {
+            Engine::ECS::Systems::_3D::apply_movable(flakkariReg->getNative(), _deltaTime);
+        });
 
     else if (sysName == "spawn_enemy")
-        registry.add_system([this, sceneName](Engine::ECS::Registry &r) {
+        registry->add_system([this, sceneName, flakkariReg](Engine::API::IRegistry &) {
             std::string templateName;
             Engine::ECS::Entity entity;
-            if (Engine::ECS::Systems::_3D::spawn_enemy(r, templateName, entity))
+            if (Engine::ECS::Systems::_3D::spawn_enemy(flakkariReg->getNative(), templateName, entity))
             {
                 Protocol::Packet<Protocol::CommandId> packet;
                 packet.header._commandId = Protocol::CommandId::REQ_ENTITY_SPAWN;
-                packet << entity;
+                packet << Engine::API::IEntity(entity.getId());
                 packet.injectString(templateName);
 
-                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, r, entity);
+                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg, Engine::API::IEntity(entity.getId()));
 
                 this->sendOnSameScene(sceneName, packet);
             }
         });
 
     else if (sysName == "spawn_random_within_skybox")
-        registry.add_system([this, sceneName](Engine::ECS::Registry &r) {
+        registry->add_system([this, sceneName, flakkariReg](Engine::API::IRegistry &) {
             std::vector<Engine::ECS::Entity> entities(10);
-            Engine::ECS::Systems::_3D::spawn_random_within_skybox(r, entities);
+            Engine::ECS::Systems::_3D::spawn_random_within_skybox(flakkariReg->getNative(), entities);
 
             for (auto &entity : entities)
             {
                 Protocol::Packet<Protocol::CommandId> packet;
                 packet.header._commandId = Protocol::CommandId::REQ_ENTITY_UPDATE;
-                packet << entity;
+                packet << Engine::API::IEntity(entity.getId());
 
-                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, r, entity);
+                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg, Engine::API::IEntity(entity.getId()));
 
                 this->sendOnSameScene(sceneName, packet);
             }
         });
 
     else if (sysName == "handle_collisions")
-        registry.add_system([this, sceneName](Engine::ECS::Registry &r) {
+        registry->add_system([this, sceneName, flakkariReg](Engine::API::IRegistry &) {
             std::unordered_map<Engine::ECS::Entity, bool> entities;
-            Engine::ECS::Systems::_3D::handle_collisions(r, entities);
+            Engine::ECS::Systems::_3D::handle_collisions(flakkariReg->getNative(), entities);
 
             for (auto &entity : entities)
             {
@@ -92,45 +103,59 @@ void Game::loadSystems(Engine::ECS::Registry &registry, const std::string &scene
                 {
                     Protocol::Packet<Protocol::CommandId> packet;
                     packet.header._commandId = Protocol::CommandId::REQ_ENTITY_DESTROY;
-                    packet << entity.first;
+                    packet << Engine::API::IEntity(entity.first.getId());
                     this->sendOnSameScene(sceneName, packet);
                     continue;
                 }
 
                 Protocol::Packet<Protocol::CommandId> packet;
                 packet.header._commandId = Protocol::CommandId::REQ_ENTITY_UPDATE;
-                packet << entity.first;
+                packet << Engine::API::IEntity(entity.first.getId());
 
-                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, r, entity.first);
+                Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg, Engine::API::IEntity(entity.first.getId()));
 
                 this->sendOnSameScene(sceneName, packet);
             }
         });
 }
 
-void Game::loadEntityFromTemplate(Engine::ECS::Registry &registry, const nl_entity &entity,
+void Game::loadEntityFromTemplate(std::unique_ptr<Engine::API::IRegistry> &registry, const nl_entity &entity,
                                   const nl_template &templates)
 {
-    Engine::ECS::Entity newEntity = registry.spawn_entity();
+    auto *flakkariReg = dynamic_cast<Engine::API::FlakkariRegistry *>(registry.get());
+    if (!flakkariReg)
+    {
+        FLAKKARI_LOG_ERROR("Game::loadEntityFromTemplate: Registry is not a FlakkariRegistry");
+        return;
+    }
+
+    std::size_t newEntityId = registry->spawn_entity();
+    Engine::ECS::Entity newEntity(newEntityId);
 
     for (auto &templateInfo : templates.items())
     {
         if (entity.value() != templateInfo.value().begin().key())
             continue;
-        Engine::ECS::Factory::RegistryEntityByTemplate(registry, newEntity, templateInfo.value().begin().value(),
+        Engine::ECS::Factory::RegistryEntityByTemplate(flakkariReg->getNative(), newEntity, templateInfo.value().begin().value(),
                                                        templates);
     }
 }
 
 void Game::loadScene(const std::string &sceneName)
 {
+    // Get engine type from config (default to Flakkari)
+    std::string engineType = "Flakkari";
+    if (_config->contains("engine"))
+        engineType = (*_config)["engine"].get<std::string>();
+
     for (auto &scene : (*_config)["scenes"].items())
     {
         for (auto sceneInfo : scene.value().items())
         {
             if (sceneInfo.key() != sceneName)
                 continue;
-            Engine::ECS::Registry registry;
+
+            auto registry = Engine::API::EngineFactory::createRegistry(engineType);
 
             for (auto &system : sceneInfo.value()["systems"].items())
                 loadSystems(registry, sceneName, system.value());
@@ -138,7 +163,7 @@ void Game::loadScene(const std::string &sceneName)
             for (auto &entity : sceneInfo.value()["entities"].items())
                 loadEntityFromTemplate(registry, entity, sceneInfo.value()["templates"]);
 
-            _scenes[sceneName] = registry;
+            _scenes[sceneName] = std::move(registry);
             return;
         }
     }
@@ -183,9 +208,15 @@ void Game::sendOnSameSceneExcept(const std::string &sceneName, Protocol::Packet<
 
 void Game::sendAllEntitiesToPlayer(std::shared_ptr<Client> player, const std::string &sceneGame)
 {
-    auto &registry = _scenes[sceneGame];
-    auto &transforms = registry.getComponents<Engine::ECS::Components::_3D::Transform>();
-    auto &tags = registry.getComponents<Engine::ECS::Components::Common::Tag>();
+    auto *flakkariReg = dynamic_cast<Engine::API::FlakkariRegistry *>(_scenes[sceneGame].get());
+    if (!flakkariReg)
+    {
+        FLAKKARI_LOG_ERROR("Game::sendAllEntitiesToPlayer: Registry is not a FlakkariRegistry");
+        return;
+    }
+
+    auto &transforms = flakkariReg->getComponents<Engine::ECS::Components::_3D::Transform>();
+    auto &tags = flakkariReg->getComponents<Engine::ECS::Components::Common::Tag>();
 
     for (Engine::ECS::Entity i(0); i < transforms.size(); ++i)
     {
@@ -196,10 +227,10 @@ void Game::sendAllEntitiesToPlayer(std::shared_ptr<Client> player, const std::st
         Protocol::Packet<Protocol::CommandId> packet;
         packet.header._apiVersion = player->getApiVersion();
         packet.header._commandId = Protocol::CommandId::REQ_ENTITY_SPAWN;
-        packet << i;
+        packet << Engine::API::IEntity(i.getId());
         packet.injectString(tags[i]->tag);
 
-        Protocol::PacketFactory::addComponentsToPacketByEntity(packet, registry, i);
+        Protocol::PacketFactory::addComponentsToPacketByEntity(packet, *flakkariReg, Engine::API::IEntity(i.getId()));
 
         player->addPacketToSendQueue(packet);
     }
@@ -215,7 +246,7 @@ void Game::checkDisconnect()
         packet.header._commandId = Protocol::CommandId::REQ_DISCONNECT;
         packet << player->getEntity();
         sendOnSameScene(player->getSceneName(), packet);
-        _scenes[player->getSceneName()].kill_entity(player->getEntity());
+        _scenes[player->getSceneName()]->kill_entity(player->getEntity());
         removePlayer(player);
     }
 }
@@ -317,10 +348,15 @@ static bool handleMoveEvent(Protocol::Event &event, Engine::ECS::Components::_3D
 void Game::handleEvents(std::shared_ptr<Client> player, Protocol::Packet<Protocol::CommandId> packet)
 {
     auto entity = player->getEntity();
-    auto &registry = _scenes[player->getSceneName()];
-    auto &ctrl = registry.getComponents<Engine::ECS::Components::_3D::Control>()[entity];
-    auto &vel = registry.getComponents<Engine::ECS::Components::_3D::Movable>()[entity];
-    auto &pos = registry.getComponents<Engine::ECS::Components::_3D::Transform>()[entity];
+    auto *flakkariReg = dynamic_cast<Engine::API::FlakkariRegistry *>(_scenes[player->getSceneName()].get());
+    if (!flakkariReg)
+    {
+        FLAKKARI_LOG_ERROR("Game::handleEvents: Registry is not a FlakkariRegistry");
+        return;
+    }
+    auto &ctrl = flakkariReg->getComponents<Engine::ECS::Components::_3D::Control>()[entity];
+    auto &vel = flakkariReg->getComponents<Engine::ECS::Components::_3D::Movable>()[entity];
+    auto &pos = flakkariReg->getComponents<Engine::ECS::Components::_3D::Transform>()[entity];
 
     if (!ctrl.has_value() || !vel.has_value() || !pos.has_value())
         return;
@@ -446,7 +482,7 @@ void Game::update()
     {
         auto &registry = scene.second;
 
-        registry.run_systems();
+        registry->run_systems();
     }
 
     updateOutcomingPackets();
@@ -479,11 +515,18 @@ bool Game::addPlayer(std::shared_ptr<Client> player)
 
     player->setSceneName(sceneGame);
 
-    Engine::ECS::Entity newEntity = registry.spawn_entity();
+    Engine::API::IEntity newEntity = registry->spawn_entity();
     auto p_Template = (*_config)["playerTemplate"];
     auto player_info = ResourceManager::GetInstance().getTemplateById(_name, sceneGame, p_Template);
 
-    Engine::ECS::Factory::RegistryEntityByTemplate(registry, newEntity, player_info.value());
+    auto *flakkariReg = dynamic_cast<Engine::API::FlakkariRegistry *>(registry.get());
+    if (!flakkariReg)
+    {
+        FLAKKARI_LOG_ERROR("Game::addPlayer: Registry is not a FlakkariRegistry");
+        ResourceManager::UnlockInstance();
+        return false;
+    }
+    Engine::ECS::Factory::RegistryEntityByTemplate(*flakkariReg, Engine::ECS::Entity(newEntity.getId()), player_info.value());
     ResourceManager::UnlockInstance();
 
     player->setEntity(newEntity);
@@ -520,14 +563,14 @@ bool Game::removePlayer(std::shared_ptr<Client> player)
     auto sceneGame = player->getSceneName();
     auto &registry = _scenes[sceneGame];
 
-    Engine::ECS::Entity entity = player->getEntity();
+    Engine::API::IEntity entity = player->getEntity();
 
     Protocol::Packet<Protocol::CommandId> packet;
     packet.header._commandId = Protocol::CommandId::REQ_ENTITY_DESTROY;
     packet << entity;
 
     _players.erase(it);
-    registry.kill_entity(entity);
+    registry->kill_entity(entity);
 
     sendOnSameScene(sceneGame, packet);
     FLAKKARI_LOG_INFO("client \"" + std::string(*player->getAddress()) + "\" removed from game \"" + _name + "\"");

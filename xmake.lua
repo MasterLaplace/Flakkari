@@ -20,11 +20,22 @@ option("pack-client")
     set_description("Include client library in package")
 option_end()
 
+option("engine-squared")
+    set_default(false)
+    set_showmenu(true)
+    set_description("Add EngineSquared in the engines list")
+option_end()
+
 add_requires("nlohmann_json", "singleton")
 
 if has_config("with-autoupdate") then
     add_requires("libcurl", {configs = {openssl3 = is_plat("linux", "macosx")}})
     add_requires("libgit2", {configs = {https = is_plat("windows") and "winhttp" or "openssl3", tools = false}})
+end
+
+if has_config("engine-squared") then
+    add_repositories("package_repo https://github.com/EngineSquared/xrepo.git")
+    add_requires("enginesquared refactor-0.2")
 end
 
 includes("@builtin/xpack")
@@ -46,6 +57,12 @@ target("flakkari-server")
         add_packages("libcurl", "libgit2")
         add_defines("FLAKKARI_AUTO_UPDATE")
         set_policy("check.target_package_licenses", false)
+    end
+
+    if has_config("engine-squared") then
+        add_packages("enginesquared")
+        add_defines("FLAKKARI_HAS_ENGINESQUARED")
+        add_includedirs("Flakkari/Engine/EngineSquared", { public = true })
     end
 
     if is_mode("debug") then
@@ -72,6 +89,7 @@ target("flakkari-server")
 
     add_includedirs("Flakkari/", { public = true })
     add_includedirs("Flakkari/Engine", { public = true })
+    add_includedirs("Flakkari/Engine/API", { public = true })
     add_includedirs("Flakkari/Engine/EntityComponentSystem", { public = true })
     add_includedirs("Flakkari/Engine/EntityComponentSystem/Components", { public = true })
     add_includedirs("Flakkari/Engine/EntityComponentSystem/Systems", { public = true })

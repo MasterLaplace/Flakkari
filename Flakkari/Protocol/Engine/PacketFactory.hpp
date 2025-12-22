@@ -19,8 +19,9 @@
 
 #include "flakkari_config.h"
 
-#include "Engine/Components.hpp"
-#include "Engine/EntityComponentSystem/Systems/Systems.hpp"
+#include "Components.hpp"
+#include "EntityComponentSystem/FlakkariRegistry.hpp"
+#include "EntityComponentSystem/Systems/Systems.hpp"
 #include "Packet.hpp"
 
 namespace Flakkari::Protocol {
@@ -36,8 +37,8 @@ public:
      * @param entity  Entity to get the components from.
      */
     template <typename Id>
-    static void addCommonsToPacketByEntity(Protocol::Packet<Id> &packet, Engine::ECS::Registry &registry,
-                                           Engine::ECS::Entity entity)
+    static void addCommonsToPacketByEntity(Protocol::Packet<Id> &packet, Engine::API::FlakkariRegistry &registry,
+                                           Engine::API::IEntity entity)
     {
         auto child = registry.getComponents<Engine::ECS::Components::Common::Child>()[entity];
 
@@ -140,7 +141,7 @@ public:
      * @param entity  Entity to get the components from.
      */
     template <typename Id>
-    static void add2dToPacketByEntity(Packet<Id> &packet, Engine::ECS::Registry &registry, Engine::ECS::Entity entity)
+    static void add2dToPacketByEntity(Packet<Id> &packet, Engine::API::FlakkariRegistry &registry, Engine::API::IEntity entity)
     {
         auto transform = registry.getComponents<Engine::ECS::Components::_2D::Transform>()[entity];
 
@@ -208,7 +209,7 @@ public:
      * @param entity  Entity to get the components from.
      */
     template <typename Id>
-    static void add3dToPacketByEntity(Packet<Id> &packet, Engine::ECS::Registry &registry, Engine::ECS::Entity entity)
+    static void add3dToPacketByEntity(Packet<Id> &packet, Engine::API::FlakkariRegistry &registry, Engine::API::IEntity entity)
     {
         auto transform = registry.getComponents<Engine::ECS::Components::_3D::Transform>()[entity];
 
@@ -295,8 +296,8 @@ public:
      * @param entity  Entity to get the components from.
      */
     template <typename Id>
-    static void addComponentsToPacketByEntity(Packet<Id> &packet, Engine::ECS::Registry &registry,
-                                              Engine::ECS::Entity entity)
+    static void addComponentsToPacketByEntity(Packet<Id> &packet, Engine::API::FlakkariRegistry &registry,
+                                              Engine::API::IEntity entity)
     {
         /*_ Common Components _*/
 
@@ -312,13 +313,13 @@ public:
     }
 
     struct UpdateMovement {
-        Engine::ECS::Entity entity;
+        Engine::API::IEntity entity;
         Engine::ECS::Components::_2D::Transform pos;
         Engine::ECS::Components::_2D::Movable vel;
     };
 
     template <typename Id>
-    static void addUpdateMovementToPacket(Packet<Id> &packet, Engine::ECS::Entity entity,
+    static void addUpdateMovementToPacket(Packet<Id> &packet, Engine::API::IEntity entity,
                                           Engine::ECS::Components::_2D::Transform pos,
                                           Engine::ECS::Components::_2D::Movable vel)
     {
