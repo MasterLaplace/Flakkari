@@ -38,9 +38,9 @@ jobs:
             ~/.xmake/cache
             ~/.xmake/packages
             .xmake-cache
-          key: ${{ runner.os }}-xmake-${{ matrix.target }}-${{ hashFiles('xmake.lua') }}
+          key: ${{ runner.os }}-xmake-${{ hashFiles('xmake.lua') }}
           restore-keys: |
-            ${{ runner.os }}-xmake-${{ matrix.target }}-
+            ${{ runner.os }}-xmake-
 
       - name: Install xmake
         uses: xmake-io/github-action-setup-xmake@v1
@@ -49,7 +49,7 @@ jobs:
           actions-cache-folder: '.xmake-cache'
           actions-cache-key: '${{ runner.os }}-xmake-install'
           package-cache: true
-          package-cache-key: "${{ runner.os }}-xmake-${{ matrix.target }}-${{ hashFiles('xmake.lua') }}"
+          package-cache-key: "${{ runner.os }}-xmake-${{ hashFiles('xmake.lua') }}"
           project-path: '.'
 
       - name: Install system dependencies (Linux)
