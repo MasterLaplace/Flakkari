@@ -68,7 +68,7 @@ inline uint64_t chunkMortonKey(const glm::ivec2 &coord, unsigned chunkBits = 21)
     const uint64_t bias = 1ULL << (chunkBits - 1);
     uint64_t ux = static_cast<uint64_t>(static_cast<int64_t>(coord.x) + static_cast<int64_t>(bias));
     uint64_t uz = static_cast<uint64_t>(static_cast<int64_t>(coord.y) + static_cast<int64_t>(bias));
-    return morton::encode2D(static_cast<uint32_t>(ux), static_cast<uint32_t>(uz));
+    return Morton::encode2D(static_cast<uint32_t>(ux), static_cast<uint32_t>(uz));
 }
 
 /**
@@ -81,7 +81,7 @@ inline uint64_t chunkMortonKey(const glm::ivec2 &coord, unsigned chunkBits = 21)
 template <typename T>
 concept WorldEntity = requires(T entity) {
     { entity.position } -> std::convertible_to<glm::vec3>;
-    { entity.bbox } -> std::convertible_to<flat_dynamic::BoundingBox>;
+    { entity.bbox } -> std::convertible_to<BoundingBox>;
 };
 
 /**
