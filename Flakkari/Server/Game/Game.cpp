@@ -519,7 +519,8 @@ bool Game::addPlayer(std::shared_ptr<Client> player)
 
     player->setSceneName(sceneGame);
 
-    Engine::API::IEntity newEntity(registry->spawn_entity());
+    std::size_t newEntityId = registry->spawn_entity();
+    Engine::API::IEntity newEntity(newEntityId);
     auto p_Template = (*_config)["playerTemplate"];
     auto player_info = ResourceManager::GetInstance().getTemplateById(_name, sceneGame, p_Template);
 
@@ -530,8 +531,8 @@ bool Game::addPlayer(std::shared_ptr<Client> player)
         ResourceManager::UnlockInstance();
         return false;
     }
-    Engine::ECS::Factory::RegistryEntityByTemplate(flakkariReg->getNative(), Engine::ECS::Entity(newEntity.getId()),
-                                                   player_info.value());
+    Engine::ECS::Registry &nativeReg = flakkariReg->getNative();
+    Engine::ECS::Factory::RegistryEntityByTemplate(nativeReg, Engine::ECS::Entity(newEntity.getId()), player_info.value());
     ResourceManager::UnlockInstance();
 
     player->setEntity(newEntity);
