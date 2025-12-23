@@ -16,13 +16,13 @@
 #ifndef COMPONENTREGISTRY_HPP_
 #define COMPONENTREGISTRY_HPP_
 
+#include <any>
 #include <cstdint>
 #include <functional>
+#include <optional>
 #include <string>
 #include <string_view>
 #include <unordered_map>
-#include <any>
-#include <optional>
 #include <vector>
 
 #include "Network/Buffer.hpp"
@@ -48,10 +48,7 @@ constexpr uint32_t fnv1a_hash(std::string_view str) noexcept
 /**
  * @brief Runtime version of FNV-1a hash.
  */
-inline uint32_t fnv1a_hash_runtime(const std::string& str) noexcept
-{
-    return fnv1a_hash(std::string_view(str));
-}
+inline uint32_t fnv1a_hash_runtime(const std::string &str) noexcept { return fnv1a_hash(std::string_view(str)); }
 
 /**
  * @brief Component identifier for Protocol V2.
@@ -135,14 +132,14 @@ public:
      * @param component The component as std::any.
      * @return Serialized binary data.
      */
-    virtual std::vector<byte> serialize(const std::any& component) const = 0;
+    virtual std::vector<byte> serialize(const std::any &component) const = 0;
 
     /**
      * @brief Deserialize binary data to a component.
      * @param data The binary data.
      * @return The component as std::any.
      */
-    virtual std::any deserialize(const std::vector<byte>& data) const = 0;
+    virtual std::any deserialize(const std::vector<byte> &data) const = 0;
 };
 
 /**
@@ -150,30 +147,26 @@ public:
  *
  * @tparam T The component type.
  */
-template<typename T>
-class ComponentSerializer : public IComponentSerializer {
+template <typename T> class ComponentSerializer : public IComponentSerializer {
 public:
-    using SerializeFunc = std::function<std::vector<byte>(const T&)>;
-    using DeserializeFunc = std::function<T(const std::vector<byte>&)>;
+    using SerializeFunc = std::function<std::vector<byte>(const T &)>;
+    using DeserializeFunc = std::function<T(const std::vector<byte> &)>;
 
-    ComponentSerializer(ComponentHash hash, std::string name,
-                       SerializeFunc serializer, DeserializeFunc deserializer)
-        : _hash(hash), _name(std::move(name)),
-          _serializer(std::move(serializer)), _deserializer(std::move(deserializer))
-    {}
+    ComponentSerializer(ComponentHash hash, std::string name, SerializeFunc serializer, DeserializeFunc deserializer)
+        : _hash(hash), _name(std::move(name)), _serializer(std::move(serializer)),
+          _deserializer(std::move(deserializer))
+    {
+    }
 
     ComponentHash getHash() const override { return _hash; }
     std::string getName() const override { return _name; }
 
-    std::vector<byte> serialize(const std::any& component) const override
+    std::vector<byte> serialize(const std::any &component) const override
     {
-        return _serializer(std::any_cast<const T&>(component));
+        return _serializer(std::any_cast<const T &>(component));
     }
 
-    std::any deserialize(const std::vector<byte>& data) const override
-    {
-        return _deserializer(data);
-    }
+    std::any deserialize(const std::vector<byte> &data) const override { return _deserializer(data); }
 
 private:
     ComponentHash _hash;
@@ -191,7 +184,7 @@ private:
  */
 class ComponentSerializerRegistry {
 public:
-    static ComponentSerializerRegistry& getInstance()
+    static ComponentSerializerRegistry &getInstance()
     {
         static ComponentSerializerRegistry instance;
         return instance;
@@ -208,10 +201,10 @@ public:
     /**
      * @brief Register a component serializer using template helper.
      */
-    template<typename T>
-    void registerSerializer(ComponentHash hash, const std::string& name,
-                           typename ComponentSerializer<T>::SerializeFunc serializer,
-                           typename ComponentSerializer<T>::DeserializeFunc deserializer)
+    template <typename T>
+    void registerSerializer(ComponentHash hash, const std::string &name,
+                            typename ComponentSerializer<T>::SerializeFunc serializer,
+                            typename ComponentSerializer<T>::DeserializeFunc deserializer)
     {
         auto s = std::make_unique<ComponentSerializer<T>>(hash, name, serializer, deserializer);
         _serializers[hash] = std::move(s);
@@ -220,7 +213,7 @@ public:
     /**
      * @brief Get a serializer for a component hash.
      */
-    IComponentSerializer* getSerializer(ComponentHash hash) const
+    IComponentSerializer *getSerializer(ComponentHash hash) const
     {
         auto it = _serializers.find(hash);
         return it != _serializers.end() ? it->second.get() : nullptr;
@@ -229,10 +222,7 @@ public:
     /**
      * @brief Check if a serializer exists for a component hash.
      */
-    bool hasSerializer(ComponentHash hash) const
-    {
-        return _serializers.find(hash) != _serializers.end();
-    }
+    bool hasSerializer(ComponentHash hash) const { return _serializers.find(hash) != _serializers.end(); }
 
     /**
      * @brief Get all registered component hashes.
@@ -241,7 +231,7 @@ public:
     {
         std::vector<ComponentHash> hashes;
         hashes.reserve(_serializers.size());
-        for (const auto& [hash, _] : _serializers)
+        for (const auto &[hash, _] : _serializers)
             hashes.push_back(hash);
         return hashes;
     }

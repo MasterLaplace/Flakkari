@@ -22,14 +22,14 @@
 
 #ifdef FLAKKARI_HAS_ENGINESQUARED
 
-#include "ComponentRegistry.hpp"
-#include "FlakkariComponentSerializers.hpp" // For pushBytes/popBytes helpers
+#    include "ComponentRegistry.hpp"
+#    include "FlakkariComponentSerializers.hpp" // For pushBytes/popBytes helpers
 
 // EngineSquared includes
-#include <Object.hpp>        // ES::Plugin::Object::Component::Transform
-#include <JoltPhysics.hpp>   // ES::Plugin::Physics::Component::RigidBody3D
+#    include <JoltPhysics.hpp> // ES::Plugin::Physics::Component::RigidBody3D
+#    include <Object.hpp>      // ES::Plugin::Object::Component::Transform
 
-#include <cstring>
+#    include <cstring>
 
 namespace Flakkari::Protocol {
 
@@ -42,14 +42,13 @@ namespace Flakkari::Protocol {
  */
 inline void registerEngineSquaredComponentSerializers()
 {
-    auto& registry = ComponentSerializerRegistry::getInstance();
+    auto &registry = ComponentSerializerRegistry::getInstance();
 
     // ============ Transform (3D - EngineSquared only has 3D) ============
     // Note: ES::Plugin::Object::Component::Transform uses glm types
     registry.registerSerializer<ES::Plugin::Object::Component::Transform>(
-        StandardComponents::TRANSFORM_3D,
-        "EngineSquared::Transform",
-        [](const ES::Plugin::Object::Component::Transform& t) -> std::vector<byte> {
+        StandardComponents::TRANSFORM_3D, "EngineSquared::Transform",
+        [](const ES::Plugin::Object::Component::Transform &t) -> std::vector<byte> {
             std::vector<byte> data;
             // Position (3 floats)
             pushBytes(data, t.position.x);
@@ -66,7 +65,7 @@ inline void registerEngineSquaredComponentSerializers()
             pushBytes(data, t.scale.z);
             return data;
         },
-        [](const std::vector<byte>& data) -> ES::Plugin::Object::Component::Transform {
+        [](const std::vector<byte> &data) -> ES::Plugin::Object::Component::Transform {
             size_t offset = 0;
             glm::vec3 pos, scale;
             glm::quat rot;
@@ -85,8 +84,7 @@ inline void registerEngineSquaredComponentSerializers()
             scale.z = popBytes<float>(data, offset);
 
             return ES::Plugin::Object::Component::Transform(pos, scale, rot);
-        }
-    );
+        });
 
     // Note: EngineSquared uses Jolt Physics which has very different component
     // structures than Flakkari's simple RigidBody. For network synchronization,

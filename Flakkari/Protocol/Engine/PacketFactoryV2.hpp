@@ -47,11 +47,11 @@ public:
      * @param hash The component hash
      * @param component The component value
      */
-    template<typename Id, typename T>
-    static void addComponentToPacket(Packet<Id>& packet, ComponentHash hash, const T& component)
+    template <typename Id, typename T>
+    static void addComponentToPacket(Packet<Id> &packet, ComponentHash hash, const T &component)
     {
-        auto& registry = ComponentSerializerRegistry::getInstance();
-        auto* serializer = registry.getSerializer(hash);
+        auto &registry = ComponentSerializerRegistry::getInstance();
+        auto *serializer = registry.getSerializer(hash);
 
         if (!serializer)
         {
@@ -63,7 +63,7 @@ public:
 
         packet << hash;
         packet << static_cast<uint16_t>(data.size());
-        for (const auto& b : data)
+        for (const auto &b : data)
             packet << b;
     }
 
@@ -77,8 +77,8 @@ public:
      * @param entity The entity to get the component from
      * @param hash The component hash
      */
-    template<typename Id, typename T>
-    static void addComponentFromRegistry(Packet<Id>& packet, Engine::API::IRegistry& registry,
+    template <typename Id, typename T>
+    static void addComponentFromRegistry(Packet<Id> &packet, Engine::API::IRegistry &registry,
                                          Engine::API::IEntity entity, ComponentHash hash)
     {
         auto componentOpt = registry.getComponent<T>(entity);
@@ -97,8 +97,7 @@ public:
      * @param[out] hash The component hash that was read
      * @return The deserialized component as std::any, or empty if unknown
      */
-    template<typename Id>
-    static std::any readComponentFromPacket(Packet<Id>& packet, ComponentHash& hash)
+    template <typename Id> static std::any readComponentFromPacket(Packet<Id> &packet, ComponentHash &hash)
     {
         packet >> hash;
 
@@ -109,8 +108,8 @@ public:
         for (uint16_t i = 0; i < dataSize; ++i)
             packet >> data[i];
 
-        auto& registry = ComponentSerializerRegistry::getInstance();
-        auto* serializer = registry.getSerializer(hash);
+        auto &registry = ComponentSerializerRegistry::getInstance();
+        auto *serializer = registry.getSerializer(hash);
 
         if (!serializer)
         {
@@ -128,8 +127,8 @@ public:
      * @param entity The entity
      * @param componentCount Number of components that follow
      */
-    template<typename Id>
-    static void addEntityHeader(Packet<Id>& packet, Engine::API::IEntity entity, uint8_t componentCount)
+    template <typename Id>
+    static void addEntityHeader(Packet<Id> &packet, Engine::API::IEntity entity, uint8_t componentCount)
     {
         packet << static_cast<std::size_t>(entity);
         packet << componentCount;
@@ -144,19 +143,19 @@ public:
      * @param components Vector of (hash, serialized data) pairs
      * @return The constructed packet
      */
-    template<typename Id>
+    template <typename Id>
     static Packet<Id> createEntityPacket(Id commandId, Engine::API::IEntity entity,
-                                         const std::vector<ComponentData>& components)
+                                         const std::vector<ComponentData> &components)
     {
         Packet<Id> packet;
         packet << commandId;
         addEntityHeader(packet, entity, static_cast<uint8_t>(components.size()));
 
-        for (const auto& comp : components)
+        for (const auto &comp : components)
         {
             packet << comp.hash;
             packet << static_cast<uint16_t>(comp.data.size());
-            for (const auto& b : comp.data)
+            for (const auto &b : comp.data)
                 packet << b;
         }
 
