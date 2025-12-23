@@ -144,6 +144,48 @@ public:
 
 } /* namespace V_1 */
 
+inline namespace V_2 {
+
+/**
+ * @brief Protocol V2 uses hash-based component identification.
+ *
+ * Instead of a fixed enum, V2 uses ComponentHash (uint32_t) from ComponentRegistry.hpp.
+ * This allows any engine to define its own components while maintaining protocol compatibility.
+ *
+ * Key advantages:
+ * - Engine-agnostic: Works with Flakkari ECS, EngineSquared, or any future engine
+ * - Extensible: Adding a new component doesn't require protocol changes
+ * - Interoperable: Different engines can communicate if they use StandardComponents
+ *
+ * Usage:
+ * @code
+ * #include "ComponentRegistry.hpp"
+ * #include "FlakkariComponentSerializers.hpp"
+ *
+ * // At startup, register component serializers
+ * Flakkari::Protocol::registerFlakkariComponentSerializers();
+ *
+ * // Serialize a component
+ * auto& registry = ComponentSerializerRegistry::getInstance();
+ * auto serializer = registry.getSerializer(StandardComponents::TRANSFORM_2D);
+ * auto data = serializer->serialize(transform);
+ *
+ * // Include in packet
+ * packet << StandardComponents::TRANSFORM_2D;  // 4-byte hash
+ * packet << static_cast<uint16_t>(data.size());
+ * packet.inject(data.data(), data.size());
+ * @endcode
+ *
+ * @see ComponentRegistry.hpp for the ComponentHash type and StandardComponents
+ * @see FlakkariComponentSerializers.hpp for Flakkari ECS serializers
+ * @see ESComponentSerializers.hpp for EngineSquared serializers
+ */
+
+// V2 doesn't define ComponentId enum - it uses ComponentHash from ComponentRegistry.hpp
+// This comment serves as documentation for the V2 protocol design.
+
+} /* namespace V_2 */
+
 } // namespace Flakkari::Protocol
 
 #endif /* !COMPONENTS_HPP_ */
