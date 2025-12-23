@@ -40,11 +40,11 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <iostream>
-#include <vector>
-#include <cmath>
 #include <chrono>
+#include <cmath>
+#include <iostream>
 #include <sstream>
+#include <vector>
 
 namespace Optimizing::World {
 
@@ -52,12 +52,12 @@ namespace Optimizing::World {
 // CONSTANTES
 // ============================================================================
 
-constexpr int HEIGHTMAP_SIZE = 32;  // Taille d'un chunk (32×32 quads)
-constexpr int VERTICES_PER_RUN = HEIGHTMAP_SIZE * 2 + 4;  // Triangle strip + degenerates
+constexpr int HEIGHTMAP_SIZE = 32;                       // Taille d'un chunk (32×32 quads)
+constexpr int VERTICES_PER_RUN = HEIGHTMAP_SIZE * 2 + 4; // Triangle strip + degenerates
 constexpr int VERTICES_PER_CHUNK = VERTICES_PER_RUN * HEIGHTMAP_SIZE;
 constexpr int VERTICES_PER_RUN_NOT_DEGENERATE = VERTICES_PER_RUN - 3;
 
-constexpr int CHUNKS_PER_ROW = 8;  // Grille 8×8 = 64 chunks
+constexpr int CHUNKS_PER_ROW = 8; // Grille 8×8 = 64 chunks
 constexpr int TOTAL_CHUNKS = CHUNKS_PER_ROW * CHUNKS_PER_ROW;
 
 constexpr int WINDOW_WIDTH = 1920;
@@ -69,9 +69,9 @@ constexpr float FAR_PLANE = 2000.0f;
 
 // LOD Configuration
 constexpr int NUM_LODS = 4;
-constexpr float LOD_DISTANCES[NUM_LODS] = { 64.0f, 128.0f, 256.0f, 512.0f };
-constexpr float LOD_SCALES[NUM_LODS] = { 1.0f, 2.0f, 4.0f, 8.0f };
-constexpr float SINK_DEPTH = 20.0f;  // Profondeur d'enfoncement pour LOD
+constexpr float LOD_DISTANCES[NUM_LODS] = {64.0f, 128.0f, 256.0f, 512.0f};
+constexpr float LOD_SCALES[NUM_LODS] = {1.0f, 2.0f, 4.0f, 8.0f};
+constexpr float SINK_DEPTH = 20.0f; // Profondeur d'enfoncement pour LOD
 
 // ============================================================================
 // STRUCTURE VERTEX (seulement l'altitude !)
@@ -86,17 +86,16 @@ struct HeightmapVertex {
 // ============================================================================
 
 struct TerrainChunk {
-    GLuint heightmapTexture;                              // Texture GPU (R32F)
-    std::vector<float> heightData;                        // Copie CPU pour collisions (HEIGHTMAP_SIZE × HEIGHTMAP_SIZE)
-    glm::ivec2 chunkPos;                                  // Position du chunk
-    bool isEdited;                                        // ★ Flag: true = utiliser texture, false = calcul procédural
+    GLuint heightmapTexture;       // Texture GPU (R32F)
+    std::vector<float> heightData; // Copie CPU pour collisions (HEIGHTMAP_SIZE × HEIGHTMAP_SIZE)
+    glm::ivec2 chunkPos;           // Position du chunk
+    bool isEdited;                 // ★ Flag: true = utiliser texture, false = calcul procédural
 
-    TerrainChunk() : heightmapTexture(0), isEdited(false) {
-        heightData.resize(HEIGHTMAP_SIZE * HEIGHTMAP_SIZE, 0.0f);
-    }
+    TerrainChunk() : heightmapTexture(0), isEdited(false) { heightData.resize(HEIGHTMAP_SIZE * HEIGHTMAP_SIZE, 0.0f); }
 
     // Query CPU pour collisions (avec interpolation bilinéaire)
-    float GetHeight(float localX, float localZ) const {
+    float GetHeight(float localX, float localZ) const
+    {
         // Clamp aux bords
         localX = glm::clamp(localX, 0.0f, float(HEIGHTMAP_SIZE - 1));
         localZ = glm::clamp(localZ, 0.0f, float(HEIGHTMAP_SIZE - 1));
@@ -124,12 +123,12 @@ struct TerrainChunk {
 // GLOBALS
 // ============================================================================
 
-GLFWwindow* g_window = nullptr;
+GLFWwindow *g_window = nullptr;
 GLuint g_shaderProgram = 0;
 GLuint g_vao = 0;
 GLuint g_vbo = 0;
-GLuint g_ssbo = 0;  // Shader Storage Buffer Object pour les positions de chunks
-GLuint g_ssboEditFlags = 0;  // ★ SSBO pour les flags isEdited (binding 2)
+GLuint g_ssbo = 0;          // Shader Storage Buffer Object pour les positions de chunks
+GLuint g_ssboEditFlags = 0; // ★ SSBO pour les flags isEdited (binding 2)
 
 // Terrain chunks avec textures
 std::vector<TerrainChunk> g_terrainChunks;
@@ -140,15 +139,15 @@ GLint g_uniformShowWireframe = -1;
 GLint g_uniformCameraPos = -1;
 
 // Caméra - Style Vercidium (pitch/yaw simple)
-glm::vec3 g_cameraPos(HEIGHTMAP_SIZE * CHUNKS_PER_ROW / 2.0f, 100.0f, HEIGHTMAP_SIZE * CHUNKS_PER_ROW / 2.0f);
-float g_cameraPitch = -3.14159f / 4.0f;  // -45° (regarde vers le bas)
-float g_cameraYaw = 3.14159f / 4.0f;     // 45° (regarde en diagonale)
+glm::vec3 g_cameraPos(HEIGHTMAP_SIZE *CHUNKS_PER_ROW / 2.0f, 100.0f, HEIGHTMAP_SIZE *CHUNKS_PER_ROW / 2.0f);
+float g_cameraPitch = -3.14159f / 4.0f; // -45° (regarde vers le bas)
+float g_cameraYaw = 3.14159f / 4.0f;    // 45° (regarde en diagonale)
 bool g_captureMouse = true;
 glm::vec2 g_lastMouse(0.0f, 0.0f);
 
 // État du rendu
 bool g_showWireframe = false;
-bool g_lodEnabled[NUM_LODS] = { true, true, true, true };
+bool g_lodEnabled[NUM_LODS] = {true, true, true, true};
 
 // Métriques de performance
 int g_frameCount = 0;
@@ -162,63 +161,41 @@ int g_chunksRendered = 0;
 // ============================================================================
 
 struct Frustum {
-    glm::vec4 planes[6];  // Left, Right, Bottom, Top, Near, Far
+    glm::vec4 planes[6]; // Left, Right, Bottom, Top, Near, Far
 };
 
 // Extraire le frustum depuis la matrice MVP
-Frustum ExtractFrustum(const glm::mat4& mvp) {
+Frustum ExtractFrustum(const glm::mat4 &mvp)
+{
     Frustum frustum;
 
     // Left plane
-    frustum.planes[0] = glm::vec4(
-        mvp[0][3] + mvp[0][0],
-        mvp[1][3] + mvp[1][0],
-        mvp[2][3] + mvp[2][0],
-        mvp[3][3] + mvp[3][0]
-    );
+    frustum.planes[0] =
+        glm::vec4(mvp[0][3] + mvp[0][0], mvp[1][3] + mvp[1][0], mvp[2][3] + mvp[2][0], mvp[3][3] + mvp[3][0]);
 
     // Right plane
-    frustum.planes[1] = glm::vec4(
-        mvp[0][3] - mvp[0][0],
-        mvp[1][3] - mvp[1][0],
-        mvp[2][3] - mvp[2][0],
-        mvp[3][3] - mvp[3][0]
-    );
+    frustum.planes[1] =
+        glm::vec4(mvp[0][3] - mvp[0][0], mvp[1][3] - mvp[1][0], mvp[2][3] - mvp[2][0], mvp[3][3] - mvp[3][0]);
 
     // Bottom plane
-    frustum.planes[2] = glm::vec4(
-        mvp[0][3] + mvp[0][1],
-        mvp[1][3] + mvp[1][1],
-        mvp[2][3] + mvp[2][1],
-        mvp[3][3] + mvp[3][1]
-    );
+    frustum.planes[2] =
+        glm::vec4(mvp[0][3] + mvp[0][1], mvp[1][3] + mvp[1][1], mvp[2][3] + mvp[2][1], mvp[3][3] + mvp[3][1]);
 
     // Top plane
-    frustum.planes[3] = glm::vec4(
-        mvp[0][3] - mvp[0][1],
-        mvp[1][3] - mvp[1][1],
-        mvp[2][3] - mvp[2][1],
-        mvp[3][3] - mvp[3][1]
-    );
+    frustum.planes[3] =
+        glm::vec4(mvp[0][3] - mvp[0][1], mvp[1][3] - mvp[1][1], mvp[2][3] - mvp[2][1], mvp[3][3] - mvp[3][1]);
 
     // Near plane
-    frustum.planes[4] = glm::vec4(
-        mvp[0][3] + mvp[0][2],
-        mvp[1][3] + mvp[1][2],
-        mvp[2][3] + mvp[2][2],
-        mvp[3][3] + mvp[3][2]
-    );
+    frustum.planes[4] =
+        glm::vec4(mvp[0][3] + mvp[0][2], mvp[1][3] + mvp[1][2], mvp[2][3] + mvp[2][2], mvp[3][3] + mvp[3][2]);
 
     // Far plane
-    frustum.planes[5] = glm::vec4(
-        mvp[0][3] - mvp[0][2],
-        mvp[1][3] - mvp[1][2],
-        mvp[2][3] - mvp[2][2],
-        mvp[3][3] - mvp[3][2]
-    );
+    frustum.planes[5] =
+        glm::vec4(mvp[0][3] - mvp[0][2], mvp[1][3] - mvp[1][2], mvp[2][3] - mvp[2][2], mvp[3][3] - mvp[3][2]);
 
     // Normaliser les plans
-    for (int i = 0; i < 6; i++) {
+    for (int i = 0; i < 6; i++)
+    {
         float length = glm::length(glm::vec3(frustum.planes[i]));
         frustum.planes[i] /= length;
     }
@@ -227,20 +204,26 @@ Frustum ExtractFrustum(const glm::mat4& mvp) {
 }
 
 // Tester si un chunk (AABB) est visible dans le frustum
-bool IsChunkVisible(const Frustum& frustum, const glm::vec3& chunkMin, const glm::vec3& chunkMax) {
+bool IsChunkVisible(const Frustum &frustum, const glm::vec3 &chunkMin, const glm::vec3 &chunkMax)
+{
     // Tester chaque plan du frustum
-    for (int i = 0; i < 6; i++) {
-        const glm::vec4& plane = frustum.planes[i];
+    for (int i = 0; i < 6; i++)
+    {
+        const glm::vec4 &plane = frustum.planes[i];
         glm::vec3 normal(plane.x, plane.y, plane.z);
 
         // Trouver le coin "positif" (le plus loin dans la direction du plan)
         glm::vec3 positiveVertex = chunkMin;
-        if (normal.x >= 0) positiveVertex.x = chunkMax.x;
-        if (normal.y >= 0) positiveVertex.y = chunkMax.y;
-        if (normal.z >= 0) positiveVertex.z = chunkMax.z;
+        if (normal.x >= 0)
+            positiveVertex.x = chunkMax.x;
+        if (normal.y >= 0)
+            positiveVertex.y = chunkMax.y;
+        if (normal.z >= 0)
+            positiveVertex.z = chunkMax.z;
 
         // Si le coin positif est derrière le plan, le chunk est hors frustum
-        if (glm::dot(normal, positiveVertex) + plane.w < 0) {
+        if (glm::dot(normal, positiveVertex) + plane.w < 0)
+        {
             return false;
         }
     }
@@ -252,13 +235,15 @@ bool IsChunkVisible(const Frustum& frustum, const glm::vec3& chunkMin, const glm
 // GÉNÉRATION DE HAUTEUR (fonction simple pour démo)
 // ============================================================================
 
-float GetHeightProcedural(float x, float z) {
+float GetHeightProcedural(float x, float z)
+{
     // Fonction simple sinusoïdale comme dans le repo
     return std::sin(x * 0.1f) * 5.0f + std::cos(z * 0.15f) * 3.0f;
 }
 
 // Query global pour collisions (world coordinates)
-float GetHeight(float worldX, float worldZ) {
+float GetHeight(float worldX, float worldZ)
+{
     // Trouver le chunk
     int chunkX = int(std::floor(worldX / HEIGHTMAP_SIZE));
     int chunkZ = int(std::floor(worldZ / HEIGHTMAP_SIZE));
@@ -268,8 +253,8 @@ float GetHeight(float worldX, float worldZ) {
     float localZ = worldZ - chunkZ * HEIGHTMAP_SIZE;
 
     // Trouver le chunk dans notre grille
-    if (chunkX < 0 || chunkX >= CHUNKS_PER_ROW ||
-        chunkZ < 0 || chunkZ >= CHUNKS_PER_ROW) {
+    if (chunkX < 0 || chunkX >= CHUNKS_PER_ROW || chunkZ < 0 || chunkZ >= CHUNKS_PER_ROW)
+    {
         // Hors de la grille, utiliser la fonction procédurale
         return GetHeightProcedural(worldX, worldZ);
     }
@@ -282,10 +267,13 @@ float GetHeight(float worldX, float worldZ) {
 // GÉNÉRATION DES HEIGHTMAPS
 // ============================================================================
 
-void GenerateChunkHeightmap(TerrainChunk& chunk) {
+void GenerateChunkHeightmap(TerrainChunk &chunk)
+{
     // Générer les hauteurs procéduralement (données CPU)
-    for (int z = 0; z < HEIGHTMAP_SIZE; z++) {
-        for (int x = 0; x < HEIGHTMAP_SIZE; x++) {
+    for (int z = 0; z < HEIGHTMAP_SIZE; z++)
+    {
+        for (int x = 0; x < HEIGHTMAP_SIZE; x++)
+        {
             float worldX = chunk.chunkPos.x * HEIGHTMAP_SIZE + x;
             float worldZ = chunk.chunkPos.y * HEIGHTMAP_SIZE + z;
 
@@ -303,9 +291,8 @@ void GenerateChunkHeightmap(TerrainChunk& chunk) {
     glBindTexture(GL_TEXTURE_2D, chunk.heightmapTexture);
 
     // Upload les données CPU directement (32×32)
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F,
-                 HEIGHTMAP_SIZE, HEIGHTMAP_SIZE, 0,
-                 GL_RED, GL_FLOAT, chunk.heightData.data());
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_R32F, HEIGHTMAP_SIZE, HEIGHTMAP_SIZE, 0, GL_RED, GL_FLOAT,
+                 chunk.heightData.data());
 
     // Paramètres de sampling (LINEAR pour interpolation smooth)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
@@ -321,7 +308,8 @@ void GenerateChunkHeightmap(TerrainChunk& chunk) {
 // SHADERS
 // ============================================================================
 
-std::string CreateVertexShader() {
+std::string CreateVertexShader()
+{
     return R"glsl(
 #version 430 core
 #extension GL_ARB_shader_draw_parameters : require
@@ -348,9 +336,12 @@ out vec3 vWorldPos;
 out vec2 vBary;
 flat out float vBrightness;
 
-const float VERTICES_PER_RUN = )glsl" + std::to_string(VERTICES_PER_RUN) + R"glsl(.0;
-const float VERTICES_PER_RUN_NOT_DEGENERATE = )glsl" + std::to_string(VERTICES_PER_RUN_NOT_DEGENERATE) + R"glsl(.0;
-const float HEIGHTMAP_SIZE = )glsl" + std::to_string(HEIGHTMAP_SIZE) + R"glsl(.0;
+const float VERTICES_PER_RUN = )glsl" +
+           std::to_string(VERTICES_PER_RUN) + R"glsl(.0;
+const float VERTICES_PER_RUN_NOT_DEGENERATE = )glsl" +
+           std::to_string(VERTICES_PER_RUN_NOT_DEGENERATE) + R"glsl(.0;
+const float HEIGHTMAP_SIZE = )glsl" +
+           std::to_string(HEIGHTMAP_SIZE) + R"glsl(.0;
 
 // Fonction de hash simple
 float rand3(vec3 c) {
@@ -364,7 +355,8 @@ float getHeightProcedural(float worldX, float worldZ) {
 
 void main() {
     // ★ MAGIE gl_VertexID: Reconstruire X,Z depuis l'index du vertex
-    int localVertexID = gl_VertexID % )glsl" + std::to_string(VERTICES_PER_CHUNK) + R"glsl(;
+    int localVertexID = gl_VertexID % )glsl" +
+           std::to_string(VERTICES_PER_CHUNK) + R"glsl(;
     float runIndex = mod(float(localVertexID), VERTICES_PER_RUN);
     float clampedIndex = clamp(runIndex - 1.0, 0.0, VERTICES_PER_RUN_NOT_DEGENERATE);
 
@@ -405,11 +397,15 @@ void main() {
     float distToCamera = length(worldPos.xz - cameraPos.xz);
     float sinkAmount = 0.0;
 
-    if (distToCamera > )glsl" + std::to_string(LOD_DISTANCES[0]) + R"glsl() {
-        float fade = smoothstep()glsl" + std::to_string(LOD_DISTANCES[0]) + R"glsl(,
-                                   )glsl" + std::to_string(LOD_DISTANCES[1]) + R"glsl(,
+    if (distToCamera > )glsl" +
+           std::to_string(LOD_DISTANCES[0]) + R"glsl() {
+        float fade = smoothstep()glsl" +
+           std::to_string(LOD_DISTANCES[0]) + R"glsl(,
+                                   )glsl" +
+           std::to_string(LOD_DISTANCES[1]) + R"glsl(,
                                    distToCamera);
-        sinkAmount = fade * )glsl" + std::to_string(SINK_DEPTH) + R"glsl(;
+        sinkAmount = fade * )glsl" +
+           std::to_string(SINK_DEPTH) + R"glsl(;
     }
 
     worldPos.y -= sinkAmount;
@@ -434,15 +430,17 @@ void main() {
 // COMPILATION DES SHADERS
 // ============================================================================
 
-GLuint CompileShader(GLenum type, const std::string& source) {
+GLuint CompileShader(GLenum type, const std::string &source)
+{
     GLuint shader = glCreateShader(type);
-    const char* sourceCStr = source.c_str();
+    const char *sourceCStr = source.c_str();
     glShaderSource(shader, 1, &sourceCStr, nullptr);
     glCompileShader(shader);
 
     GLint success;
     glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-    if (!success) {
+    if (!success)
+    {
         char infoLog[512];
         glGetShaderInfoLog(shader, 512, nullptr, infoLog);
         std::cerr << "❌ Shader compilation error:\n" << infoLog << std::endl;
@@ -451,7 +449,8 @@ GLuint CompileShader(GLenum type, const std::string& source) {
     return shader;
 }
 
-std::string CreateFragmentShader() {
+std::string CreateFragmentShader()
+{
     return R"glsl(
 #version 430 core
 
@@ -513,7 +512,8 @@ void main() {
 )glsl";
 }
 
-GLuint CreateShaderProgram() {
+GLuint CreateShaderProgram()
+{
     std::string vertexShaderSource = CreateVertexShader();
     std::string fragmentShaderSource = CreateFragmentShader();
     GLuint vertexShader = CompileShader(GL_VERTEX_SHADER, vertexShaderSource);
@@ -526,7 +526,8 @@ GLuint CreateShaderProgram() {
 
     GLint success;
     glGetProgramiv(program, GL_LINK_STATUS, &success);
-    if (!success) {
+    if (!success)
+    {
         char infoLog[512];
         glGetProgramInfoLog(program, 512, nullptr, infoLog);
         std::cerr << "❌ Shader linking error:\n" << infoLog << std::endl;
@@ -545,13 +546,15 @@ GLuint CreateShaderProgram() {
 // IMPORTANT: On génère UN SEUL chunk de géométrie (vertices "dummy")
 // Les altitudes RÉELLES viennent des TEXTURES de heightmap
 // Ceci permet d'éditer le terrain sans recompiler les buffers !
-void GenerateHeightmapBuffer(std::vector<HeightmapVertex>& vertices) {
+void GenerateHeightmapBuffer(std::vector<HeightmapVertex> &vertices)
+{
     vertices.clear();
     vertices.reserve(VERTICES_PER_CHUNK);
 
     // Générer HEIGHTMAP_SIZE triangle strips
     // NOTE: On met 0.0 partout car l'altitude vient de la texture
-    for (int z = 0; z < HEIGHTMAP_SIZE; z++) {
+    for (int z = 0; z < HEIGHTMAP_SIZE; z++)
+    {
         int x = 0;
 
         // Premier vertex dégénéré
@@ -567,7 +570,8 @@ void GenerateHeightmapBuffer(std::vector<HeightmapVertex>& vertices) {
         vertices.push_back({0.0f});
 
         x = 2;
-        for (; x <= HEIGHTMAP_SIZE; x++) {
+        for (; x <= HEIGHTMAP_SIZE; x++)
+        {
             vertices.push_back({0.0f});
             vertices.push_back({0.0f});
         }
@@ -584,7 +588,8 @@ void GenerateHeightmapBuffer(std::vector<HeightmapVertex>& vertices) {
 // INITIALISATION OPENGL
 // ============================================================================
 
-void InitOpenGL() {
+void InitOpenGL()
+{
     // Générer le buffer de géométrie (partagé par tous les chunks)
     std::vector<HeightmapVertex> vertices;
     GenerateHeightmapBuffer(vertices);
@@ -595,14 +600,11 @@ void InitOpenGL() {
 
     glBindVertexArray(g_vao);
     glBindBuffer(GL_ARRAY_BUFFER, g_vbo);
-    glBufferData(GL_ARRAY_BUFFER,
-                 vertices.size() * sizeof(HeightmapVertex),
-                 vertices.data(),
-                 GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(HeightmapVertex), vertices.data(), GL_STATIC_DRAW);
 
     // Attribut 0: altitude (float) - non utilisé mais garde la structure
     glEnableVertexAttribArray(0);
-    glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(HeightmapVertex), (void*)0);
+    glVertexAttribPointer(0, 1, GL_FLOAT, GL_FALSE, sizeof(HeightmapVertex), (void *) 0);
 
     glBindVertexArray(0);
 
@@ -610,8 +612,10 @@ void InitOpenGL() {
     std::cout << "\n📦 Génération des " << TOTAL_CHUNKS << " chunks...\n";
     g_terrainChunks.resize(TOTAL_CHUNKS);
 
-    for (int z = 0; z < CHUNKS_PER_ROW; z++) {
-        for (int x = 0; x < CHUNKS_PER_ROW; x++) {
+    for (int z = 0; z < CHUNKS_PER_ROW; z++)
+    {
+        for (int x = 0; x < CHUNKS_PER_ROW; x++)
+        {
             int index = z * CHUNKS_PER_ROW + x;
             g_terrainChunks[index].chunkPos = glm::ivec2(x, z);
             GenerateChunkHeightmap(g_terrainChunks[index]);
@@ -625,17 +629,15 @@ void InitOpenGL() {
     glBindTexture(GL_TEXTURE_2D_ARRAY, heightmapTextureArray);
 
     // Allouer la texture array (SANS PADDING: 32×32 pur)
-    glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_R32F,
-                 HEIGHTMAP_SIZE, HEIGHTMAP_SIZE, TOTAL_CHUNKS,
-                 0, GL_RED, GL_FLOAT, nullptr);
+    glTexImage3D(GL_TEXTURE_2D_ARRAY, 0, GL_R32F, HEIGHTMAP_SIZE, HEIGHTMAP_SIZE, TOTAL_CHUNKS, 0, GL_RED, GL_FLOAT,
+                 nullptr);
 
     // Copier chaque heightmap dans un layer de la texture array
-    for (int i = 0; i < TOTAL_CHUNKS; i++) {
-        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0,
-                        0, 0, i,  // offset x, y, z (layer)
-                        HEIGHTMAP_SIZE, HEIGHTMAP_SIZE, 1,  // width, height, depth
-                        GL_RED, GL_FLOAT,
-                        g_terrainChunks[i].heightData.data());
+    for (int i = 0; i < TOTAL_CHUNKS; i++)
+    {
+        glTexSubImage3D(GL_TEXTURE_2D_ARRAY, 0, 0, 0, i,   // offset x, y, z (layer)
+                        HEIGHTMAP_SIZE, HEIGHTMAP_SIZE, 1, // width, height, depth
+                        GL_RED, GL_FLOAT, g_terrainChunks[i].heightData.data());
     }
 
     // Paramètres de sampling
@@ -647,37 +649,35 @@ void InitOpenGL() {
     glBindTexture(GL_TEXTURE_2D_ARRAY, 0);
 
     // Stocker le handle pour le binding plus tard
-    g_terrainChunks[0].heightmapTexture = heightmapTextureArray;  // On stocke dans le premier chunk
+    g_terrainChunks[0].heightmapTexture = heightmapTextureArray; // On stocke dans le premier chunk
 
     // Créer SSBO pour les positions de chunks
     std::vector<glm::vec2> chunkPositions;
     chunkPositions.reserve(TOTAL_CHUNKS);
 
-    for (int z = 0; z < CHUNKS_PER_ROW; z++) {
-        for (int x = 0; x < CHUNKS_PER_ROW; x++) {
+    for (int z = 0; z < CHUNKS_PER_ROW; z++)
+    {
+        for (int x = 0; x < CHUNKS_PER_ROW; x++)
+        {
             chunkPositions.push_back(glm::vec2(float(x), float(z)));
         }
     }
 
     glGenBuffers(1, &g_ssbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, g_ssbo);
-    glBufferData(GL_SHADER_STORAGE_BUFFER,
-                 chunkPositions.size() * sizeof(glm::vec2),
-                 chunkPositions.data(),
+    glBufferData(GL_SHADER_STORAGE_BUFFER, chunkPositions.size() * sizeof(glm::vec2), chunkPositions.data(),
                  GL_STATIC_DRAW);
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 1, g_ssbo);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
     // ★ CRÉER SSBO pour les flags isEdited (binding 2)
-    std::vector<int> editFlags(TOTAL_CHUNKS, 0);  // 0 = procédural, 1 = texture
+    std::vector<int> editFlags(TOTAL_CHUNKS, 0); // 0 = procédural, 1 = texture
     // Par défaut, TOUS les chunks sont en mode procédural (performance maximale !)
 
     glGenBuffers(1, &g_ssboEditFlags);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, g_ssboEditFlags);
-    glBufferData(GL_SHADER_STORAGE_BUFFER,
-                 editFlags.size() * sizeof(int),
-                 editFlags.data(),
-                 GL_DYNAMIC_DRAW);  // DYNAMIC car on va modifier quand on édite
+    glBufferData(GL_SHADER_STORAGE_BUFFER, editFlags.size() * sizeof(int), editFlags.data(),
+                 GL_DYNAMIC_DRAW); // DYNAMIC car on va modifier quand on édite
     glBindBufferBase(GL_SHADER_STORAGE_BUFFER, 2, g_ssboEditFlags);
     glBindBuffer(GL_SHADER_STORAGE_BUFFER, 0);
 
@@ -701,12 +701,11 @@ void InitOpenGL() {
     std::cout << "      - Sans branching (mix au lieu de if/else)\n";
     std::cout << "      - Chunks non édités: Calcul PROCÉDURAL pur\n";
     std::cout << "      - Chunks édités: TEXTURE sampling\n";
-    std::cout << "   Texture Array: " << HEIGHTMAP_SIZE << "×" << HEIGHTMAP_SIZE
-              << " × " << TOTAL_CHUNKS << " layers (-13% mémoire vs padding)\n";
+    std::cout << "   Texture Array: " << HEIGHTMAP_SIZE << "×" << HEIGHTMAP_SIZE << " × " << TOTAL_CHUNKS
+              << " layers (-13% mémoire vs padding)\n";
     std::cout << "   Frustum Culling: ACTIVÉ (bounding box complète, -30-50% draw calls)\n";
     std::cout << "   Mémoire heightmaps CPU: "
-              << (TOTAL_CHUNKS * HEIGHTMAP_SIZE * HEIGHTMAP_SIZE * sizeof(float) / 1024.0 / 1024.0)
-              << " MB\n";
+              << (TOTAL_CHUNKS * HEIGHTMAP_SIZE * HEIGHTMAP_SIZE * sizeof(float) / 1024.0 / 1024.0) << " MB\n";
     std::cout << "   Caméra initiale: (" << g_cameraPos.x << ", " << g_cameraPos.y << ", " << g_cameraPos.z << ")\n";
 }
 
@@ -714,9 +713,12 @@ void InitOpenGL() {
 // CALLBACKS GLFW
 // ============================================================================
 
-void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
-    if (action == GLFW_PRESS) {
-        if (key == GLFW_KEY_ESCAPE) {
+void KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods)
+{
+    if (action == GLFW_PRESS)
+    {
+        if (key == GLFW_KEY_ESCAPE)
+        {
             g_captureMouse = !g_captureMouse;
             // Réinitialiser la position pour éviter les sauts de caméra
             double xpos, ypos;
@@ -724,32 +726,34 @@ void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods
             g_lastMouse = glm::vec2(xpos, ypos);
             std::cout << "Capture souris: " << (g_captureMouse ? "ON" : "OFF") << std::endl;
         }
-        else if (key == GLFW_KEY_SPACE) {
+        else if (key == GLFW_KEY_SPACE)
+        {
             g_showWireframe = !g_showWireframe;
             std::cout << "Wireframe: " << (g_showWireframe ? "ON" : "OFF") << std::endl;
         }
-        else if (key >= GLFW_KEY_1 && key <= GLFW_KEY_4) {
+        else if (key >= GLFW_KEY_1 && key <= GLFW_KEY_4)
+        {
             int lodIndex = key - GLFW_KEY_1;
             g_lodEnabled[lodIndex] = !g_lodEnabled[lodIndex];
-            std::cout << "LOD " << lodIndex << ": "
-                      << (g_lodEnabled[lodIndex] ? "ON" : "OFF") << std::endl;
+            std::cout << "LOD " << lodIndex << ": " << (g_lodEnabled[lodIndex] ? "ON" : "OFF") << std::endl;
         }
     }
 }
 
-void MouseCallback(GLFWwindow* window, double xpos, double ypos) {
+void MouseCallback(GLFWwindow *window, double xpos, double ypos)
+{
     // Ne rien faire ici, on gère la souris dans UpdateCamera()
     // (comme Vercidium: recentrage à chaque frame)
-}// ============================================================================
+} // ============================================================================
 // HELPER: Vecteur direction depuis pitch/yaw (comme Vercidium)
 // ============================================================================
 
-glm::vec3 FromPitchYaw(float pitch, float yaw) {
+glm::vec3 FromPitchYaw(float pitch, float yaw)
+{
     float cosPitch = std::cos(pitch);
-    return glm::vec3(
-        cosPitch * std::sin(yaw),   // X
-        std::sin(pitch),             // Y
-        cosPitch * std::cos(yaw)     // Z
+    return glm::vec3(cosPitch * std::sin(yaw), // X
+                     std::sin(pitch),          // Y
+                     cosPitch * std::cos(yaw)  // Z
     );
 }
 
@@ -757,9 +761,11 @@ glm::vec3 FromPitchYaw(float pitch, float yaw) {
 // UPDATE CAMERA - EXACTEMENT comme Vercidium
 // ============================================================================
 
-void UpdateCamera(float deltaTime) {
+void UpdateCamera(float deltaTime)
+{
     // Mouse movement (si capture active)
-    if (g_captureMouse) {
+    if (g_captureMouse)
+    {
         double xpos, ypos;
         glfwGetCursorPos(g_window, &xpos, &ypos);
 
@@ -776,12 +782,14 @@ void UpdateCamera(float deltaTime) {
         g_lastMouse = glm::vec2(centerX, centerY);
 
         glfwSetInputMode(g_window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
-    } else {
+    }
+    else
+    {
         glfwSetInputMode(g_window, GLFW_CURSOR, GLFW_CURSOR_NORMAL);
     }
 
     // Mouvement (EXACTEMENT comme Vercidium)
-    float movementSpeed = 0.15f * 60.0f * deltaTime;  // Ajusté pour 60 FPS base
+    float movementSpeed = 0.15f * 60.0f * deltaTime; // Ajusté pour 60 FPS base
 
     // W/S: Avant/Arrière
     if (glfwGetKey(g_window, GLFW_KEY_W) == GLFW_PRESS)
@@ -800,11 +808,12 @@ void UpdateCamera(float deltaTime) {
         g_cameraPos += FromPitchYaw(3.14159f / 2.0f, 0) * movementSpeed;
     else if (glfwGetKey(g_window, GLFW_KEY_Q) == GLFW_PRESS)
         g_cameraPos += FromPitchYaw(-3.14159f / 2.0f, 0) * movementSpeed;
-}// ============================================================================
+} // ============================================================================
 // RENDER
 // ============================================================================
 
-void Render() {
+void Render()
+{
     // Background bleu ciel doux
     glClearColor(0.53f, 0.81f, 0.92f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
@@ -828,12 +837,15 @@ void Render() {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D_ARRAY, g_terrainChunks[0].heightmapTexture);
     GLint texLocation = glGetUniformLocation(g_shaderProgram, "heightmapTextures");
-    glUniform1i(texLocation, 0);  // Texture unit 0
+    glUniform1i(texLocation, 0); // Texture unit 0
 
     // Mode wireframe si activé
-    if (g_showWireframe) {
+    if (g_showWireframe)
+    {
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-    } else {
+    }
+    else
+    {
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
@@ -852,38 +864,39 @@ void Render() {
 
     g_chunksRendered = 0;
 
-    for (int i = 0; i < TOTAL_CHUNKS; i++) {
+    for (int i = 0; i < TOTAL_CHUNKS; i++)
+    {
         // Calculer l'AABB du chunk avec marge généreuse
         // (incluant le sinking LOD et les collines)
-        glm::vec3 chunkMin(
-            g_terrainChunks[i].chunkPos.x * HEIGHTMAP_SIZE,
-            -50.0f,  // Marge large pour le sinking (20m) + hauteur min (-10m) + sécurité
-            g_terrainChunks[i].chunkPos.y * HEIGHTMAP_SIZE
-        );
-        glm::vec3 chunkMax(
-            (g_terrainChunks[i].chunkPos.x + 1) * HEIGHTMAP_SIZE,
-            50.0f,   // Marge large pour collines + sécurité
-            (g_terrainChunks[i].chunkPos.y + 1) * HEIGHTMAP_SIZE
-        );
+        glm::vec3 chunkMin(g_terrainChunks[i].chunkPos.x * HEIGHTMAP_SIZE,
+                           -50.0f, // Marge large pour le sinking (20m) + hauteur min (-10m) + sécurité
+                           g_terrainChunks[i].chunkPos.y * HEIGHTMAP_SIZE);
+        glm::vec3 chunkMax((g_terrainChunks[i].chunkPos.x + 1) * HEIGHTMAP_SIZE,
+                           50.0f, // Marge large pour collines + sécurité
+                           (g_terrainChunks[i].chunkPos.y + 1) * HEIGHTMAP_SIZE);
 
         // Tester si le chunk est visible
-        if (IsChunkVisible(frustum, chunkMin, chunkMax)) {
-            firsts.push_back(0);  // Tous les chunks utilisent le même buffer
+        if (IsChunkVisible(frustum, chunkMin, chunkMax))
+        {
+            firsts.push_back(0); // Tous les chunks utilisent le même buffer
             counts.push_back(VERTICES_PER_CHUNK);
             g_chunksRendered++;
         }
     }
 
     // ★ DRAW CALL OPTIMISÉ: Seulement les chunks visibles !
-    if (g_chunksRendered > 0) {
+    if (g_chunksRendered > 0)
+    {
         glMultiDrawArrays(GL_TRIANGLE_STRIP, firsts.data(), counts.data(), g_chunksRendered);
     }
 
     // Debug: vérifier les erreurs OpenGL
     GLenum err = glGetError();
-    if (err != GL_NO_ERROR) {
+    if (err != GL_NO_ERROR)
+    {
         static bool errorLogged = false;
-        if (!errorLogged) {
+        if (!errorLogged)
+        {
             std::cerr << "❌ Erreur OpenGL pendant le rendu: 0x" << std::hex << err << std::dec << std::endl;
             errorLogged = true;
         }

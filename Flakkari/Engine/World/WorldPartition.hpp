@@ -32,29 +32,30 @@
 
 #include "FlatDynamicOctree.hpp"
 #if __has_include(<ankerl/unordered_dense.h>)
-#  include <ankerl/unordered_dense.h>
-#  define WP_HAS_ANKERL 1
+#    include <ankerl/unordered_dense.h>
+#    define WP_HAS_ANKERL 1
 #elif __has_include(<boost/unordered_flat_map.hpp>)
-#  include <boost/unordered_flat_map.hpp>
-#  define WP_HAS_BOOST_FLAT 1
+#    include <boost/unordered_flat_map.hpp>
+#    define WP_HAS_BOOST_FLAT 1
 #endif
-#include <glm/glm.hpp>
-#include <unordered_map>
-#include <memory>
-#include <mutex>
-#include <vector>
 #include <atomic>
+#include <condition_variable>
 #include <functional>
 #include <future>
+#include <glm/glm.hpp>
+#include <memory>
+#include <mutex>
 #include <queue>
 #include <thread>
-#include <condition_variable>
+#include <unordered_map>
+#include <vector>
 
 namespace Optimizing::World {
 
 // Hash function for glm::ivec2 (chunk coordinates)
 struct IVec2Hash {
-    std::size_t operator()(const glm::ivec2& v) const noexcept {
+    std::size_t operator()(const glm::ivec2 &v) const noexcept
+    {
         return std::hash<int>()(v.x) ^ (std::hash<int>()(v.y) << 1);
     }
 };
@@ -62,7 +63,8 @@ struct IVec2Hash {
 // Convert chunk coordinates (signed) to a Morton key with bias.
 // - chunkBits: how many bits to reserve for chunk coordinate per axis (e.g. 21)
 // This supports coords roughly in [-2^(chunkBits-1), +2^(chunkBits-1)-1]
-inline uint64_t chunkMortonKey(const glm::ivec2 &coord, unsigned chunkBits = 21) {
+inline uint64_t chunkMortonKey(const glm::ivec2 &coord, unsigned chunkBits = 21)
+{
     const uint64_t bias = 1ULL << (chunkBits - 1);
     uint64_t ux = static_cast<uint64_t>(static_cast<int64_t>(coord.x) + static_cast<int64_t>(bias));
     uint64_t uz = static_cast<uint64_t>(static_cast<int64_t>(coord.y) + static_cast<int64_t>(bias));
@@ -76,7 +78,7 @@ inline uint64_t chunkMortonKey(const glm::ivec2 &coord, unsigned chunkBits = 21)
  * - glm::vec3 position
  * - flat_dynamic::BoundingBox bbox (or getBounds())
  */
-template<typename T>
+template <typename T>
 concept WorldEntity = requires(T entity) {
     { entity.position } -> std::convertible_to<glm::vec3>;
     { entity.bbox } -> std::convertible_to<flat_dynamic::BoundingBox>;
@@ -90,21 +92,20 @@ public:
     explicit ThreadPool(size_t threads = std::thread::hardware_concurrency());
     ~ThreadPool();
 
-    template<class F, class... Args>
-    auto enqueue(F&& f, Args&&... args)
-        -> std::future<typename std::invoke_result<F, Args...>::type>
+    template <class F, class... Args>
+    auto enqueue(F &&f, Args &&...args) -> std::future<typename std::invoke_result<F, Args...>::type>
     {
         using return_type = typename std::invoke_result<F, Args...>::type;
 
         auto task = std::make_shared<std::packaged_task<return_type()>>(
-            std::bind(std::forward<F>(f), std::forward<Args>(args)...)
-        );
+            std::bind(std::forward<F>(f), std::forward<Args>(args)...));
 
         std::future<return_type> res = task->get_future();
         {
             std::unique_lock<std::mutex> lock(_queueMutex);
 
-            if (_stop) {
+            if (_stop)
+            {
                 throw std::runtime_error("enqueue on stopped ThreadPool");
             }
 
@@ -136,22 +137,20 @@ private:
  * - Entities stored in contiguous vector
  * - Load/unload state
  */
-template<typename Entity>
-class Partition {
+template <typename Entity> class Partition {
 public:
-    Partition(const glm::vec3& position, const glm::vec3& size)
-        : _position(position)
-        , _size(size)
-        , _octree(flat_dynamic::BoundingBox(position, position + size), 8, 32)
-        , _loaded(false)
+    Partition(const glm::vec3 &position, const glm::vec3 &size)
+        : _position(position), _size(size), _octree(flat_dynamic::BoundingBox(position, position + size), 8, 32),
+          _loaded(false)
     {
-        _entities.reserve(512);  // Pre-allocate for typical chunk
+        _entities.reserve(512); // Pre-allocate for typical chunk
     }
 
     /**
      * @brief Add entity to partition (not yet loaded into octree)
      */
-    void addEntity(const Entity& entity) {
+    void addEntity(const Entity &entity)
+    {
         std::lock_guard<std::mutex> lock(_mutex);
         _entities.push_back(entity);
     }
@@ -162,9 +161,11 @@ public:
      * Call this when player enters load radius
      * Cost: ~0.02ms for 100-500 entities
      */
-    void load() {
+    void load()
+    {
         std::lock_guard<std::mutex> lock(_mutex);
-        if (_loaded || _entities.empty()) return;
+        if (_loaded || _entities.empty())
+            return;
 
         _octree.rebuild(_entities);
         _loaded = true;
@@ -175,9 +176,11 @@ public:
      *
      * Call this when player exits load radius
      */
-    void unload() {
+    void unload()
+    {
         std::lock_guard<std::mutex> lock(_mutex);
-        if (!_loaded) return;
+        if (!_loaded)
+            return;
 
         _octree.clear();
         _loaded = false;
@@ -189,9 +192,11 @@ public:
      * Call this periodically for loaded chunks (every 5-10 frames)
      * Cost: ~0.02ms for typical chunk
      */
-    void update() {
+    void update()
+    {
         std::lock_guard<std::mutex> lock(_mutex);
-        if (!_loaded || _entities.empty()) return;
+        if (!_loaded || _entities.empty())
+            return;
 
         _octree.rebuild(_entities);
     }
@@ -201,65 +206,57 @@ public:
      *
      * Returns indices into _entities vector
      */
-    [[nodiscard]] std::vector<uint32_t> query(const flat_dynamic::BoundingBox& box) const {
+    [[nodiscard]] std::vector<uint32_t> query(const flat_dynamic::BoundingBox &box) const
+    {
         std::lock_guard<std::mutex> lock(_mutex);
-        if (!_loaded) return {};
+        if (!_loaded)
+            return {};
         return _octree.query(box);
     }
 
     /**
      * @brief Get all entities in partition
      */
-    [[nodiscard]] const std::vector<Entity>& getEntities() const {
-        return _entities;
-    }
+    [[nodiscard]] const std::vector<Entity> &getEntities() const { return _entities; }
 
     /**
      * @brief Get entity by index (from query result)
      */
-    [[nodiscard]] const Entity& getEntity(uint32_t index) const {
-        return _entities[index];
-    }
+    [[nodiscard]] const Entity &getEntity(uint32_t index) const { return _entities[index]; }
 
     /**
      * @brief Check if partition is loaded
      */
-    [[nodiscard]] inline bool isLoaded() const noexcept {
-        return _loaded;
-    }
+    [[nodiscard]] inline bool isLoaded() const noexcept { return _loaded; }
 
     /**
      * @brief Get partition bounds
      */
-    [[nodiscard]] inline flat_dynamic::BoundingBox getBounds() const noexcept {
+    [[nodiscard]] inline flat_dynamic::BoundingBox getBounds() const noexcept
+    {
         return flat_dynamic::BoundingBox(_position, _position + _size);
     }
 
     /**
      * @brief Get partition position (chunk origin)
      */
-    [[nodiscard]] inline const glm::vec3& getPosition() const noexcept {
-        return _position;
-    }
+    [[nodiscard]] inline const glm::vec3 &getPosition() const noexcept { return _position; }
 
     /**
      * @brief Get partition size
      */
-    [[nodiscard]] inline const glm::vec3& getSize() const noexcept {
-        return _size;
-    }
+    [[nodiscard]] inline const glm::vec3 &getSize() const noexcept { return _size; }
 
     /**
      * @brief Get entity count
      */
-    [[nodiscard]] inline size_t entityCount() const noexcept {
-        return _entities.size();
-    }
+    [[nodiscard]] inline size_t entityCount() const noexcept { return _entities.size(); }
 
     /**
      * @brief Clear all entities
      */
-    void clear() {
+    void clear()
+    {
         std::lock_guard<std::mutex> lock(_mutex);
         _entities.clear();
         _octree.clear();
@@ -297,8 +294,7 @@ private:
  * }
  * ```
  */
-template<typename Entity>
-class WorldPartition {
+template <typename Entity> class WorldPartition {
 public:
     struct QueryResult {
         std::shared_ptr<Partition<Entity>> partition;
@@ -312,21 +308,13 @@ public:
      * @param loadRadius Radius in chunks to keep loaded (default: 1 = 3x3 grid)
      * @param threadCount Number of worker threads (default: hardware_concurrency)
      */
-    explicit WorldPartition(
-        const glm::vec3& chunkSize = glm::vec3(255.0f, 10000.0f, 255.0f),
-        int loadRadius = 1,
-        size_t threadCount = std::thread::hardware_concurrency()
-    )
-        : _chunkSize(chunkSize)
-        , _loadRadius(loadRadius)
-        , _chunkBits(21)
-        , _threadPool(threadCount)
+    explicit WorldPartition(const glm::vec3 &chunkSize = glm::vec3(255.0f, 10000.0f, 255.0f), int loadRadius = 1,
+                            size_t threadCount = std::thread::hardware_concurrency())
+        : _chunkSize(chunkSize), _loadRadius(loadRadius), _chunkBits(21), _threadPool(threadCount)
     {
     }
 
-    ~WorldPartition() {
-        _threadPool.shutdown();
-    }
+    ~WorldPartition() { _threadPool.shutdown(); }
 
     /**
      * @brief Insert entities into world (batch)
@@ -334,30 +322,29 @@ public:
      * Distributes entities to appropriate chunks
      * Cost: O(n) with hash map lookups
      */
-    void insertEntities(const std::vector<Entity>& entities) {
+    void insertEntities(const std::vector<Entity> &entities)
+    {
         std::lock_guard<std::mutex> lock(_mutex);
-    #if defined(WP_ENABLE_INSTRUMENTATION)
+#if defined(WP_ENABLE_INSTRUMENTATION)
         using clk = std::chrono::high_resolution_clock;
         auto t_insert_start = clk::now();
-    #endif
-        for (const auto& entity : entities) {
+#endif
+        for (const auto &entity : entities)
+        {
             glm::ivec2 chunkCoord = getChunkCoordinate(entity.position);
-    #if defined(WP_ENABLE_INSTRUMENTATION)
+#if defined(WP_ENABLE_INSTRUMENTATION)
             auto t_key0 = clk::now();
-    #endif
+#endif
             uint64_t key = chunkMortonKey(chunkCoord); // default chunkBits
-    #if defined(WP_ENABLE_INSTRUMENTATION)
+#if defined(WP_ENABLE_INSTRUMENTATION)
             auto t_key1 = clk::now();
             _instr_keyEncodeMs += std::chrono::duration<double, std::milli>(t_key1 - t_key0).count();
-    #endif
+#endif
 
             auto it = _partitionsMorton.find(key);
-            if (it == _partitionsMorton.end()) {
-                glm::vec3 chunkPos(
-                    chunkCoord.x * _chunkSize.x,
-                    0.0f,
-                    chunkCoord.y * _chunkSize.z
-                );
+            if (it == _partitionsMorton.end())
+            {
+                glm::vec3 chunkPos(chunkCoord.x * _chunkSize.x, 0.0f, chunkCoord.y * _chunkSize.z);
                 auto partition = std::make_shared<Partition<Entity>>(chunkPos, _chunkSize);
                 auto res = _partitionsMorton.emplace(key, partition);
                 it = res.first;
@@ -368,11 +355,11 @@ public:
 
             it->second->addEntity(entity);
         }
-    #if defined(WP_ENABLE_INSTRUMENTATION)
+#if defined(WP_ENABLE_INSTRUMENTATION)
         auto t_insert_end = clk::now();
         _instr_insertMs += std::chrono::duration<double, std::milli>(t_insert_end - t_insert_start).count();
         _instr_insertCount++;
-    #endif
+#endif
     }
 
     /**
@@ -384,12 +371,15 @@ public:
      *
      * Call every frame or every N frames
      */
-    void update(const glm::vec3& playerPosition, bool rebuildChunks = false) {
+    void update(const glm::vec3 &playerPosition, bool rebuildChunks = false)
+    {
         glm::ivec2 playerChunk = getChunkCoordinate(playerPosition);
 
         // Load chunks in radius (async)
-        for (int x = -_loadRadius; x <= _loadRadius; ++x) {
-            for (int z = -_loadRadius; z <= _loadRadius; ++z) {
+        for (int x = -_loadRadius; x <= _loadRadius; ++x)
+        {
+            for (int z = -_loadRadius; z <= _loadRadius; ++z)
+            {
                 glm::ivec2 chunkCoord = playerChunk + glm::ivec2(x, z);
                 loadChunk(chunkCoord);
             }
@@ -399,7 +389,8 @@ public:
         std::vector<glm::ivec2> toUnload;
         {
             std::lock_guard<std::mutex> lock(_mutex);
-            for (const auto& [key, partition] : _partitionsMorton) {
+            for (const auto &[key, partition] : _partitionsMorton)
+            {
                 uint32_t ux = 0, uz = 0;
                 morton::decode2D(static_cast<uint32_t>(key), ux, uz);
                 const uint64_t bias = 1ULL << (_chunkBits - 1);
@@ -409,28 +400,34 @@ public:
 
                 int dx = abs(coord.x - playerChunk.x);
                 int dz = abs(coord.y - playerChunk.y);
-                if (dx > _loadRadius || dz > _loadRadius) {
-                    if (partition->isLoaded()) {
+                if (dx > _loadRadius || dz > _loadRadius)
+                {
+                    if (partition->isLoaded())
+                    {
                         toUnload.push_back(coord);
                     }
                 }
             }
         }
 
-        for (const auto& coord : toUnload) {
+        for (const auto &coord : toUnload)
+        {
             unloadChunk(coord);
         }
 
         // Rebuild loaded chunks (if requested)
-        if (rebuildChunks) {
+        if (rebuildChunks)
+        {
             // collect pointers to partitions to update while holding the world lock,
             // then perform heavy rebuilds outside the lock to reduce contention.
             std::vector<std::shared_ptr<Partition<Entity>>> toUpdate;
             {
                 std::lock_guard<std::mutex> lock(_mutex);
                 toUpdate.reserve(_partitionsMorton.size());
-                for (auto& [k, partition] : _partitionsMorton) {
-                    if (partition->isLoaded()) toUpdate.push_back(partition);
+                for (auto &[k, partition] : _partitionsMorton)
+                {
+                    if (partition->isLoaded())
+                        toUpdate.push_back(partition);
                 }
             }
 
@@ -441,48 +438,57 @@ public:
 
             // If we have multiple partitions, parallelize rebuilds using the thread pool
 #if defined(__cpp_lib_thread) || defined(_GLIBCXX_HAVE_THREAD)
-            if (toUpdate.size() > 1) {
+            if (toUpdate.size() > 1)
+            {
                 // Bucket partitions per worker to avoid too-fine-grained tasks
                 size_t numWorkers = std::thread::hardware_concurrency();
-                if (numWorkers == 0) numWorkers = 2;
+                if (numWorkers == 0)
+                    numWorkers = 2;
                 numWorkers = std::min(numWorkers, toUpdate.size());
                 size_t batchSize = (toUpdate.size() + numWorkers - 1) / numWorkers;
 
                 std::vector<std::future<void>> futures;
                 futures.reserve(numWorkers);
-                for (size_t w = 0; w < numWorkers; ++w) {
+                for (size_t w = 0; w < numWorkers; ++w)
+                {
                     size_t start = w * batchSize;
                     size_t end = std::min(start + batchSize, toUpdate.size());
-                    if (start >= end) continue;
+                    if (start >= end)
+                        continue;
                     futures.emplace_back(_threadPool.enqueue([this, &toUpdate, start, end]() {
-                        for (size_t i = start; i < end; ++i) {
-#if defined(WP_ENABLE_INSTRUMENTATION)
+                        for (size_t i = start; i < end; ++i)
+                        {
+#    if defined(WP_ENABLE_INSTRUMENTATION)
                             using clk = std::chrono::high_resolution_clock;
                             auto t_p0 = clk::now();
                             toUpdate[i]->update();
                             auto t_p1 = clk::now();
                             _instr_partitionUpdateMs += std::chrono::duration<double, std::milli>(t_p1 - t_p0).count();
                             _instr_partitionUpdates++;
-#else
+#    else
                             toUpdate[i]->update();
-#endif
+#    endif
                         }
                     }));
                 }
 
                 // Wait for all to finish
-                for (auto &fut : futures) fut.get();
-            } else {
-                for (auto &partition : toUpdate) {
-#if defined(WP_ENABLE_INSTRUMENTATION)
+                for (auto &fut : futures)
+                    fut.get();
+            }
+            else
+            {
+                for (auto &partition : toUpdate)
+                {
+#    if defined(WP_ENABLE_INSTRUMENTATION)
                     auto t_p0 = clk::now();
-#endif
+#    endif
                     partition->update();
-#if defined(WP_ENABLE_INSTRUMENTATION)
+#    if defined(WP_ENABLE_INSTRUMENTATION)
                     auto t_p1 = clk::now();
                     _instr_partitionUpdateMs += std::chrono::duration<double, std::milli>(t_p1 - t_p0).count();
                     _instr_partitionUpdates++;
-#endif
+#    endif
                 }
             }
 #endif // thread support
@@ -491,7 +497,6 @@ public:
             _instr_updateMs += std::chrono::duration<double, std::milli>(t_update_end - t_update_start).count();
             _instr_updateCount++;
 #endif
-
         }
     }
 
@@ -500,16 +505,21 @@ public:
      *
      * Returns results grouped by partition
      */
-    [[nodiscard]] std::vector<QueryResult> query(const flat_dynamic::BoundingBox& searchBox) const {
+    [[nodiscard]] std::vector<QueryResult> query(const flat_dynamic::BoundingBox &searchBox) const
+    {
         std::vector<QueryResult> results;
         std::lock_guard<std::mutex> lock(_mutex);
 
-        for (const auto& [key, partition] : _partitionsMorton) {
-            if (!partition->isLoaded()) continue;
+        for (const auto &[key, partition] : _partitionsMorton)
+        {
+            if (!partition->isLoaded())
+                continue;
 
-            if (partition->getBounds().overlaps(searchBox)) {
+            if (partition->getBounds().overlaps(searchBox))
+            {
                 auto indices = partition->query(searchBox);
-                if (!indices.empty()) {
+                if (!indices.empty())
+                {
                     results.push_back({partition, std::move(indices)});
                 }
             }
@@ -521,7 +531,8 @@ public:
     /**
      * @brief Get chunk at coordinate
      */
-    [[nodiscard]] std::shared_ptr<Partition<Entity>> getChunk(const glm::ivec2& coord) const {
+    [[nodiscard]] std::shared_ptr<Partition<Entity>> getChunk(const glm::ivec2 &coord) const
+    {
         std::lock_guard<std::mutex> lock(_mutex);
         uint64_t key = chunkMortonKey(coord, _chunkBits);
         auto it = _partitionsMorton.find(key);
@@ -531,7 +542,8 @@ public:
     /**
      * @brief Get chunk by Morton key (if registered)
      */
-    [[nodiscard]] std::shared_ptr<Partition<Entity>> getChunkByMorton(uint64_t mortonKey) const {
+    [[nodiscard]] std::shared_ptr<Partition<Entity>> getChunkByMorton(uint64_t mortonKey) const
+    {
         std::lock_guard<std::mutex> lock(_mutex);
         auto it = _partitionsMorton.find(mortonKey);
         return (it != _partitionsMorton.end()) ? it->second : nullptr;
@@ -540,12 +552,15 @@ public:
     /**
      * @brief Get all loaded chunks
      */
-    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getLoadedChunks() const {
+    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getLoadedChunks() const
+    {
         std::vector<std::shared_ptr<Partition<Entity>>> loaded;
         std::lock_guard<std::mutex> lock(_mutex);
 
-        for (const auto& [k, partition] : _partitionsMorton) {
-            if (partition->isLoaded()) {
+        for (const auto &[k, partition] : _partitionsMorton)
+        {
+            if (partition->isLoaded())
+            {
                 loaded.push_back(partition);
             }
         }
@@ -557,11 +572,14 @@ public:
      * @brief Get loaded chunks accessed via morton-indexed map
      * Useful if you want to iterate over spatially-ordered keys; this returns values (unsorted)
      */
-    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getLoadedChunksMorton() const {
+    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getLoadedChunksMorton() const
+    {
         std::vector<std::shared_ptr<Partition<Entity>>> loaded;
         std::lock_guard<std::mutex> lock(_mutex);
-        for (const auto& [k, partition] : _partitionsMorton) {
-            if (partition->isLoaded()) loaded.push_back(partition);
+        for (const auto &[k, partition] : _partitionsMorton)
+        {
+            if (partition->isLoaded())
+                loaded.push_back(partition);
         }
         return loaded;
     }
@@ -569,40 +587,48 @@ public:
     /**
      * @brief Return all partitions from the ivec2 map (no filtering)
      */
-    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getAllPartitions() const {
+    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getAllPartitions() const
+    {
         std::vector<std::shared_ptr<Partition<Entity>>> all;
         std::lock_guard<std::mutex> lock(_mutex);
         all.reserve(_partitionsMorton.size());
-        for (const auto& [k, partition] : _partitionsMorton) all.push_back(partition);
+        for (const auto &[k, partition] : _partitionsMorton)
+            all.push_back(partition);
         return all;
     }
 
     /**
      * @brief Return all partitions from the morton map (no filtering)
      */
-    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getAllPartitionsMorton() const {
+    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getAllPartitionsMorton() const
+    {
         std::vector<std::shared_ptr<Partition<Entity>>> all;
         std::lock_guard<std::mutex> lock(_mutex);
         all.reserve(_partitionsMorton.size());
-        for (const auto& [key, partition] : _partitionsMorton) all.push_back(partition);
+        for (const auto &[key, partition] : _partitionsMorton)
+            all.push_back(partition);
         return all;
     }
 
     /**
      * Return partitions ordered by Morton (cached - lazy sorted list)
      */
-    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getAllPartitionsSortedByMorton() const {
+    [[nodiscard]] std::vector<std::shared_ptr<Partition<Entity>>> getAllPartitionsSortedByMorton() const
+    {
         std::lock_guard<std::mutex> lock(_mutex);
-        if (_sortedDirty) {
+        if (_sortedDirty)
+        {
             std::sort(_sortedKeys.begin(), _sortedKeys.end());
             _sortedDirty = false;
         }
 
         std::vector<std::shared_ptr<Partition<Entity>>> out;
         out.reserve(_sortedKeys.size());
-        for (auto k : _sortedKeys) {
+        for (auto k : _sortedKeys)
+        {
             auto it = _partitionsMorton.find(k);
-            if (it != _partitionsMorton.end()) out.push_back(it->second);
+            if (it != _partitionsMorton.end())
+                out.push_back(it->second);
         }
         return out;
     }
@@ -611,11 +637,13 @@ public:
      * @brief Return all partitions as pairs (mortonKey, partition)
      * Useful for sorting externally by morton key or coordinate.
      */
-    [[nodiscard]] std::vector<std::pair<uint64_t, std::shared_ptr<Partition<Entity>>>> getAllPartitionsKeyed() const {
+    [[nodiscard]] std::vector<std::pair<uint64_t, std::shared_ptr<Partition<Entity>>>> getAllPartitionsKeyed() const
+    {
         std::vector<std::pair<uint64_t, std::shared_ptr<Partition<Entity>>>> out;
         std::lock_guard<std::mutex> lock(_mutex);
         out.reserve(_partitionsMorton.size());
-        for (const auto& [k, partition] : _partitionsMorton) out.emplace_back(k, partition);
+        for (const auto &[k, partition] : _partitionsMorton)
+            out.emplace_back(k, partition);
         return out;
     }
 
@@ -629,14 +657,17 @@ public:
         size_t loadedEntities = 0;
     };
 
-    [[nodiscard]] Stats getStats() const {
+    [[nodiscard]] Stats getStats() const
+    {
         Stats stats;
         std::lock_guard<std::mutex> lock(_mutex);
 
         stats.totalChunks = _partitionsMorton.size();
-        for (const auto& [k, partition] : _partitionsMorton) {
+        for (const auto &[k, partition] : _partitionsMorton)
+        {
             stats.totalEntities += partition->entityCount();
-            if (partition->isLoaded()) {
+            if (partition->isLoaded())
+            {
                 stats.loadedChunks++;
                 stats.loadedEntities += partition->entityCount();
             }
@@ -656,7 +687,8 @@ public:
         size_t partitionUpdates = 0;
     };
 
-    InstrStats getInstrStats() const {
+    InstrStats getInstrStats() const
+    {
         InstrStats s;
         s.insertMs = _instr_insertMs;
         s.keyEncodeMs = _instr_keyEncodeMs;
@@ -672,7 +704,8 @@ public:
     /**
      * @brief Clear all partitions
      */
-    void clear() {
+    void clear()
+    {
         std::lock_guard<std::mutex> lock(_mutex);
         _partitionsMorton.clear();
         _sortedKeys.clear();
@@ -682,57 +715,58 @@ public:
     /**
      * @brief Wait until pending async loads complete
      */
-    void waitForPendingLoads() {
+    void waitForPendingLoads()
+    {
         // _threadPool.waitIdle();
     }
 
     /**
      * @brief Get chunk size
      */
-    [[nodiscard]] inline const glm::vec3& getChunkSize() const noexcept {
-        return _chunkSize;
-    }
+    [[nodiscard]] inline const glm::vec3 &getChunkSize() const noexcept { return _chunkSize; }
 
 private:
     /**
      * @brief Get chunk coordinate from world position
      */
-    [[nodiscard]] glm::ivec2 getChunkCoordinate(const glm::vec3& position) const {
-        return glm::ivec2(
-            static_cast<int>(std::floor(position.x / _chunkSize.x)),
-            static_cast<int>(std::floor(position.z / _chunkSize.z))
-        );
+    [[nodiscard]] glm::ivec2 getChunkCoordinate(const glm::vec3 &position) const
+    {
+        return glm::ivec2(static_cast<int>(std::floor(position.x / _chunkSize.x)),
+                          static_cast<int>(std::floor(position.z / _chunkSize.z)));
     }
 
     /**
      * @brief Load chunk asynchronously
      */
-    void loadChunk(const glm::ivec2& coord) {
+    void loadChunk(const glm::ivec2 &coord)
+    {
         std::shared_ptr<Partition<Entity>> partition;
         {
             std::lock_guard<std::mutex> lock(_mutex);
             uint64_t key = chunkMortonKey(coord, _chunkBits);
             auto it = _partitionsMorton.find(key);
-            if (it == _partitionsMorton.end()) return;  // Chunk doesn't exist
+            if (it == _partitionsMorton.end())
+                return; // Chunk doesn't exist
             partition = it->second;
         }
 
-        if (partition->isLoaded()) return;  // Already loaded
+        if (partition->isLoaded())
+            return; // Already loaded
 
         // Load asynchronously
-        _threadPool.enqueue([partition]() {
-            partition->load();
-        });
+        _threadPool.enqueue([partition]() { partition->load(); });
     }
 
     /**
      * @brief Unload chunk
      */
-    void unloadChunk(const glm::ivec2& coord) {
+    void unloadChunk(const glm::ivec2 &coord)
+    {
         std::lock_guard<std::mutex> lock(_mutex);
         uint64_t key = chunkMortonKey(coord, _chunkBits);
         auto it = _partitionsMorton.find(key);
-        if (it != _partitionsMorton.end()) {
+        if (it != _partitionsMorton.end())
+        {
             it->second->unload();
         }
     }

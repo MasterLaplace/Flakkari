@@ -27,11 +27,11 @@
 
 #include "Morton.hpp"
 #include "RadixSort.hpp"
-#include <glm/glm.hpp>
-#include <vector>
+#include <algorithm>
 #include <array>
 #include <cstdint>
-#include <algorithm>
+#include <glm/glm.hpp>
+#include <vector>
 
 namespace Optimizing::World {
 
@@ -43,26 +43,25 @@ struct BoundingBox {
     glm::vec3 max{1.0f};
 
     BoundingBox() = default;
-    BoundingBox(const glm::vec3& mn, const glm::vec3& mx) : min(mn), max(mx) {}
+    BoundingBox(const glm::vec3 &mn, const glm::vec3 &mx) : min(mn), max(mx) {}
 
     [[nodiscard]] inline glm::vec3 getCenter() const noexcept { return (min + max) * 0.5f; }
     [[nodiscard]] inline glm::vec3 getSize() const noexcept { return max - min; }
 
-    [[nodiscard]] inline bool contains(const glm::vec3& p) const noexcept {
-        return p.x >= min.x && p.x <= max.x &&
-               p.y >= min.y && p.y <= max.y &&
-               p.z >= min.z && p.z <= max.z;
+    [[nodiscard]] inline bool contains(const glm::vec3 &p) const noexcept
+    {
+        return p.x >= min.x && p.x <= max.x && p.y >= min.y && p.y <= max.y && p.z >= min.z && p.z <= max.z;
     }
 
-    [[nodiscard]] inline bool contains(const BoundingBox& other) const noexcept {
-        return min.x <= other.min.x && max.x >= other.max.x &&
-               min.y <= other.min.y && max.y >= other.max.y &&
+    [[nodiscard]] inline bool contains(const BoundingBox &other) const noexcept
+    {
+        return min.x <= other.min.x && max.x >= other.max.x && min.y <= other.min.y && max.y >= other.max.y &&
                min.z <= other.min.z && max.z >= other.max.z;
     }
 
-    [[nodiscard]] inline bool overlaps(const BoundingBox& other) const noexcept {
-        return min.x <= other.max.x && max.x >= other.min.x &&
-               min.y <= other.max.y && max.y >= other.min.y &&
+    [[nodiscard]] inline bool overlaps(const BoundingBox &other) const noexcept
+    {
+        return min.x <= other.max.x && max.x >= other.min.x && min.y <= other.max.y && max.y >= other.min.y &&
                min.z <= other.max.z && max.z >= other.min.z;
     }
 };
@@ -72,11 +71,11 @@ struct BoundingBox {
  */
 struct FlatNode {
     BoundingBox bbox;
-    int firstChild = -1;     // Index of first child in nodes array (-1 if leaf)
-    int entityStart = 0;     // Start index in sorted entities array
-    int entityCount = 0;     // Number of entities in this node
-    uint64_t mortonPrefix = 0;   // Morton code prefix for this node
-    uint8_t prefixBits = 0;      // Number of significant bits in prefix
+    int firstChild = -1;       // Index of first child in nodes array (-1 if leaf)
+    int entityStart = 0;       // Start index in sorted entities array
+    int entityCount = 0;       // Number of entities in this node
+    uint64_t mortonPrefix = 0; // Morton code prefix for this node
+    uint8_t prefixBits = 0;    // Number of significant bits in prefix
 
     [[nodiscard]] inline bool isLeaf() const noexcept { return firstChild == -1; }
 };
@@ -85,13 +84,12 @@ struct FlatNode {
  * @brief Entity reference with cached Morton key
  */
 struct EntityRef {
-    uint32_t index;          // Index in original entities array
-    uint64_t mortonKey;      // Cached Morton key for fast sorting
-    BoundingBox bbox;        // Cached bounding box
+    uint32_t index;     // Index in original entities array
+    uint64_t mortonKey; // Cached Morton key for fast sorting
+    BoundingBox bbox;   // Cached bounding box
 
     EntityRef() = default;
-    EntityRef(uint32_t idx, uint64_t key, const BoundingBox& box)
-        : index(idx), mortonKey(key), bbox(box) {}
+    EntityRef(uint32_t idx, uint64_t key, const BoundingBox &box) : index(idx), mortonKey(key), bbox(box) {}
 };
 
 /**
@@ -125,9 +123,10 @@ public:
      * @param maxDepth Maximum tree depth
      * @param leafCapacity Max entities per leaf before split
      */
-    FlatDynamicOctree(const BoundingBox& worldBounds, uint8_t maxDepth = 8, uint32_t leafCapacity = 32)
-        : _worldBounds(worldBounds), _maxDepth(maxDepth), _leafCapacity(leafCapacity) {
-        _nodes.reserve(1024);  // Pre-allocate
+    FlatDynamicOctree(const BoundingBox &worldBounds, uint8_t maxDepth = 8, uint32_t leafCapacity = 32)
+        : _worldBounds(worldBounds), _maxDepth(maxDepth), _leafCapacity(leafCapacity)
+    {
+        _nodes.reserve(1024); // Pre-allocate
         _sortedRefs.reserve(1024);
     }
 
@@ -139,12 +138,13 @@ public:
      *
      * @param entities Vector of entities with position/bbox getters
      */
-    template<typename Entity>
-    void rebuild(const std::vector<Entity>& entities) {
+    template <typename Entity> void rebuild(const std::vector<Entity> &entities)
+    {
         _nodes.clear();
         _sortedRefs.clear();
 
-        if (entities.empty()) return;
+        if (entities.empty())
+            return;
 
         // Step 1: Encode entities to Morton keys (~0.3ms for 10k)
         _sortedRefs.reserve(entities.size());
@@ -155,7 +155,8 @@ public:
         glm::vec3 invWorldSize = glm::vec3(1.0f) / worldSize;
         constexpr uint32_t mortonScale = static_cast<uint32_t>((1ULL << 21) - 1);
 
-        for (uint32_t i = 0; i < entities.size(); ++i) {
+        for (uint32_t i = 0; i < entities.size(); ++i)
+        {
             BoundingBox bbox = getEntityBounds(entities[i]);
             glm::vec3 center = bbox.getCenter();
 
@@ -177,38 +178,49 @@ public:
         constexpr size_t insertion_sort_threshold = 64;
         constexpr size_t std_sort_threshold = 1024; // kept for very medium cases if needed
 
-        if (_sortedRefs.size() <= insertion_sort_threshold) {
+        if (_sortedRefs.size() <= insertion_sort_threshold)
+        {
             // Simple insertion sort - low overhead for tiny arrays (avoids comparator/lambda cost)
-            for (size_t i = 1; i < _sortedRefs.size(); ++i) {
+            for (size_t i = 1; i < _sortedRefs.size(); ++i)
+            {
                 EntityRef key = _sortedRefs[i];
                 size_t j = i;
-                while (j > 0 && _sortedRefs[j - 1].mortonKey > key.mortonKey) {
+                while (j > 0 && _sortedRefs[j - 1].mortonKey > key.mortonKey)
+                {
                     _sortedRefs[j] = _sortedRefs[j - 1];
                     --j;
                 }
                 _sortedRefs[j] = key;
             }
-        } else {
+        }
+        else
+        {
             // Build keys and indices in reusable buffers
-            _tempKeys.clear(); _tempKeys.resize(_sortedRefs.size());
-            for (size_t i = 0; i < _sortedRefs.size(); ++i) _tempKeys[i] = _sortedRefs[i].mortonKey;
+            _tempKeys.clear();
+            _tempKeys.resize(_sortedRefs.size());
+            for (size_t i = 0; i < _sortedRefs.size(); ++i)
+                _tempKeys[i] = _sortedRefs[i].mortonKey;
 
-            _tempIndices.clear(); _tempIndices.resize(_tempKeys.size());
-            for (size_t i = 0; i < _tempIndices.size(); ++i) _tempIndices[i] = static_cast<int>(i);
+            _tempIndices.clear();
+            _tempIndices.resize(_tempKeys.size());
+            for (size_t i = 0; i < _tempIndices.size(); ++i)
+                _tempIndices[i] = static_cast<int>(i);
 
             // use 16-bit radix (b16) with scratch buffers for better cache locality / fewer passes
             radix_sort_u64_indices_b16_scratch(_tempKeys, _tempIndices, _scratchKeys, _scratchIndices);
 
             // Reorder refs into reusable temp buffer then move back
-            _tempSorted.clear(); _tempSorted.reserve(_sortedRefs.size());
-            for (int idx : _tempIndices) {
+            _tempSorted.clear();
+            _tempSorted.reserve(_sortedRefs.size());
+            for (int idx : _tempIndices)
+            {
                 _tempSorted.push_back(_sortedRefs[idx]);
             }
             _sortedRefs = std::move(_tempSorted);
         }
 
         // Step 3: Build tree using range-based construction (~0.4ms for 10k)
-        _nodes.emplace_back();  // Root node
+        _nodes.emplace_back(); // Root node
         _nodes[0].bbox = _worldBounds;
         buildRecursive(0, 0, _sortedRefs.size(), 0, 0);
     }
@@ -222,11 +234,13 @@ public:
      * @param queryBox Region to search
      * @return Vector of entity indices
      */
-    [[nodiscard]] std::vector<uint32_t> query(const BoundingBox& queryBox) const {
+    [[nodiscard]] std::vector<uint32_t> query(const BoundingBox &queryBox) const
+    {
         std::vector<uint32_t> results;
-        if (_nodes.empty()) return results;
+        if (_nodes.empty())
+            return results;
 
-        results.reserve(64);  // Pre-allocate
+        results.reserve(64); // Pre-allocate
         queryRecursive(0, queryBox, results);
         return results;
     }
@@ -238,8 +252,10 @@ public:
      * @param maxDistance Maximum search radius
      * @return Index of nearest entity, or -1 if none found
      */
-    [[nodiscard]] int queryNearest(const glm::vec3& point, float maxDistance = FLT_MAX) const {
-        if (_nodes.empty()) return -1;
+    [[nodiscard]] int queryNearest(const glm::vec3 &point, float maxDistance = FLT_MAX) const
+    {
+        if (_nodes.empty())
+            return -1;
 
         int bestIndex = -1;
         float bestDistSq = maxDistance * maxDistance;
@@ -252,12 +268,13 @@ public:
      */
     [[nodiscard]] inline size_t nodeCount() const noexcept { return _nodes.size(); }
     [[nodiscard]] inline size_t entityCount() const noexcept { return _sortedRefs.size(); }
-    [[nodiscard]] inline const BoundingBox& worldBounds() const noexcept { return _worldBounds; }
+    [[nodiscard]] inline const BoundingBox &worldBounds() const noexcept { return _worldBounds; }
 
     /**
      * @brief Clear octree
      */
-    void clear() {
+    void clear()
+    {
         _nodes.clear();
         _sortedRefs.clear();
     }
@@ -266,22 +283,26 @@ private:
     /**
      * @brief Get bounding box from entity (SFINAE for different entity types)
      */
-    template<typename Entity>
-    static BoundingBox getEntityBounds(const Entity& entity) {
+    template <typename Entity> static BoundingBox getEntityBounds(const Entity &entity)
+    {
         // Try to use entity.bbox if it exists
-        if constexpr (requires { entity.bbox; }) {
+        if constexpr (requires { entity.bbox; })
+        {
             return entity.bbox;
         }
         // Try getBounds() method
-        else if constexpr (requires { entity.getBounds(); }) {
+        else if constexpr (requires { entity.getBounds(); })
+        {
             return entity.getBounds();
         }
         // Fallback: use position with small default size
-        else if constexpr (requires { entity.position; }) {
+        else if constexpr (requires { entity.position; })
+        {
             glm::vec3 pos = entity.position;
             return BoundingBox(pos - glm::vec3(0.5f), pos + glm::vec3(0.5f));
         }
-        else {
+        else
+        {
             static_assert(sizeof(Entity) == 0, "Entity must have .bbox, .getBounds(), or .position");
         }
     }
@@ -289,16 +310,18 @@ private:
     /**
      * @brief Recursive tree construction (range-based)
      */
-    void buildRecursive(int nodeIndex, int start, int end, uint8_t depth, uint64_t prefix) {
-        FlatNode& node = _nodes[nodeIndex];
+    void buildRecursive(int nodeIndex, int start, int end, uint8_t depth, uint64_t prefix)
+    {
+        FlatNode &node = _nodes[nodeIndex];
         node.entityStart = start;
         node.entityCount = end - start;
         node.mortonPrefix = prefix;
         node.prefixBits = depth * 3;
 
         // Stop if leaf condition
-        if (depth >= _maxDepth || node.entityCount <= _leafCapacity) {
-            return;  // Leaf node
+        if (depth >= _maxDepth || node.entityCount <= _leafCapacity)
+        {
+            return; // Leaf node
         }
 
         // Find split points using Morton keys (common prefix)
@@ -306,14 +329,16 @@ private:
         std::array<int, 8> childStarts = {};
 
         int shift = 63 - (depth + 1) * 3;
-        if (shift < 0) return;  // Max depth reached
+        if (shift < 0)
+            return; // Max depth reached
 
         // mask and local reference for faster access
         const uint64_t mask = static_cast<uint64_t>(0x7ULL) << shift;
         const auto &refs = _sortedRefs; // local alias
 
         // Count entities per child
-        for (int i = start; i < end; ++i) {
+        for (int i = start; i < end; ++i)
+        {
             uint64_t mk = refs[i].mortonKey;
             int octant = static_cast<int>((mk & mask) >> shift);
             childCounts[octant]++;
@@ -321,12 +346,15 @@ private:
 
         // If all counts are zero (shouldn't happen) just return
         int total = 0;
-        for (int i = 0; i < 8; ++i) total += childCounts[i];
-        if (total == 0) return;
+        for (int i = 0; i < 8; ++i)
+            total += childCounts[i];
+        if (total == 0)
+            return;
 
         // Compute child starts via prefix-sum and minimize node reallocations
         childStarts[0] = start;
-        for (int i = 1; i < 8; ++i) childStarts[i] = childStarts[i - 1] + childCounts[i - 1];
+        for (int i = 1; i < 8; ++i)
+            childStarts[i] = childStarts[i - 1] + childCounts[i - 1];
 
         // Reserve some room to avoid repeated reallocations
         _nodes.reserve(_nodes.size() + 8);
@@ -334,9 +362,11 @@ private:
         node.firstChild = _nodes.size();
 
         // Create child nodes for octants that have entities and recurse
-        for (int i = 0; i < 8; ++i) {
+        for (int i = 0; i < 8; ++i)
+        {
             int count = childCounts[i];
-            if (count == 0) continue;
+            if (count == 0)
+                continue;
 
             int childIndex = static_cast<int>(_nodes.size());
             _nodes.emplace_back();
@@ -351,16 +381,29 @@ private:
     /**
      * @brief Compute child bounding box from parent
      */
-    static BoundingBox computeChildBounds(const BoundingBox& parent, int octant) {
+    static BoundingBox computeChildBounds(const BoundingBox &parent, int octant)
+    {
         glm::vec3 center = parent.getCenter();
         glm::vec3 halfSize = parent.getSize() * 0.5f;
 
         glm::vec3 childMin = parent.min;
         glm::vec3 childMax = center;
 
-        if (octant & 1) { childMin.x = center.x; childMax.x = parent.max.x; }
-        if (octant & 2) { childMin.y = center.y; childMax.y = parent.max.y; }
-        if (octant & 4) { childMin.z = center.z; childMax.z = parent.max.z; }
+        if (octant & 1)
+        {
+            childMin.x = center.x;
+            childMax.x = parent.max.x;
+        }
+        if (octant & 2)
+        {
+            childMin.y = center.y;
+            childMax.y = parent.max.y;
+        }
+        if (octant & 4)
+        {
+            childMin.z = center.z;
+            childMax.z = parent.max.z;
+        }
 
         return BoundingBox(childMin, childMax);
     }
@@ -368,23 +411,30 @@ private:
     /**
      * @brief Recursive query
      */
-    void queryRecursive(int nodeIndex, const BoundingBox& queryBox, std::vector<uint32_t>& results) const {
-        const FlatNode& node = _nodes[nodeIndex];
+    void queryRecursive(int nodeIndex, const BoundingBox &queryBox, std::vector<uint32_t> &results) const
+    {
+        const FlatNode &node = _nodes[nodeIndex];
 
-        if (!node.bbox.overlaps(queryBox)) return;
+        if (!node.bbox.overlaps(queryBox))
+            return;
 
         // Check entities in this node
-        for (int i = node.entityStart; i < node.entityStart + node.entityCount; ++i) {
-            if (_sortedRefs[i].bbox.overlaps(queryBox)) {
+        for (int i = node.entityStart; i < node.entityStart + node.entityCount; ++i)
+        {
+            if (_sortedRefs[i].bbox.overlaps(queryBox))
+            {
                 results.push_back(_sortedRefs[i].index);
             }
         }
 
         // Recurse to children
-        if (!node.isLeaf()) {
-            for (int i = 0; i < 8; ++i) {
+        if (!node.isLeaf())
+        {
+            for (int i = 0; i < 8; ++i)
+            {
                 int childIndex = node.firstChild + i;
-                if (childIndex < _nodes.size()) {
+                if (childIndex < _nodes.size())
+                {
                     queryRecursive(childIndex, queryBox, results);
                 }
             }
@@ -394,31 +444,38 @@ private:
     /**
      * @brief Recursive nearest neighbor search
      */
-    void queryNearestRecursive(int nodeIndex, const glm::vec3& point, int& bestIndex, float& bestDistSq) const {
-        const FlatNode& node = _nodes[nodeIndex];
+    void queryNearestRecursive(int nodeIndex, const glm::vec3 &point, int &bestIndex, float &bestDistSq) const
+    {
+        const FlatNode &node = _nodes[nodeIndex];
 
         // Early exit if node is too far
         glm::vec3 closest = glm::clamp(point, node.bbox.min, node.bbox.max);
         float dist = glm::distance(point, closest);
         float distSq = dist * dist;
-        if (distSq > bestDistSq) return;
+        if (distSq > bestDistSq)
+            return;
 
         // Check entities in this node
-        for (int i = node.entityStart; i < node.entityStart + node.entityCount; ++i) {
+        for (int i = node.entityStart; i < node.entityStart + node.entityCount; ++i)
+        {
             glm::vec3 entityCenter = _sortedRefs[i].bbox.getCenter();
             float d = glm::distance(point, entityCenter);
             float d2 = d * d;
-            if (d2 < bestDistSq) {
+            if (d2 < bestDistSq)
+            {
                 bestDistSq = d2;
                 bestIndex = _sortedRefs[i].index;
             }
         }
 
         // Recurse to children (sorted by distance)
-        if (!node.isLeaf()) {
-            for (int i = 0; i < 8; ++i) {
+        if (!node.isLeaf())
+        {
+            for (int i = 0; i < 8; ++i)
+            {
                 int childIndex = node.firstChild + i;
-                if (childIndex < _nodes.size()) {
+                if (childIndex < _nodes.size())
+                {
                     queryNearestRecursive(childIndex, point, bestIndex, bestDistSq);
                 }
             }
@@ -429,8 +486,8 @@ private:
     uint8_t _maxDepth;
     uint32_t _leafCapacity;
 
-    std::vector<FlatNode> _nodes;           // Flat storage (cache-friendly)
-    std::vector<EntityRef> _sortedRefs;     // Sorted by Morton key
+    std::vector<FlatNode> _nodes;       // Flat storage (cache-friendly)
+    std::vector<EntityRef> _sortedRefs; // Sorted by Morton key
     // Temporary buffers reused between rebuilds to reduce allocations
     std::vector<uint64_t> _tempKeys;
     std::vector<int> _tempIndices;
