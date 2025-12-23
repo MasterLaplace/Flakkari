@@ -70,6 +70,10 @@ target("flakkari-server")
 
     remove_headerfiles("Flakkari/Client/**.hpp")
 
+    -- Optimizing en cours de développement
+    remove_headerfiles("Flakkari/Engine/World/**.hpp")
+    remove_files("Flakkari/Engine/World/*.cpp")
+
     add_includedirs("Flakkari/", { public = true })
     add_includedirs("Flakkari/Engine", { public = true })
     add_includedirs("Flakkari/Engine/EntityComponentSystem", { public = true })
