@@ -8,7 +8,7 @@
 */
 
 #include "ClientManager.hpp"
-#include "../Game/GameManager.hpp"
+#include "Game/GameManager.hpp"
 
 #include <future>
 
