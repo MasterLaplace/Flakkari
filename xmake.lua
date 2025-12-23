@@ -35,7 +35,7 @@ end
 
 if has_config("engine-squared") then
     add_repositories("package_repo https://github.com/EngineSquared/xrepo.git")
-    add_requires("enginesquared refactor-0.2", "entt 3.15.0")
+    add_requires("enginesquared refactor-0.2")
 end
 
 includes("@builtin/xpack")
@@ -60,7 +60,7 @@ target("flakkari-server")
     end
 
     if has_config("engine-squared") then
-        add_packages("enginesquared", "entt")
+        add_packages("enginesquared")
         add_defines("FLAKKARI_HAS_ENGINESQUARED")
         add_includedirs("Flakkari/Engine/EngineSquared", { public = true })
     end
