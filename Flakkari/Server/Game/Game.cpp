@@ -532,7 +532,8 @@ bool Game::addPlayer(std::shared_ptr<Client> player)
         return false;
     }
     Engine::ECS::Registry &nativeReg = flakkariReg->getNative();
-    Engine::ECS::Factory::RegistryEntityByTemplate(nativeReg, Engine::ECS::Entity(newEntity.getId()), player_info.value());
+    Engine::ECS::Factory::RegistryEntityByTemplate(nativeReg, Engine::ECS::Entity(newEntity.getId()),
+                                                   player_info.value());
     ResourceManager::UnlockInstance();
 
     player->setEntity(newEntity);
