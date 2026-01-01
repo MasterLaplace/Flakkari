@@ -3,7 +3,7 @@ add_repositories("package_repo_singleton https://github.com/MasterLaplace/Single
 add_rules("mode.debug", "mode.release", "plugin.vsxmake.autoupdate")
 
 option("with-autoupdate")
-    set_default(true)
+    set_default(false)
     set_showmenu(true)
     set_description("Enable automatic game download/update feature")
 option_end()
@@ -20,11 +20,22 @@ option("pack-client")
     set_description("Include client library in package")
 option_end()
 
+option("engine-squared")
+    set_default(true)
+    set_showmenu(true)
+    set_description("Add EngineSquared in the engines list")
+option_end()
+
 add_requires("nlohmann_json", "singleton")
 
 if has_config("with-autoupdate") then
     add_requires("libcurl", {configs = {openssl3 = is_plat("linux", "macosx")}})
     add_requires("libgit2", {configs = {https = is_plat("windows") and "winhttp" or "openssl3", tools = false}})
+end
+
+if has_config("engine-squared") then
+    add_repositories("package_repo https://github.com/EngineSquared/xrepo.git")
+    add_requires("enginesquared refactor-0.2")
 end
 
 includes("@builtin/xpack")
@@ -48,6 +59,12 @@ target("flakkari-server")
         set_policy("check.target_package_licenses", false)
     end
 
+    if has_config("engine-squared") then
+        add_packages("enginesquared")
+        add_defines("FLAKKARI_HAS_ENGINESQUARED")
+        add_includedirs("Flakkari/Engine/EngineSquared", { public = true })
+    end
+
     if is_mode("debug") then
         add_defines("_DEBUG")
         set_symbols("debug")
@@ -68,10 +85,15 @@ target("flakkari-server")
     add_headerfiles("Flakkari/**.h", { public = true })
     add_headerfiles("Flakkari/**.hpp", { public = true })
 
+    if not has_config("engine-squared") then
+        remove_headerfiles("Flakkari/Engine/EngineSquared/**.hpp")
+    end
+
     remove_headerfiles("Flakkari/Client/**.hpp")
 
     add_includedirs("Flakkari/", { public = true })
     add_includedirs("Flakkari/Engine", { public = true })
+    add_includedirs("Flakkari/Engine/API", { public = true })
     add_includedirs("Flakkari/Engine/EntityComponentSystem", { public = true })
     add_includedirs("Flakkari/Engine/EntityComponentSystem/Components", { public = true })
     add_includedirs("Flakkari/Engine/EntityComponentSystem/Systems", { public = true })

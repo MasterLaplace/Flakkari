@@ -46,6 +46,7 @@
 #define LPL_ATTRIBUTE(key) __attribute__((key))
 #define LPL_UNUSED_ATTRIBUTE LPL_ATTRIBUTE(unused)
 #define LPL_UNUSED(x) (void)(x)
+#define LPL_TODO(msg) _Pragma(LPL_STRINGIFY(message ("TODO: " msg)))
 
 ////////////////////////////////////////////////////////////
 // Define portable NULL pointer using C++11 nullptr keyword
