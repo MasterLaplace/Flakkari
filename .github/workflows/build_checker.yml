@@ -28,7 +28,7 @@ jobs:
         target: [flakkari-server, flakkari-client]
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - name: Install xmake
         uses: xmake-io/github-action-setup-xmake@v1
