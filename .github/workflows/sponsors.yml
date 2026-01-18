@@ -18,7 +18,7 @@ jobs:
 
       - id: generate_sponsors
         name: Generate Sponsors
-        uses: JamesIves/github-sponsors-readme-action@v1.5.6
+        uses: JamesIves/github-sponsors-readme-action@v1.6.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           file: '.github/FUNDING.md'
