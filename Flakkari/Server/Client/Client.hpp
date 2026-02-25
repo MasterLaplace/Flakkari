@@ -19,8 +19,8 @@
 #include <chrono>
 #include <mutex>
 
-#include "../Game/GameManager.hpp"
-#include "Engine/EntityComponentSystem/Entity.hpp"
+#include "API/IEntity.hpp"
+#include "Game/GameManager.hpp"
 #include "Network/PacketQueue.hpp"
 #include "Network/Socket.hpp"
 #include "Protocol/Packet.hpp"
@@ -109,8 +109,8 @@ public:
      *
      * @return Entity  The entity of the client
      */
-    [[nodiscard]] Engine::ECS::Entity getEntity() const { return _entity; }
-    void setEntity(Engine::ECS::Entity entity) { _entity = entity; }
+    [[nodiscard]] Engine::API::IEntity getEntity() const { return _entity; }
+    void setEntity(Engine::API::IEntity entity) { _entity = entity; }
 
     [[nodiscard]] std::string getSceneName() const { return _sceneName; }
     void setSceneName(std::string sceneName) { _sceneName = sceneName; }
@@ -139,7 +139,7 @@ public:
 private:
     std::chrono::steady_clock::time_point _lastActivity;
     std::shared_ptr<Network::Address> _address;
-    Engine::ECS::Entity _entity;
+    Engine::API::IEntity _entity;
     std::string _sceneName;
     std::string _gameName;
     bool _isConnected = true;

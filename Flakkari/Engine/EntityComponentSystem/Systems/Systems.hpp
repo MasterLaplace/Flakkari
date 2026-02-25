@@ -16,7 +16,7 @@
 #ifndef FLAKKARI_SYSTEMS_HPP_
 #define FLAKKARI_SYSTEMS_HPP_
 
-#include "../Factory.hpp"
+#include "EntityComponentSystem/Factory.hpp"
 
 #include <chrono>
 #include <cmath>
