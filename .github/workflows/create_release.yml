@@ -23,7 +23,7 @@ jobs:
       new_tag: ${{ steps.test_tag_version.outputs.new_tag }}
     if: ${{ github.event.pull_request.merged == true && contains(github.event.pull_request.labels.*.name, 'bump') }}
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Install Python
         uses: actions/setup-python@v6
@@ -93,7 +93,7 @@ jobs:
         package-type: [server, client]
     steps:
       - name: Checkout Repository (bump tag)
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
           ref: ${{ needs.bump_version_and_create_release.outputs.new_tag }}
